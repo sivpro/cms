@@ -1,0 +1,30 @@
+{reduce:nothing}
+{mask:main}
+	
+
+		<div class="name">
+			<h1>{name}</h1>
+		</div>
+
+		<!--NEWS-->
+		<div class="news">
+	
+			{mask:item}
+				<div class="item">
+					{if:{photo}!=""}
+						<a href="{url}"><img src="/files/1/{photo}" alt=""></a>
+					{/if}
+					<p class="date">{date_2}</p>
+					<p class="name">{name}</p>
+					<div class="desc">
+						{anons}
+					</div>
+					<p class="all"><a href="{url}">Читать полностью</a> &rarr;</p>
+				</div>
+			{/mask}
+		
+			{pages_down}
+
+		</div>
+		<!--/NEWS-->
+{/mask}			

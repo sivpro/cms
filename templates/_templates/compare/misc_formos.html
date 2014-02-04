@@ -1,0 +1,62 @@
+
+<script type="text/javascript">var validate_formOs_showErrorMethod = "#showErrorsOs";var validate_formOs_lastaction = "sp/_fos";var validate_formOs_highlight = 1;var validate_formOs_sendMethod = "ajax";var validate_formOs_capId = "#captchaOs";var validate_formOs_preloaderId = "#preloaderOs";config["formOs"] = new Array(4);
+					config["formOs"]["nameOs"] = new Array(2);
+				
+						config["formOs"]["nameOs"]["caption"] = "Ваше имя";
+					
+						config["formOs"]["nameOs"]["noempty"] = "1";
+					
+					config["formOs"]["phoneOs"] = new Array(2);
+				
+						config["formOs"]["phoneOs"]["caption"] = "Телефон";
+					
+						config["formOs"]["phoneOs"]["noempty"] = "1";
+					
+					config["formOs"]["emailOs"] = new Array(1);
+				
+						config["formOs"]["emailOs"]["caption"] = "E-mail";
+					
+					config["formOs"]["textOs"] = new Array(2);
+				
+						config["formOs"]["textOs"]["caption"] = "Сообщение";
+					
+						config["formOs"]["textOs"]["noempty"] = "1";
+					
+			</script>
+		
+<div class="form-hidden">
+<div id="form-there">
+<div class="form" id="form">
+<a href="#" class="close" >закрыть</a>
+<h2>Напишите нам</h2>
+<form name="formOs" id="formOs" rel="formOs" action="/os/" method="post">
+<div class="stroke">
+<p>ФИО</p>
+<input class="forminput" type="text" name="nameOs" id="nameOs" value="">
+<p id="nameOs-error" class="error-desc"></p>
+</div>
+<div class="stroke">
+<div class="item">
+<p>Контактный телефон</p>
+<input class="forminput" type="text" name="phoneOs" id="phoneOs" value="">
+<p id="phoneOs-error" class="error-desc"></p>
+</div>
+<div class="item">
+<p>E-mail</p>
+<input class="forminput" type="text" name="emailOs" id="emailOs" value="">
+<p id="emailOs-error" class="error-desc"></p>
+</div>
+</div>
+<div class="stroke">
+<p>Сообщение</p>
+<textarea class="forminput" cols="" rows="" name="textOs" id="textOs"></textarea>
+<p id="textOs-error" class="error-desc"></p>
+</div>
+<button class="os-button">Отправить сообщение</button>
+</form>
+</div>
+<div id="showErrorsOs">
+</div>
+</div>
+</div>
+</div>

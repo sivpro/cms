@@ -1,0 +1,33 @@
+
+#infoQ {
+	width: 100%;
+	overflow: hidden;	
+}
+
+.uploadifyQueueItem {
+	font: 11px Verdana, Geneva, sans-serif;
+	background-color: white;
+	width: 100%;
+	
+}
+.uploadifyError {
+	border: 2px solid #FBCBBC !important;
+	background-color: #FDE5DD !important;
+}
+.uploadifyQueueItem .cancel {
+	float: right;
+	height: 16px;
+	width: 16px;
+}
+.uploadifyProgress {
+	background-color: #FFFFFF;
+	border: 1px solid #6c6c6c;	
+	margin-top: 5px;
+}
+.uploadifyProgressBar {
+	background-color: #fe9400;
+	width: 1px;
+	height: 5px;
+}
+
+.fileText {color: #919191; text-align: right; padding-right: 30px; font: 12px tahoma;}

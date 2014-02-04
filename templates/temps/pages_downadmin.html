@@ -1,0 +1,34 @@
+ {reduce:space}
+	{mask:main}
+		{set:page}			
+			<div class="pagination">
+				
+				{choose}
+					{when:{//url_p}}
+						<a class="prev" href="{//url_p}">&larr;</a>
+					{/when}					
+				{/choose}
+
+				{mask:page}
+					
+					{set:current}
+						<span>{title}</span>						
+					{/set}
+
+
+					{mis:current}						
+						<a href="{url}{if:{//page_now}==1}/{/}">{title}</a>						
+					{/mis}
+					
+				{/mask}
+				
+				{choose}
+					{when:{//url_n}}						
+						 <a class="next" href="{//url_n}">&rarr;</a>
+					{/when}					
+				{/choose}
+				
+			</div>
+			
+		{/set}
+	{/mask}

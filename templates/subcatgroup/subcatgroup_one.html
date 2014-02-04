@@ -1,0 +1,130 @@
+{reduce:space}
+{mask:main}
+	<div class="main-cont-inner">
+	<!--ONE COLUMN-->
+			<div class="column-one no-margin">
+
+				{navigation}
+				
+				{mask:item}
+
+				<div class="name">
+					<h1>{name}</h1>
+				</div>
+				
+				<!--CATALOG ITEM-->
+				<div class="catalog-item">
+
+					<!--LEFT-->
+					<div class="images">						
+
+						<div id="gallery" class="content">
+							<div id="controls" class="controls"></div>
+							<div class="slideshow-container">
+								<div id="loading" class="loader"></div>
+								<div id="slideshow" class="slideshow"></div>
+							</div>
+							<div id="caption" class="caption-container"></div>
+						</div>
+
+						<div id="thumbs">
+							<ul class="thumbs noscript">
+								{mask:image}
+								<li>
+									<a class="thumb" name="a_{rank}" href="/files/2/{image}" title="">
+										<img src="/files/3/{image}" alt=""/>
+									</a>
+								</li>
+								{/mask}
+															
+							</ul>									
+						</div>
+						
+					</div>
+					<!--/LEFT-->
+
+					<!--RIGHT-->
+					<div class="description">
+						<p class="brand">{brand}</p>
+						<p class="name">{name}</p>
+						<p class="price">{price}р.</p>
+						
+						{set:spec}
+						<div class="table">
+							<table>
+								{mask:spec}
+								<tr>
+									<td class="name"><span>{name}</span></td>
+									<td class="value"><span>{value}</span></td>
+								</tr>								
+								{/mask}
+							</table>
+						</div>
+						{/set}
+
+						<a class="button" href="#">Заказать товар</a>
+
+						<div class="desc">
+							<div class="info-box">
+								{sdesc}
+							</div>
+						</div>
+						
+					</div>
+					<!--/RIGHT-->
+
+					{/mask}
+
+					<script>
+						{#
+						jQuery(document).ready(function($) {
+							// We only want these styles applied when javascript is enabled
+							$('div.navigation').css({'width' : '300px', 'float' : 'left'});
+							$('div.content').css('display', 'block');
+
+							// Initially set opacity on thumbs and add
+							// additional styling for hover effect on thumbs
+							var onMouseOutOpacity = 0.67;
+							$('#thumbs ul.thumbs li').opacityrollover({
+								mouseOutOpacity:   onMouseOutOpacity,
+								mouseOverOpacity:  1.0,
+								fadeSpeed:         'fast',
+								exemptionSelector: '.selected'
+							});
+							
+							// Initialize Advanced Galleriffic Gallery
+							var gallery = $('#thumbs').galleriffic({
+								delay:                     2500,
+								numThumbs:                 15,
+								preloadAhead:              10,
+								enableTopPager:            false,
+								enableBottomPager:         false,
+								maxPagesToShow:            7,
+								imageContainerSel:         '#slideshow',
+								controlsContainerSel:      '#controls',
+								captionContainerSel:       '#caption',
+								loadingContainerSel:       '#loading',
+								renderSSControls:          false,
+								renderNavControls:         false,
+								playLinkText:              'Play Slideshow',
+								pauseLinkText:             'Pause Slideshow',
+								prevLinkText:              '&lsaquo; Previous Photo',
+								nextLinkText:              'Next Photo &rsaquo;',
+								nextPageLinkText:          'Next &rsaquo;',
+								prevPageLinkText:          '&lsaquo; Prev',
+								enableHistory:             false,
+								autoStart:                 false,
+								syncTransitions:           false,
+								defaultTransitionDuration: 200
+							});
+						});
+						#}
+					
+					</script>
+
+				</div>
+				<!--/CATALOG ITEM-->
+			</div>
+			<!--/ONE COLUMN-->
+	</div>
+{/mask}

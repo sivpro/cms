@@ -1,0 +1,83 @@
+{reduce:nothing}
+{mask:main}
+	
+			<!--CATALOG-->
+			<div class="catalog">
+			<div class="catalog-inner">
+	
+							
+
+				
+					{mask:item}
+					{if:!{_first}}-->{/if}<div class="item">						
+							<p class="name"><a href="{url}">{name}</a></p>
+							<div class="image">
+									{if:{action} == 1}<img class="action" src="/img/action-label.png" alt="">{/if}
+									{if:{hit} == 1}<img class="action" src="/img/hit-label.png" alt="">{/if}
+									{if:{sale} == 1}<img class="action" src="/img/sale-label.png" alt="">{/if}
+									{mask:image}{if:{_first}}
+									<a href="{../url}"><img src="/files/1/{image}" alt=""></a>
+									{/if}{/mask}
+								
+							</div>
+							
+							<div class="tools">								
+								<div class="rating">
+									<div id="rating_{id}"></div>
+									<p id="ratingText_{id}">{rating} {ratingword} ({vote})</p>
+								</div>
+
+								{set:compare}
+								<a href="#" class="compare compareYet" data-id="{id}"></a>
+								{/set}
+								{mis:compare}
+								<a href="#" class="compare" data-id="{id}"></a>
+								{/mis}
+							</div>
+
+							<script type="text/javascript">
+								{#
+									$(document).ready(function() {
+										$('#rating_#}{id}{#').raty({														
+											start: #}{rating}{#,
+											width: 120,
+											path: '/scripts/jquery.raty/img',											
+											hintList:    ['плохо', 'не очень', 'нормально', 'хорошо', 'отлично'],
+											scoreName: 'rating_#}{id}{#',
+											halfShow: true,
+											click: function(score, evt) {
+												$.post(
+													'/catalog/',
+													{
+														rating: score,
+														id: #}{id}{#,
+														mode: 'rate'
+													},
+													function(e) {
+															$('#ratingText_#}{id}{#').text("Оценка: "+e);
+															$('#rating_#}{id}{#').raty('start', e); 
+															$('#rating_#}{id}{#').raty('readOnly', true);
+													}
+												);														
+											}  
+										});
+									});
+								#}
+							</script>							
+							{mis:inbasket}
+								<a href="#" data-id="{id}" class="toBasket button-price{if:{action}==1 || {hit}==1 || {sale}==1} action{/if}">{if:{price} != ""}{price} <span>i</span>{/if}{if:{price}==""}нет цены{/if}</a>
+							{/mis}
+							{set:inbasket}
+								<a href="/basket/" class="button-price">Купить</a>
+							{/set}
+						
+					</div>{if:!{_last}}<!--{/if}
+					{/mask}
+
+			<div class="toCatalog"><a href="/catalog/">Каталог товаров &rarr;</a></div>
+
+			</div>
+			</div>
+			<!--/CATALOG-->
+		
+{/mask}

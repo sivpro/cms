@@ -1,0 +1,53 @@
+{reduce:nothing}
+{mask:main}
+
+		<div class="left">
+
+			{mask:info}
+			<div class="phone-block">
+				<p class="name">Наши телефоны:</p>
+				<p class="phone"><span>{code}</span> {phone}</p>
+			{/mask}
+			{mask:info2}
+				<p class="phone" style="margin-top: 2px;">E-mail: <a href="mailto:{email}">{email}</a></p>
+			</div>
+			{/mask}
+
+
+			<a href="#" class="os-button openform">Обратная связь</a>
+		</div>
+
+		<div class="footer-menu">
+			<ul>
+				{set:main}
+					<li class="act"><span>Главная</span></li>
+				{/set}
+				{mis:main}
+					<li><a href="/">Главная</a></li>
+				{/mis}
+				{mask:item}
+					{if:{link} == "nolink"}
+						<li class="act">
+							<span>{name}</span>
+						</li>
+					{/if}
+
+					{if:{link} != "nolink"}
+						<li>
+							<a href="{url}">{name}</a>
+						</li>
+					{/if}
+
+				{/mask}
+			</ul>
+
+
+		</div>
+
+		<div class="development">
+			<p class="link"><a href="http://elgrow.ru/" target="_blank">Создание сайтов</a> и <a href="http://elgrow.ru/price/#seo" target="_blank">продвижение сайтов</a> &mdash; <img src="/img/elgrow.png" alt="elgrow">, 2013</p>
+		</div>
+
+
+{/mask}
+

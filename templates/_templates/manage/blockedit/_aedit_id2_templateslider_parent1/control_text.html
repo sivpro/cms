@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css" />	
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/editor3/js/jquery-ui-1.8.13.custom.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/smoothness/jquery-ui-1.8.13.custom.css" media="screen" charset="utf-8">
+
+	<!--elRTE-->
+	<script src="/admin/editor3/js/elrte.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/elrte.min.css" media="screen" charset="utf-8">
+
+	<!--elRTE translation messages-->
+	<script src="/admin/editor3/js/i18n/elrte.ru.js" charset="utf-8"></script>
+
+	<script src="/admin/scripts/decor.js"></script>
+	
+	<!--elFinder-->
+	<script src="/admin/elfinder/js/elfinder.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/elfinder/css/elfinder.css" media="screen" charset="utf-8">
+	<script src="/admin/elfinder/js/i18n/elfinder.ru.js" charset="utf-8"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->		
+		<div class="content">
+			<h1>Редактирование блока</h1>
+			
+					
+					
+					<form action="/manage/blockedit/_aedit" method="post" enctype="multipart/form-data" name="form1">
+					
+			
+			<input type="hidden" name="template" value="slider"/>
+			<input type="hidden" name="parent" value="1"/>
+			
+			<input type="hidden" name="blockid" value="2"/>	
+			
+				
+				
+				
+			
+			<div class="block">
+				<h2>Параметры блока</h2>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Строка 1</p>
+							
+								<span>stroke1</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data0" id="data0text" type="text" value="Возвращает угнанный автомобиль">
+							<input type="hidden" name="dat[]" value="stroke1"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Строка 2</p>
+							
+								<span>stroke2</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data1" id="data1text" type="text" value="АвтоФон S-маяк">
+							<input type="hidden" name="dat[]" value="stroke2"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Ссылка</p>
+							
+								<span>href</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data2" id="data2text" type="text" value="catalog/382/_aview_b145/">
+							<input type="hidden" name="dat[]" value="href"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Строка 3</p>
+							
+								<span>stroke3</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data3" id="data3text" type="text" value="Определяет точное местоположение автомобиля, людей, имущества">
+							<input type="hidden" name="dat[]" value="stroke3"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Строка 4</p>
+							
+								<span>stroke4</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data4" id="data4text" type="text" value="Не боится &quot;глушилок&quot;">
+							<input type="hidden" name="dat[]" value="stroke4"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Строка 5</p>
+							
+								<span>stroke5</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data5" id="data5text" type="text" value="Длительность автономной работы до 2-х лет">
+							<input type="hidden" name="dat[]" value="stroke5"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Изображение (PNG-24)</p>
+							
+								<span>image</span>
+							
+						</div>
+						<div class="value">							
+							<input name="data6" type="file" value=""><input name="data6_wasuploaded" type="hidden" value="31333033383535313334343835323437392e676966"><input name="data6_comment" type="hidden" value=""><br><a href="http://newadmin/files/0/13038551344852479.gif" target="_blank">просмотр..</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="data6_remove" value=1> удалить
+							<input type="hidden" name="dat[]" value="image"/> 
+							<input type="hidden" name="dkey[]" value="file"/> 
+						</div>
+					</div>
+				
+			</div>
+			
+				
+			
+				
+				
+			<div class="buttons">				
+				<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
+				<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blockedit/_alist_parent1/'; return false;">			
+			</div>			
+
+		</form>
+	
+		</div>						
+		<!--/CONTENT-->								
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

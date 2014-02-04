@@ -1,0 +1,15 @@
+{reduce:nothing}
+{mask:main}
+
+		{mask:item}
+			{if:{link} != "link"}
+				{if:!{_first}}-->{/if}<li class="show"><a href="#">{name}</a></li>{if:!{_last}}<!--{/if}
+			{/if}
+
+			{if:{link} == "link"}
+				{if:!{_first}}-->{/if}<li><a href="#">{name}</a></li>{if:!{_last}}<!--{/if}
+			{/if}
+
+		{/mask}
+
+{/mask}

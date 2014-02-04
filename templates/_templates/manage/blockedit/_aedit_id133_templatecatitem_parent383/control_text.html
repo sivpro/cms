@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css" />	
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/editor3/js/jquery-ui-1.8.13.custom.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/smoothness/jquery-ui-1.8.13.custom.css" media="screen" charset="utf-8">
+
+	<!--elRTE-->
+	<script src="/admin/editor3/js/elrte.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/elrte.min.css" media="screen" charset="utf-8">
+
+	<!--elRTE translation messages-->
+	<script src="/admin/editor3/js/i18n/elrte.ru.js" charset="utf-8"></script>
+
+	<script src="/admin/scripts/decor.js"></script>
+	
+	<!--elFinder-->
+	<script src="/admin/elfinder/js/elfinder.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/elfinder/css/elfinder.css" media="screen" charset="utf-8">
+	<script src="/admin/elfinder/js/i18n/elfinder.ru.js" charset="utf-8"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->		
+		<div class="content">
+			<h1>Редактирование блока</h1>
+			
+					
+					
+					<form action="/manage/blockedit/_aedit" method="post" enctype="multipart/form-data" name="form1">
+					
+			
+			<input type="hidden" name="template" value="catitem"/>
+			<input type="hidden" name="parent" value="383"/>
+			
+			<input type="hidden" name="blockid" value="133"/>	
+			
+				
+				
+				
+			
+			<div class="block">
+				<h2>Параметры блока</h2>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Название</p>
+							
+								<span>name</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data0" id="data0text" type="text" value="Shturmann® Mini5001">
+							<input type="hidden" name="dat[]" value="name"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Цена</p>
+							
+								<span>price</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data1" id="data1text" type="text" value="3590">
+							<input type="hidden" name="dat[]" value="price"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Описание</p>
+							
+								<span>sdesc</span>
+							
+						</div>
+						<div class="value">							
+							<script type="text/javascript">
+
+
+						elRTE.prototype.options.panels.web2pyPanel = ['formatblock', 'fontsize'];
+
+
+						elRTE.prototype.options.toolbars.web2pyToolbar = ['save', 'copypaste', 'undoredo', 'style', 'alignment', 'colors', 'web2pyPanel', 'links', 'media', 'elfinder', 'tables', 'fullscreen'];
+
+						$().ready(function() {
+							var opts = {
+							cssClass : 'el-rte',
+							lang     : 'ru',
+							height   : 450,
+							toolbar  : 'web2pyToolbar',
+							cssfiles : ['/admin/editor3/css/elrte-inner.css'],
+							fmOpen : function(callback) {
+							   $('<div id="filer_"data2 />').elfinder({
+								   url : '/admin/elfinder/connectors/php/connector.php',
+								   lang : 'ru',
+								   dialog : { width : 900, modal : true, title : 'Файлы' },
+								   closeOnEditorCallback : true,
+								   editorCallback : callback
+							   })
+							}
+						}
+						$('#data2').elrte(opts);
+					})
+				</script><div id="data2" style="width: 100%; height: 467px;"><div><em style="font-size:large">Под заказ</em>  <span style="font-size:large"><br></span></div><div><br></div>Компактный и функциональный автомобильный навигатор: минимум лишнего, максимум необходимого. Shturmann® Mini 500 – это быстрая и точная навигация и широкие мультимедийные возможности.   <div><br></div><div><div>● HD разрешение 800х480</div><div>● Стильный тонкий корпус</div><div>● 128Мб оперативной памяти</div><div>● 2ГБ встроенной памяти</div><div>● Проигрыватель видео файлов</div><div>● Проигрыватель музыкальных файлов</div></div></div>
+							<input type="hidden" name="dat[]" value="sdesc"/> 
+							<input type="hidden" name="dkey[]" value="html"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Изображения</p>
+							
+								<span>image</span>
+							
+						</div>
+						<div class="value">							
+							<iframe name="itemframe" frameborder="no" id="itemframeimage" width="100%" src="/manage/blockedit/_aitemlist_parent383_id133_templateimage/"></iframe>
+							<input type="hidden" name="dat[]" value="image"/> 
+							<input type="hidden" name="dkey[]" value="items"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Акция</p>
+							
+								<span>action</span>
+							
+						</div>
+						<div class="value">							
+							<input type="checkbox" name="data4"  value="1">
+							<input type="hidden" name="dat[]" value="action"/> 
+							<input type="hidden" name="dkey[]" value="checkbox"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Хит</p>
+							
+								<span>hit</span>
+							
+						</div>
+						<div class="value">							
+							<input type="checkbox" name="data5"  value="1">
+							<input type="hidden" name="dat[]" value="hit"/> 
+							<input type="hidden" name="dkey[]" value="checkbox"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Sale</p>
+							
+								<span>sale</span>
+							
+						</div>
+						<div class="value">							
+							<input type="checkbox" name="data6"  value="1">
+							<input type="hidden" name="dat[]" value="sale"/> 
+							<input type="hidden" name="dkey[]" value="checkbox"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Оценка</p>
+							
+								<span>rating</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data7" id="data7text" type="text" value="5">
+							<input type="hidden" name="dat[]" value="rating"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Кол-во голосов</p>
+							
+								<span>count</span>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="data8" id="data8text" type="text" value="2">
+							<input type="hidden" name="dat[]" value="count"/> 
+							<input type="hidden" name="dkey[]" value="text"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Выводить на главную</p>
+							
+								<span>tomain</span>
+							
+						</div>
+						<div class="value">							
+							<input type="checkbox" name="data9"  value="1" checked>
+							<input type="hidden" name="dat[]" value="tomain"/> 
+							<input type="hidden" name="dkey[]" value="checkbox"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Характеристики</p>
+							
+								<span>features</span>
+							
+						</div>
+						<div class="value">							
+							
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Размер</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="Razmer_feat" id="Razmer_feattext" type="text" value="133,2 x 83,2 x 11,5">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Карта</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="karta_feat" id="karta_feattext" type="text" value="NAVTEQ">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Разрешение экрана</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="Razreshenie_feat" id="Razreshenie_feattext" type="text" value="800 × 480">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Диагональ экрана</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="diagonal_feat" id="diagonal_feattext" type="text" value="5">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Оперативная память</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="operativnapamat_feat" id="operativnapamat_feattext" type="text" value="128">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Встроенная память</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="vstroenna_feat" id="vstroenna_feattext" type="text" value="2">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Аккумуляторная батарея</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="batareya_feat" id="batareya_feattext" type="text" value="Встроенная Li-Polymer 700 мАч">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Операционная система</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="sistema_feat" id="sistema_feattext" type="text" value="Windows CE 6.0.">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Процессор</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="Prozessor_feat" id="Prozessor_feattext" type="text" value="SiRF Atlas V dual-core, ARM11 CPU 500 МГц">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Слот для карт памяти</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="Slot_feat" id="Slot_feattext" type="text" value="T-flash (Micro SD) до 16Гб">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Слот для SIM-карты</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="Slot1_feat" id="Slot1_feattext" type="text" value="Нет">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Интернет</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="internet_feat" id="internet_feattext" type="text" value="Нет">
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Комплектация</p>
+							
+						</div>
+						<div class="value">							
+							<input  class="text" name="Komplektaziya_feat" id="Komplektaziya_feattext" type="text" value="Держатель, автомобильная зарядка, чехол, usb-кабель, инструкция, быстрый старт, гарантийная карточка">
+						</div>
+					</div>
+				
+
+				<input type="hidden" name="dat[]" value="features"/> 
+				<input type="hidden" name="dkey[]" value="features"/> 
+
+							<input type="hidden" name="dat[]" value="features"/> 
+							<input type="hidden" name="dkey[]" value="features"/> 
+						</div>
+					</div>
+				
+			</div>
+			
+				
+			
+			<div class="block">
+				<h2>SEO поля</h2>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Адрес блока</p>							
+						</div>
+						<div class="value">							
+							<input class="text" name="uurl" type="text" value="">							
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Title</p>							
+						</div>
+						<div class="value">							
+							<input class="text" name="utitle" type="text" value="">							
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Description</p>							
+						</div>
+						<div class="value">							
+							<input class="text" name="udescription" type="text" value="">							
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Keywords</p>							
+						</div>
+						<div class="value">							
+							<input class="text" name="ukeywords" type="text" value="">							
+						</div>
+					</div>
+				
+			</div>
+			
+				
+				
+			<div class="buttons">				
+				<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
+				<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blockedit/_alist_parent383/'; return false;">			
+			</div>			
+
+		</form>
+	
+		</div>						
+		<!--/CONTENT-->								
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

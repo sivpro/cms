@@ -1,0 +1,50 @@
+{reduce:nothing}
+{mask:main}
+{script}
+	<div class="form-hidden">
+		<div id="form-there">
+		<div class="form" id="form">
+			<a href="#" class="close" >закрыть</a>
+				<h2>Напишите нам</h2>
+				<form name="formOs" id="formOs" rel="formOs" action="/os/" method="post">
+
+					<div class="stroke">
+						<p>ФИО</p>
+						<input class="forminput" type="text" name="nameOs" id="nameOs" value="">
+						<p id="nameOs-error" class="error-desc"></p>
+					</div>
+
+					<div class="stroke">
+						<div class="item">
+							<p>Контактный телефон</p>
+							<input class="forminput" type="text" name="phoneOs" id="phoneOs" value="">
+							<p id="phoneOs-error" class="error-desc"></p>
+						</div>
+
+						<div class="item">
+							<p>E-mail</p>
+							<input class="forminput" type="text" name="emailOs" id="emailOs" value="">
+							<p id="emailOs-error" class="error-desc"></p>
+						</div>
+					</div>
+
+					<div class="stroke">
+						<p>Сообщение</p>
+						<textarea class="forminput" cols="" rows="" name="textOs" id="textOs"></textarea>
+						<p id="textOs-error" class="error-desc"></p>
+					</div>
+
+					<button class="os-button">Отправить сообщение</button>
+
+				</form>
+				</div>
+
+				<div id="showErrorsOs">
+
+				</div>
+
+
+		</div>
+		</div>
+	</div>
+{/mask}

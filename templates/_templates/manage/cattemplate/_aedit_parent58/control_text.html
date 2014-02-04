@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css" />	
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/editor3/js/jquery-ui-1.8.13.custom.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/smoothness/jquery-ui-1.8.13.custom.css" media="screen" charset="utf-8">
+
+	<!-- elRTE -->
+	<script src="/admin/editor3/js/elrte.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/elrte.min.css" media="screen" charset="utf-8">
+
+	<!-- elRTE translation messages -->
+	<script src="/admin/editor3/js/i18n/elrte.ru.js" charset="utf-8"></script>
+
+	<script src="/admin/scripts/decor.js" type="text/javascript"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/moduleorders/"><i class="icon-barcode icon-white"></i>&nbsp;Заказы</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->	
+		
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Редактирование шаблона папки</h1>
+			
+			<form action="/manage/cattemplate/_aedit" method="post" enctype="multipart/form-data" name="form1">
+				
+				<input type="hidden" name="hide-parent" value="58"/>
+			
+				
+				<div class="block">
+					<h2>Основные параметры</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Название</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="name" value="Обратная связь"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Ключ</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="key" value="os"/>
+							<input type="hidden" class="text" name="oldkey" value="os"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Файл основного шаблона</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="alias" value=""/>
+						</div>
+					</div>
+				</div>
+			
+				<div class="block longleft">
+					<h2>Права доступа</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Право на удаление</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="candel" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на редактирование</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canedit" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на создание подпапок</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canadd" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на управление блоками</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canaddbl" value="1" checked="cheked"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на перенос папки</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canmoveto" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на копирование папки</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="cancopyto" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на скрытие/показ</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canhide" value="1"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="block">
+					<h2>Другие настройки</h2>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Скрывать структуру</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="hidestr" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Виртуальная папка (без УРЛ)</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="virtual" value="1" checked="cheked"/>
+						</div>
+					</div>
+
+					<div class="stroke">
+						<div class="name">
+							<p>Включить кеширование</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="cache" value="1"/>
+						</div>
+					</div>
+				</div>
+				
+			
+				<div class="block">
+					<h2>Блоки/папки</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Возможные шаблоны блоков</p>
+						</div>
+						<div class="value">
+							<select name="btypes[]" multiple class="multiple" id="btypes">
+								
+									<option value="texthtml">Текст (texthtml)</option>
+								
+									<option value="os" selected="selected">Обратная связь (os)</option>
+								
+									<option value="news">Новость (news)</option>
+								
+									<option value="catitem">Товар (catitem)</option>
+								
+									<option value="image">Изображение (image)</option>
+								
+									<option value="spec">Характеристика (spec)</option>
+								
+									<option value="user">Пользователь (user)</option>
+								
+									<option value="promo">Промо-блок (promo)</option>
+								
+									<option value="itembasket">Товар из корзины (itembasket)</option>
+								
+									<option value="order">Заказ (order)</option>
+								
+									<option value="slider">Слайдер (slider)</option>
+								
+									<option value="car">Автомобиль (car)</option>
+								
+							</select>
+							<input type="button" class="reset" onclick="resetSelect('btypes');"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Возможные шаблоны папок</p>
+						</div>
+						<div class="value">
+							<select name="ctypes[]" multiple class="multiple" id="ctypes">
+								
+									<option value="first">Главная (first)</option>
+								
+									<option value="typo">Типовая внутренняя (typo)</option>
+								
+									<option value="adminblocktemplate">АдминШаблонБлок (adminblocktemplate)</option>
+								
+									<option value="news">Новости (news)</option>
+								
+									<option value="contacts">Контакты (contacts)</option>
+								
+									<option value="footer">Футер (footer)</option>
+								
+									<option value="phoneblock">Номер телефона (phoneblock)</option>
+								
+									<option value="map">Карта сайта (map)</option>
+								
+									<option value="os">Обратная связь (os)</option>
+								
+									<option value="manage">Админка (manage)</option>
+								
+									<option value="admincatedit">АдминПапка (admincatedit)</option>
+								
+									<option value="adminblockedit">АдминБлок (adminblockedit)</option>
+								
+									<option value="admincattemplate">АдминШаблонПапка (admincattemplate)</option>
+								
+									<option value="adminfm">Админ Файловый менеджер (adminfm)</option>
+								
+									<option value="admindatatypes">АдминТипыДанных (admindatatypes)</option>
+								
+									<option value="adminusers">АдминПользователи (adminusers)</option>
+								
+									<option value="e404">404 (e404)</option>
+								
+									<option value="spec">Служебная страница (spec)</option>
+								
+									<option value="banner">Баннеры (banner)</option>
+								
+									<option value="catalog">Каталог (catalog)</option>
+								
+									<option value="catgroup">Раздел каталога (catgroup)</option>
+								
+									<option value="subcatgroup">Подраздел каталога (subcatgroup)</option>
+								
+									<option value="registration">Регистрация (registration)</option>
+								
+									<option value="promo">Промо-блоки (promo)</option>
+								
+									<option value="search">Результаты поиска (search)</option>
+								
+									<option value="basket">Корзина (basket)</option>
+								
+									<option value="compare">Сравнение (compare)</option>
+								
+									<option value="tablech">Таблицы характеристик (tablech)</option>
+								
+									<option value="tablechitem">Таблица характеристик (tablechitem)</option>
+								
+									<option value="adminmoduleorders">АдминМодульЗаказы (adminmoduleorders)</option>
+								
+							</select>
+							<input type="button" class="reset" onclick="resetSelect('ctypes');"/>
+						</div>
+					</div>				
+				</div>
+				
+				
+				<div class="block" id="addFields" style="display: none;">
+					<h2>Поля шаблона</h2>
+					<table cellspacing="1" cellpadding="0" border="0" width="100%" id="addFieldsTable">
+						<tr>						
+							<th>Имя</th>
+							<th>Ключ</th>
+							<th>Тип данных</th>
+							<th>По умолчанию</th>
+							<th>Служебная информация</th>							
+							<th>Сорт.</th>
+							<th>R.only</th>
+							<th>Уд.</th>
+						</tr>
+			
+						<tr id="addFields_0" class="addFieldsTr" style="display: none;">						
+							<td>
+								<input type="text" name="addname[]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="addkey[]" value="" class="text"/>
+							</td>
+							<td>
+								<select name="addtype[]" class="addtype">
+									
+										<option value="text" selected="selected">однострочный текст - (text)</option>
+									
+										<option value="select">выпадающий список с единственным выбором - (select)</option>
+									
+										<option value="mselect">список с множественным выбором - (mselect)</option>
+									
+										<option value="checkbox">триггер - (checkbox)</option>
+									
+										<option value="html">html код - (html)</option>
+									
+										<option value="file">поле для загрузки файла - (file)</option>
+									
+										<option value="date">дата - (date)</option>
+									
+										<option value="items">вложенные блоки - (items)</option>
+									
+										<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+									
+										<option value="time">Время - (time)</option>
+									
+										<option value="counter">Многострочный текст без форматирования - (counter)</option>
+									
+										<option value="features">Характеристики - (features)</option>
+									
+								</select>
+							</td>
+							<td>
+								<input type="text" name="adddefault[]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="addinfo[]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="addsort[]" value="" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="addro[]"/>
+								<input type="hidden" value="0" name="addroh[]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteAddField(); return false;"><i class="icon-trash"></i></a>
+							</td>						
+						</tr>
+			
+						
+					</table>
+				</div>
+				
+			
+				<script type="text/javascript">
+					function resetSelect(id){
+						$("#"+id+" option:selected").removeAttr("selected");
+					}
+				</script>
+				
+				
+			
+				<div class="buttons">				
+					<input type="submit" class="btn btn-success" value="Сохранить" name="add">				
+					<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/cattemplate/'; return false;">
+					<input type="button" class="btn btn-primary" value="Добавить поле" onclick="addField();">
+				</div>
+			
+			</form>
+		</div>
+		<!--/CONTENT-->
+
+		<script type="text/javascript">
+
+			$(".checkbox-ro").change(function() {
+				if ($(this).attr("checked")) {
+					$(this).next().val("1");
+				}
+				else {
+					$(this).next().val("0");
+				}
+					
+			});
+
+			var fi = 0;
+
+			function addField() {				
+				fi ++;				
+				var newitem = $("#addFields_0").clone();				
+				newitem.find('a.delIcon').attr("onclick", "deleteAddField("+fi+"); return false;");
+				newitem.appendTo("#addFieldsTable").attr("id", "addFields_"+fi).show();
+				$("#addFields").show();
+				
+				var i = 0;
+
+				/*Значения поля sort*/
+				$("input.small").each(function() {
+					$(this).val(i);
+					i ++;
+				});
+				
+				$(".checkbox-ro").change(function() {
+					if ($(this).attr("checked")) {
+						$(this).next().val("1");
+					}
+					else {
+						$(this).next().val("0");
+					}
+						
+				});
+			}
+
+			function deleteAddField(id) {
+				if (confirm("Удалить поле?")) {
+					fi --;
+					$("#addFields_"+id).remove();
+					if (fi == 0) {
+						$("#addFields").hide();
+					}
+					/*Значения поля sort*/
+					var i = 0;
+					$("input.small").each(function() {
+						$(this).val(i);
+						i ++;
+					});
+					return false;
+				}
+				else {
+					return false;
+				}
+			}
+
+			function deleteCurField(id) {
+				if (confirm("Удалить поле?")) {
+					fi --;
+					$("#curFields_"+id).remove();
+					if (fi == 0) {
+						$("#addFields").hide();
+					}
+					/*Значения поля sort*/
+					var i = 0;
+					$("input.small").each(function() {
+						$(this).val(i);
+						i ++;
+					});
+					return false;
+				}
+				else {
+					return false;
+				}
+			}
+		</script>
+	
+									
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

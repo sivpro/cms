@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8">	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css">	
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+	
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+	
+	
+	<!--CROPPER-->
+	<script src="/admin/scripts/jcrop/js/jquery.color.js"></script>
+    <script src="/admin/scripts/jcrop/js/jquery.Jcrop.min.js"></script>
+	<link rel="stylesheet" href="/admin/scripts/jcrop/css/jquery.Jcrop.css">
+	
+	<!--dropzone-->
+	<script src="/admin/scripts/dropzone/dropzone.min.js"></script>	
+	<link rel="stylesheet" href="/admin/scripts/dropzone/dropzone.css">
+
+	<!--fancybox-->
+	<script src="/admin/scripts/fancybox/source/jquery.fancybox.pack.js"></script>	
+	<link rel="stylesheet" href="/admin/scripts/fancybox/source/jquery.fancybox.css">
+	
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->		
+		<div class="content">
+			<h1>Редактирование блока</h1>
+			
+					
+					
+					<form action="/manage/blockedit/_aedit/" method="post" enctype="multipart/form-data" name="form1">
+					
+			
+			<input type="hidden" name="template" value="testblock">
+			<input type="hidden" name="parent" value="11">
+			
+			<input type="hidden" name="blockid" value="2">
+			
+				
+			
+			
+			<!--TABBER-->
+			<ul class="nav nav-pills block-tabber" id="block-tabber">
+				
+				<li class="active" data-tab="0" id="nav-tab_0"><a href="#">Вкладка 1</a></li>
+				
+
+				
+				<li data-tab="2000" id="nav-tab_2000"><a href="#">Изображения</a></li>
+				
+				
+				
+				<li data-tab="1000" id="nav-tab_1000"><a href="#">SEO поля</a></li>
+							
+				
+			</ul>
+			<!--/TABBER-->
+			
+			
+			
+			<div id="block-tab-content" class="block-tab-content">
+				
+				
+			
+				<div class="block block-tab" id="block-tab_0">
+					<h2>Параметры блока</h2>
+					
+						
+						
+						<div class="stroke">
+						
+							<div class="name">
+								<p>Название</p>
+								
+									<span>name</span>
+								
+							</div>
+							<div class="value">
+								<input  class="text" name="data0" id="data0text" type="text" value="Блок">
+								<input type="hidden" name="dat[]" value="name"> 
+								<input type="hidden" name="dkey[]" value="text"> 
+							</div>
+						</div>
+					
+						
+						<div class="stroke hidden-element">
+						
+						
+							<div class="name">
+								<p>Изображения</p>
+								
+									<span>images</span>
+								
+							</div>
+							<div class="value">
+								<input name="data1" id="data1imageload" type="hidden" value="8471411375890047.jpg;12725461375890069.jpg;119595581375890085.jpg;">
+								<input type="hidden" name="dat[]" value="images"> 
+								<input type="hidden" name="dkey[]" value="imageload"> 
+							</div>
+						</div>
+					
+				</div>
+
+				
+
+				
+				<div class="block block-tab" id="block-tab_1000" style="display: none;">
+					<h2>SEO поля</h2>
+					
+						<div class="stroke">
+							<div class="name">
+								<p>Адрес блока</p>							
+							</div>
+							<div class="value">							
+								<input class="text" name="uurl" type="text" value="">							
+							</div>
+						</div>
+					
+						<div class="stroke">
+							<div class="name">
+								<p>Title</p>							
+							</div>
+							<div class="value">							
+								<input class="text" name="utitle" type="text" value="">							
+							</div>
+						</div>
+					
+						<div class="stroke">
+							<div class="name">
+								<p>Description</p>							
+							</div>
+							<div class="value">							
+								<input class="text" name="udescription" type="text" value="">							
+							</div>
+						</div>
+					
+						<div class="stroke">
+							<div class="name">
+								<p>Keywords</p>							
+							</div>
+							<div class="value">							
+								<input class="text" name="ukeywords" type="text" value="">							
+							</div>
+						</div>
+					
+				</div>
+				
+
+				
+
+			</div>
+							
+			
+				
+				
+			<div class="buttons">
+				<input type="submit" class="btn btn-success" name="add" value="Сохранить">
+				<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blockedit/_alist_parent11/'; return false;">
+			</div>			
+
+		</form>
+
+
+		
+		<div class="block block-tab" id="block-tab_2000" style="display: none;">
+			<h2>Изображения</h2>
+			
+			<div class="stroke">
+				<div class="name">
+					<p>Изображения</p>
+					
+						<span></span>
+					
+				</div>
+				<div class="value">
+					
+	<script>sizes['data1'] = [{"0":"100","1":"61","aspectRatio":1.6393442622951},{"0":"300","1":"400","aspectRatio":0.75}];</script>
+
+
+	
+	<ul class="grid cs-style-2">
+		
+			<li class="ff-item-type-2" id="file_8471411375890047.jpg">
+				<figure>
+					
+					<div class="img-precontainer">
+						<div class="img-container">
+							<span></span>
+							<img alt="image" src="/files/tmb/8471411375890047.jpg">
+						</div>
+					</div>
+					
+					<div class="box">				
+						<h4>8471411375890047.jpg</h4>
+					</div>
+					<figcaption>						
+					    <a href="javascript:void('');" class="erase-button" data-delete-name="8471411375890047.jpg" title="������� �����������"><i class="icon-trash"></i></a>					  
+					</figcaption>
+				</figure>				
+			</li>
+		
+			<li class="ff-item-type-2" id="file_12725461375890069.jpg">
+				<figure>
+					
+					<div class="img-precontainer">
+						<div class="img-container">
+							<span></span>
+							<img alt="image" src="/files/tmb/12725461375890069.jpg">
+						</div>
+					</div>
+					
+					<div class="box">				
+						<h4>12725461375890069.jpg</h4>
+					</div>
+					<figcaption>						
+					    <a href="javascript:void('');" class="erase-button" data-delete-name="12725461375890069.jpg" title="������� �����������"><i class="icon-trash"></i></a>					  
+					</figcaption>
+				</figure>				
+			</li>
+		
+			<li class="ff-item-type-2" id="file_119595581375890085.jpg">
+				<figure>
+					
+					<div class="img-precontainer">
+						<div class="img-container">
+							<span></span>
+							<img alt="image" src="/files/tmb/119595581375890085.jpg">
+						</div>
+					</div>
+					
+					<div class="box">				
+						<h4>119595581375890085.jpg</h4>
+					</div>
+					<figcaption>						
+					    <a href="javascript:void('');" class="erase-button" data-delete-name="119595581375890085.jpg" title="������� �����������"><i class="icon-trash"></i></a>					  
+					</figcaption>
+				</figure>				
+			</li>
+		
+	</ul>
+	
+
+	<script>
+		$(function() {
+
+			//������� ��������
+			var myDropzone$name = new Dropzone(
+				'#imageLoaddata1',
+				{
+					url: '/admin/uploadimage.php',						
+					paramName: 'file',
+					uploadMultiple: false
+
+				}
+			);
+			
+			//������ ������� �� ��������
+			myDropzone$name.on('success', function(file, response) {
+					var val = $('#data1imageload').val();
+					$('#data1imageload').val(val+response+";");
+					successImageLoad(file, response, 'data1')
+				}
+			);
+		})
+	
+	</script>
+
+
+	<div id="imageLoaddata1" class="dropzone"></div>
+					
+				</div>
+			</div>
+			
+		</div>
+		
+	
+		</div>						
+		<!--/CONTENT-->								
+									
+	</div>
+	<!--/MAIN-->
+
+
+	<div class="hidden-element form" id="form-image">	
+		
+			
+		<div class="clearline form-top">				
+			<div class="clearline">
+				<h2>Пожалуйста, кадрируйте изображение</h2>				
+			</div>			
+		</div>
+
+		<div id="image-cont">
+			
+		</div>			
+				
+		<input type="hidden" id="x1" name="x1">
+		<input type="hidden" id="y1" name="y1">
+		<input type="hidden" id="x2" name="x2">
+		<input type="hidden" id="y2" name="y2">
+		<input type="hidden" id="w" name="w">
+		<input type="hidden" id="h" name="h">
+		<input type="hidden" id="realW" name="realW">
+		<input type="hidden" id="realH" name="realH">
+		<input type="hidden" id="fileName" name="fileName">
+		<input type="hidden" id="fieldName" name="fieldName">
+		
+		<div class="btn-center">
+			<button id="imageSave" class="btn btn-success">Сохранить</button>
+		</div>
+
+	</div>
+
+
+</body>
+</html>		

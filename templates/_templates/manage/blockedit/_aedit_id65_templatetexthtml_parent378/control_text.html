@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css" />	
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/editor3/js/jquery-ui-1.8.13.custom.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/smoothness/jquery-ui-1.8.13.custom.css" media="screen" charset="utf-8">
+
+	<!--elRTE-->
+	<script src="/admin/editor3/js/elrte.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/elrte.min.css" media="screen" charset="utf-8">
+
+	<!--elRTE translation messages-->
+	<script src="/admin/editor3/js/i18n/elrte.ru.js" charset="utf-8"></script>
+
+	<script src="/admin/scripts/decor.js"></script>
+	
+	<!--elFinder-->
+	<script src="/admin/elfinder/js/elfinder.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/elfinder/css/elfinder.css" media="screen" charset="utf-8">
+	<script src="/admin/elfinder/js/i18n/elfinder.ru.js" charset="utf-8"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->		
+		<div class="content">
+			<h1>Редактирование блока</h1>
+			
+					
+					
+					<form action="/manage/blockedit/_aedit" method="post" enctype="multipart/form-data" name="form1">
+					
+			
+			<input type="hidden" name="template" value="texthtml"/>
+			<input type="hidden" name="parent" value="378"/>
+			
+			<input type="hidden" name="blockid" value="65"/>	
+			
+				
+				
+				
+			
+			<div class="block">
+				<h2>Параметры блока</h2>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Текст</p>
+							
+								<span>texthtml</span>
+							
+						</div>
+						<div class="value">							
+							<script type="text/javascript">
+
+
+						elRTE.prototype.options.panels.web2pyPanel = ['formatblock', 'fontsize'];
+
+
+						elRTE.prototype.options.toolbars.web2pyToolbar = ['save', 'copypaste', 'undoredo', 'style', 'alignment', 'colors', 'web2pyPanel', 'links', 'media', 'elfinder', 'tables', 'fullscreen'];
+
+						$().ready(function() {
+							var opts = {
+							cssClass : 'el-rte',
+							lang     : 'ru',
+							height   : 450,
+							toolbar  : 'web2pyToolbar',
+							cssfiles : ['/admin/editor3/css/elrte-inner.css'],
+							fmOpen : function(callback) {
+							   $('<div id="filer_"data0 />').elfinder({
+								   url : '/admin/elfinder/connectors/php/connector.php',
+								   lang : 'ru',
+								   dialog : { width : 900, modal : true, title : 'Файлы' },
+								   closeOnEditorCallback : true,
+								   editorCallback : callback
+							   })
+							}
+						}
+						$('#data0').elrte(opts);
+					})
+				</script><div id="data0" style="width: 100%; height: 467px;"><p>Мы рады Вас приветствовать в интернет-магазине спутникового
+оборудования <strong>UC Market</strong>.&nbsp;У нас вы найдете новейшее спутниковое оборудование призванное улучшить качество Вашей жизни.</p><p>Интернет-магазин был создан ГК&nbsp;"Объединенные координаты" -&nbsp;ведущей&nbsp;региональной&nbsp;группой&nbsp;компаний, специализирующейся на разработке и внедрении масштабных комплексных систем мониторинга, основанных на технологиях спутниковой навигации ГЛОНАСС и GPS.&nbsp;</p>
+<p><br></p>
+<p style="color:#000000"><strong>Интернет-магазин UC&nbsp;Market&nbsp;обладает рядом преимуществ:</strong></p>
+<p>·&nbsp;Широкий ассортимент.</p>
+<p>·&nbsp;Низкие цены. Цены в интернет-магазине, в
+большинстве случаев, значительно ниже, чем в традиционных магазинах.</p>
+<p>·&nbsp;Удобная навигация сайта для выбора необходимого
+оборудования</p><p> ·&nbsp;Бесплатная доставка по Екатеринбургу</p>
+<p>·&nbsp;Постоянное обновление ассортимента</p>
+<p>·&nbsp;Акции, конкурсы, скидки</p><p><br></p>
+<p>Вы можете приобрести в нашем магазине: спутниковые охранные
+системы, видеорегистраторы, персональные навигаторы и спутниковые телефоны.</p>
+<p>Мы&nbsp;стремимся удовлетворить все потребности наших покупателей
+связанные со спутниковым оборудованием, удобным сервисом и всегда готовы пойти
+на встречу нашим клиентам.</p><p>Приятных покупок!</p></div>
+							<input type="hidden" name="dat[]" value="texthtml"/> 
+							<input type="hidden" name="dkey[]" value="html"/> 
+						</div>
+					</div>
+				
+					<div class="stroke">
+						<div class="name">
+							<p>Перенос слов</p>
+							
+								<span>shy</span>
+							
+						</div>
+						<div class="value">							
+							<input type="checkbox" name="data1" value="1">
+							<input type="hidden" name="dat[]" value="shy"/> 
+							<input type="hidden" name="dkey[]" value="checkbox"/> 
+						</div>
+					</div>
+				
+			</div>
+			
+				
+			
+				
+				
+			<div class="buttons">				
+				<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
+				<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blockedit/_alist_parent378/'; return false;">			
+			</div>			
+
+		</form>
+	
+		</div>						
+		<!--/CONTENT-->								
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

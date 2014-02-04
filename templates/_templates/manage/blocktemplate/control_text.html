@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+	<!--right click-->
+	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
+
+</head>
+
+<body>
+
+	<!--MAIN-->
+	<div class="main">
+
+
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Шаблоны блоков</h1>
+			<input type="hidden" id="hide-parent" name="hide-parent" value="0"/>
+			<table  width="100%" id="tree" class="itemtree">
+				
+					<tr class="trtree trtree-click" style="cursor: pointer;" id="tr58">
+						<td class="none"><i class="icon-file"></i></td>
+						<td>Заказ - (order)</td>
+					</tr>
+				
+					<tr class="trtree trtree-click" style="cursor: pointer;" id="tr35">
+						<td class="none"><i class="icon-file"></i></td>
+						<td>Новость - (news)</td>
+					</tr>
+				
+					<tr class="trtree trtree-click" style="cursor: pointer;" id="tr36">
+						<td class="none"><i class="icon-file"></i></td>
+						<td>Обратная связь - (os)</td>
+					</tr>
+				
+					<tr class="trtree trtree-click" style="cursor: pointer;" id="tr1">
+						<td class="none"><i class="icon-file"></i></td>
+						<td>Текст - (texthtml)</td>
+					</tr>
+				
+					<tr class="trtree trtree-click" style="cursor: pointer;" id="tr64">
+						<td class="none"><i class="icon-file"></i></td>
+						<td>Тестовый блок - (testblock)</td>
+					</tr>
+				
+					<tr class="trtree trtree-click" style="cursor: pointer;" id="tr54">
+						<td class="none"><i class="icon-file"></i></td>
+						<td>Характеристика - (spec)</td>
+					</tr>
+				
+			</table>
+
+
+			<div class="buttons">
+				<input type="button" class="btn btn-primary" value="Добавить шаблон" onclick="javascript:location.href='/manage/blocktemplate/_aadd/'; return false;">
+			</div>
+		</div>
+		<!--/CONTENT-->
+
+		<!--POPUP-->
+		<div class="popup-index" id="popup-index">
+			<div class="popup-index">
+				<div class="top"><h1>Действие</h1></div>
+				<ul>
+					<li><a href="#" class="aEdit" id="aEdit" onclick="editTpl(); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+
+					<li><a href="#" class="aCopy" id="aCopy" onclick="copyTpl(); return false;"><i class="icon-edit"></i>&nbsp;Копировать</a></li>
+
+					<li><a href="#"  class="aDel" id="aDel" onclick="delTpl(); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--/POPUP-->
+
+		<script type="text/javascript">
+		
+			$(".trtree-click").jscontext({
+				html: $("#popup-index").html(),
+				closeOnMouseLeave : true,
+				open : function() {
+					$("#hide-parent").val(this.substr(2));
+				}
+			});
+
+			function editTpl() {
+				var parent = $("#hide-parent").val();
+				if (!parent) return false;
+				window.location.href = '/manage/blocktemplate/_aedit_parent'+parent+'/';
+			}
+
+			function copyTpl() {
+				var parent = $("#hide-parent").val();
+				if (!parent) return false;
+				window.location.href = '/manage/blocktemplate/_acopy_parent'+parent+'/';
+			}
+
+			function delTpl() {
+				var parent = $("#hide-parent").val();
+				if (!parent) return false;
+
+				if (confirm('Вы действительно хотите удалить шаблон?')) {
+					window.location.href = '/manage/blocktemplate/_adel_id'+parent+'/';
+				}
+				else {
+					$(".trtree").removeClass("click");
+				}
+			}
+
+		
+
+	</script>
+
+	
+
+
+
+	</div>
+	<!--/MAIN-->
+
+
+
+
+</body>
+</html>

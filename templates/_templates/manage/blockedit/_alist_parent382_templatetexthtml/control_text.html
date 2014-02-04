@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта UC market - Интернет магазин спутникового оборудования</title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
+	<script src="/admin/scripts/jquery.tablesorter.min.js"></script>
+
+	<script src="/admin/scripts/adminNew.js"></script>	
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#tree").tablesorter({
+				headers: {
+					0: {
+						sorter: false 
+					},
+					1: {
+						sorter: false 
+					}
+				}
+			}); 
+		});
+	</script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/moduleorders/"><i class="icon-barcode icon-white"></i>&nbsp;Заказы</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Содержимое страницы "Охранные системы"</h1>
+			<input type="hidden" id="hide-blockid" name="hide-blockid" value="0"/>
+			<input type="hidden" id="hide-parent" name="hide-parent" value="382"/>
+			<input type="hidden" id="hide-template" name="hide-template" value="texthtml"/>
+			
+			<div class="block">
+				<h2>Блоки "Текст"</h2>
+				
+				
+					
+						<div class="block-chooser">						
+							<span>Выводить: </span>
+							<select name="btypes" id="btypes" style="width: 200px;">
+								
+								<optgroup label="Выбранные блоки" class="chbl">
+									
+									<option value="catitem">Товар</option>
+									
+								</optgroup>
+								
+								<optgroup label="Все блоки" class="allbl">
+									
+										<option value="texthtml" selected="selected">Текст</option>
+									
+										<option value="os">Обратная связь</option>
+									
+										<option value="news">Новость</option>
+									
+										<option value="image">Изображение</option>
+									
+										<option value="spec">Характеристика</option>
+									
+										<option value="user">Пользователь</option>
+									
+										<option value="promo">Промо-блок</option>
+									
+										<option value="itembasket">Товар из корзины</option>
+									
+										<option value="order">Заказ</option>
+									
+										<option value="slider">Слайдер</option>
+									
+										<option value="car">Автомобиль</option>
+									
+								</optgroup>
+							</select>
+						</div>
+					
+				
+				
+				
+					<p class="empty">Вложенных блоков "Текст" нет</p>
+									
+			</div>	
+			
+			
+			
+			<div class="buttons">				
+				<input type="button" class="btn btn-primary" value="Создать блок" onclick="javascript:location.href='/manage/blockedit/_aadd_parent382_templatetexthtml/'; return false;">				
+				<input type="button" class="btn btn-danger" value="Вернуться" onclick="javascript:location.href='/manage/'; return false;">				
+			</div>
+			
+
+			<div id="groupactions">
+				<p>С отмеченными:</p>
+				<div class="btn-group">
+					<button class="btn btn-danger" onclick="groupDel(); return false;"><i class="icon-trash"></i> Удалить</button>
+
+					<button class="btn btn-warning" onclick="groupHide(); return false;"><i class="icon-eye-close"></i> Скрыть</button>
+					<button class="btn btn-success" onclick="groupShow(); return false;"><i class="icon-eye-open"></i> Показать</button>
+				</div>
+			</div>
+		</div>
+
+		<!--/CONTENT-->
+		
+		<!--POPUP-->
+		<div class="popup-index" id="popup-index">
+			<div class="popup-index">
+				<div class="top"><h1>Действие</h1></div>
+				<ul>			
+				
+					
+
+						
+							<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editBlock(); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+						
+
+						
+							<li><a href="#" rel="1" class="aMove" id="aMove" onclick="moveBlock(); return false;"><i class="icon-move"></i>&nbsp;Переместить</a></li>
+						
+
+						
+							<li><a href="#" rel="1" class="aCopy" id="aCopy" onclick="copyBlock(); return false;"><i class="icon-edit"></i>&nbsp;Создать копию</a></li>
+						
+
+						
+							<li><a href="#" rel="1" class="aHide" id="aHide" onclick="showHideBlock(); return false;"><i class="icon-eye-close"></i>&nbsp;Скрыть/показать</a></li>
+						
+
+						
+							<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delBlock(); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+						
+
+					
+				
+				</ul>
+			</div>
+		</div>
+		<!--/POPUP-->		
+		
+		<script type="text/javascript">
+			
+			$(".trtree").jscontext({
+				html: $("#popup-index").html(),				
+				closeOnMouseLeave : true,
+				open : function() {
+					$("#hide-blockid").val(this.substr(6));					
+				}				
+			});
+
+			$(".group-checkbox").click(function() {
+				
+				$(".group-checkbox").each(function() {
+					
+				});
+			});
+
+			$(".checkAll").click(function() {
+				$(".group-checkbox").each(function() {
+					var attr = $(this).attr('checked');
+					if (typeof attr !== 'undefined' && attr !== false) {						
+						$(".group-checkbox").removeAttr("checked");						
+					}
+					else {						
+						$(".group-checkbox").attr("checked", "checked");						
+					}
+				});
+			});
+		
+
+		$("#btypes").change(function() {
+			window.location.href = '/manage/blockedit/_alist_parent'+382+'_template'+$("#btypes option:selected").val();
+		});
+			
+			
+		
+	
+	</script>
+	
+	
+
+	
+	
+									
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

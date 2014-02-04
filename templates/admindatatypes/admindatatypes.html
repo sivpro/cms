@@ -1,0 +1,65 @@
+{reduce:nothing}
+{mask:main}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта {sitename}</title>
+	
+	<meta charset="utf-8">	
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+	<!--right click-->
+	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png" alt=""></div>
+			{menu}
+		</div>
+		<!--/MENU-->	
+		
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Типы данных</h1>		
+			<table  width="100%" id="tree" class="itemtree">
+				{mask:tpl}
+					<tr class="trtree click-no" style="cursor: pointer;" id="tr{id}">
+						<td class="icon"></td>
+						<td>{name} - ({key})</td>					
+					</tr>
+				{/mask}
+			</table>
+			
+			
+			<div class="buttons">				
+				<input type="button" class="btn btn-primary" value="Добавить" onclick="javascript:location.href='/manage/admindatatypes/_aadd/'; return false;">			
+			</div>
+		</div>
+
+		<!--/CONTENT-->			
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		
+{/mask}

@@ -1,0 +1,191 @@
+{reduce:space}
+{mask:main}
+
+			<!--pagepatch//-->
+		
+			{mask:item}
+
+			<div class="name">
+				<h1>{name}</h1>
+			</div>
+			
+			<!--CATALOG ITEM-->
+			<article class="catalog-item">
+				
+				<div class="catalog-item-wrap">
+
+					<!--LEFT-->
+					<div class="images">
+						
+						<div id="gallery" class="content">
+							<div id="controls" class="controls"></div>
+							<div class="slideshow-container">
+								<div id="loading" class="loader"></div>
+								<div id="slideshow" class="slideshow"></div>
+							</div>
+							<div id="caption" class="caption-container"></div>
+						</div>
+					
+						<div id="thumbs">
+							<ul class="thumbs noscript">
+								{mask:image}
+								<li>
+									<a class="thumb" name="a_{_id}" href="/files/2/{image}" title="">
+										<img src="/files/3/{image}" alt=""/>
+									</a>
+								</li>
+								{/mask}																					
+							</ul>									
+						</div>
+						
+						
+					</div>
+					<!--/LEFT-->
+					
+					<!--RIGHT-->
+					<div class="description">
+					
+						<div class="desc">
+							<h2>Описание</h2>
+							<div class="info-box">
+								{sdesc}
+							</div>
+						</div>
+						
+					{/mask}
+					{set:chitem}
+						<div class="table">
+							<h2>Технические характеристики</h2>
+							<table>
+								{mask:chitem}
+								<tr>
+									<td class="name"><span>{name}</span></td>
+									<td class="value"><span>{value} {unit}</span></td>
+								</tr>
+								{/mask}
+							</table>
+						</div>
+					{/set}
+					
+
+					{mask:item}
+					
+						<div class="m-block">
+							<div class="left">								
+								{if:{price} != ""}
+									<p class="name">Цена</p>
+									<p class="price">{price} <span>i</span></p>
+								{/if}
+								{if:{price} == ""}
+									<p class="name">Нет цены</p>									
+								{/if}								
+
+								<div class="tools">								
+									<div class="rating">
+										<div id="rating_{id}"></div>
+										<p id="ratingText_{id}">{rating} {ratingword} ({vote})</p>
+									</div>
+
+									{set:compare}
+									<a href="#" class="compare compareYet" data-id="{id}"></a>
+									{/set}
+									{mis:compare}
+									<a href="#" class="compare" data-id="{id}"></a>
+									{/mis}
+								</div>
+
+								<script type="text/javascript">
+									{#
+										$(document).ready(function() {
+											$('#rating_#}{id}{#').raty({														
+												start: #}{rating}{#,
+												width: 120,
+												path: '/scripts/jquery.raty/img',											
+												hintList:    ['плохо', 'не очень', 'нормально', 'хорошо', 'отлично'],
+												scoreName: 'rating_#}{id}{#',
+												halfShow: true,
+												click: function(score, evt) {
+													$.post(
+														'/catalog/',
+														{
+															rating: score,
+															id: #}{id}{#,
+															mode: 'rate'
+														},
+														function(e) {
+																$('#ratingText_#}{id}{#').text("Оценка: "+e);
+																$('#rating_#}{id}{#').raty('start', e); 
+																$('#rating_#}{id}{#').raty('readOnly', true);
+														}
+													);														
+												}  
+											});
+										});
+									#}
+								</script>
+
+							<div class="share2">
+								<!--share//-->
+							</div>
+
+
+							</div>
+							<div class="left">
+								{if:{price} != ""}
+								{mis:inbasket}
+									<a href="#" data-id="{id}" class="toBasket"></a>
+								{/mis}
+								{set:inbasket}
+									<a href="/basket/" class="button-price">Купить</a>
+								{/set}
+								
+								{/if}
+							</div>
+						</div>
+						
+					</div>
+					<!--/RIGHT-->
+					
+					<script>
+						{#
+					
+						jQuery(document).ready(function($) {
+							// We only want these styles applied when javascript is enabled
+							$('div.navigation').css({'width' : '300px', 'float' : 'left'});
+							$('div.content').css('display', 'block');
+							
+							// Initialize Advanced Galleriffic Gallery
+							var gallery = $('#thumbs').galleriffic({
+								delay:                     2500,
+								numThumbs:                 15,
+								preloadAhead:              10,
+								enableTopPager:            false,
+								enableBottomPager:         true,
+								maxPagesToShow:            7,
+								imageContainerSel:         '#slideshow',
+								controlsContainerSel:      '#controls',
+								captionContainerSel:       '#caption',
+								loadingContainerSel:       '#loading',
+								renderSSControls:          false,
+								renderNavControls:         false,
+								playLinkText:              'Play Slideshow',
+								pauseLinkText:             'Pause Slideshow',
+								prevLinkText:              '&lsaquo; Previous Photo',
+								nextLinkText:              'Next Photo &rsaquo;',
+								nextPageLinkText:          'Next &rsaquo;',
+								prevPageLinkText:          '&lsaquo; Prev',
+								enableHistory:             false,
+								autoStart:                 false,
+								syncTransitions:           false,
+								defaultTransitionDuration: 200
+							});
+						});
+						#}
+					</script>
+				</div>
+
+			</article>
+			<!--/CATALOG STROKE-->
+
+			{/mask}
+{/mask}

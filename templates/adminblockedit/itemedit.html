@@ -1,0 +1,114 @@
+{reduce:nothing}
+{mask:main}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта {sitename}</title>
+
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/calendar.css">
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+
+	<!--CROPPER-->
+	<script src="/admin/scripts/jcrop/js/jquery.color.js"></script>
+	<script src="/admin/scripts/jcrop/js/jquery.Jcrop.min.js"></script>
+	<link rel="stylesheet" href="/admin/scripts/jcrop/css/jquery.Jcrop.css">
+
+</head>
+
+<body>
+	<script>
+	$(function() {
+		var iframe = $('#itemframe{template}', parent.document.body);
+		iframe.height($(document.body).height()+200);
+	});
+	</script>
+
+	<!--MAIN-->
+	<div class="main no-bg">
+
+		<!--CONTENT-->
+		<h1>{set:add}Добавление{/set}{mis:add}Редактирование{/mis} блока</h1>
+
+		{set:add}
+		<form action="/manage/blockedit/_aitemadd/" method="post" enctype="multipart/form-data" name="form1">
+		{/set}
+		{mis:add}
+		<form action="/manage/blockedit/_aitemedit/" method="post" enctype="multipart/form-data" name="form1">
+		{/mis}
+
+			<input type="hidden" name="template" value="{template}"/>
+			<input type="hidden" name="blockparent" value="{blockparent}"/>
+			<input type="hidden" name="parent" value="{parent}"/>
+			{mis:add}
+			<input type="hidden" name="blockid" value="{blockid}"/>
+			{/mis}
+
+
+			{mask:tabs}
+			{set:fields}
+			<div class="block">
+				<h2>Параметры блока</h2>
+				{mask:fields}
+					<div class="stroke">
+						<div class="name">
+							<p>{name}</p>
+							{if:{//super}}
+								<span>{key}</span>
+							{/if}
+						</div>
+						<div class="value">
+							{value}
+							<input type="hidden" name="dat[]" value="{key}">
+							<input type="hidden" name="dkey[]" value="{datatkey}">
+						</div>
+					</div>
+				{/mask}
+			</div>
+			{/set}
+			{/mask}
+
+			{set:addFields}
+			<div class="block">
+				<h2>SEO поля</h2>
+				{mask:addFields}
+					<div class="stroke">
+						<div class="name">
+							<p>{name}</p>
+						</div>
+						<div class="value">
+							<input class="text" name="{key}" type="text" value="{value}">
+						</div>
+					</div>
+				{/mask}
+			</div>
+			{/set}
+
+
+			<div class="buttons">
+				<input type="submit" class="btn btn-success" name="add" value="{set:add}Добавить{/set}{mis:add}Сохранить{/mis}">
+				<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blockedit/_aitemlist_parent{parent}_template{template}_id{blockparent}/'; return false;">
+			</div>
+
+		</form>
+
+
+
+
+	</div>
+	<!--/MAIN-->
+
+
+
+
+</body>
+</html>
+{/mask}

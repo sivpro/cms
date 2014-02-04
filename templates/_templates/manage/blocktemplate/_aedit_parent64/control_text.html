@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8">	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css">
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->		
+		<div class="content">
+			<h1>Редактирование шаблона блока</h1>
+			
+			<form action="/manage/blocktemplate/_aedit" method="post" enctype="multipart/form-data" name="form1">
+				
+				<input type="hidden" name="hide-parent" value="64">
+			
+				
+				<div class="block">
+					<h2>Основные параметры</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Название</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="name" value="Тестовый блок">
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Ключ</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="key" value="testblock">
+							<input type="hidden" class="text" name="oldkey" value="testblock">
+						</div>
+					</div>
+					
+				</div>
+			
+				<div class="block longleft">
+					<h2>Права доступа</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Право на удаление</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="candel" value="1" checked="cheked"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на редактирование</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canedit" value="1" checked="cheked"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на создание</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canadd" value="1" checked="cheked"/>
+						</div>
+					</div>				
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на перенос</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canmove" value="1" checked="cheked"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на копирование</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="cancopy" value="1" checked="cheked"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на скрытие/показ</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canhide" value="1" checked="cheked"/>
+						</div>
+					</div>
+			
+					
+				</div>
+			
+				<div class="block longleft">
+					<h2>Отдельные настройки</h2>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Включить SEO</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="seo" value="1" checked="cheked"/>
+							<input type="hidden" name="oldseo" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Виртуальный блок?</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="virtual" value="1"/>
+						</div>
+					</div>
+				</div>
+			
+							
+				
+				<div class="block" id="addFields">
+					<h2>Поля шаблона</h2>
+
+					<!--TABBER-->
+					<ul class="nav nav-pills tabber" id="tabber">
+						
+						<li class="active" data-tab="0" id="nav-tab_0">
+							
+							<a href="#">Основная вкладка</a>
+							
+							
+						</li>
+						
+						<li data-tab="1" id="nav-tab_1">
+							
+							
+							<a href="#">Вкладка 1 <i class='icon-trash' onclick='deleteTab(1); return false;'></i></a>
+							
+						</li>
+						
+					</ul>
+					<!--/TABBER-->
+
+					<!--TAB CONTENT-->
+					<div id="tab-content" class="tab-content">
+					
+						
+						<table cellspacing="1" cellpadding="0" border="0" width="100%" id="addFieldsTable_0">
+							<tr>						
+								<th>Имя</th>
+								<th>Ключ</th>
+								<th>Тип данных</th>
+								<th>По умолчанию</th>
+								<th>Служебная информация</th>							
+								<th>Сорт.</th>
+								<th>R.only</th>
+								<th>Отобр.</th>
+								<th>Уд.</th>
+							</tr>
+							
+							
+							<tr id="addFields_0_0" class="addFieldsTr" style="display: none;">						
+								<td>
+									<input type="text" name="addname[]" value="" class="text">
+								</td>
+								<td>
+									<input type="text" name="addkey[]" value="" class="text">
+								</td>
+								<td>
+									<select name="addtype[]" class="addtype">
+										
+											<option value="text" selected="selected">однострочный текст - (text)</option>
+										
+											<option value="select">выпадающий список с единственным выбором - (select)</option>
+										
+											<option value="mselect">список с множественным выбором - (mselect)</option>
+										
+											<option value="checkbox">триггер - (checkbox)</option>
+										
+											<option value="html">html код - (html)</option>
+										
+											<option value="file">поле для загрузки файла - (file)</option>
+										
+											<option value="date">дата - (date)</option>
+										
+											<option value="items">вложенные блоки - (items)</option>
+										
+											<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+										
+											<option value="time">Время - (time)</option>
+										
+											<option value="counter">Многострочный текст без форматирования - (counter)</option>
+										
+											<option value="imageload">Загрузка изображений - (imageload)</option>
+										
+											<option value="features">Характеристики - (features)</option>
+										
+									</select>
+								</td>
+								<td>
+									<input type="text" name="adddefault[]" value="" class="text">
+								</td>
+								<td>
+									<input type="text" name="addinfo[]" value="" class="text">
+								</td>							
+								<td>
+									<input type="text" name="addsort[]" value="" class="text small">
+									<input type="hidden" name="addtab[]" value="0" class="tab-input">
+								</td>
+								<td>
+									<input type="checkbox" value="1" class="checkbox-ro" name="addro[]">
+									<input type="hidden" value="0" name="addroh[]"/>
+								</td>
+								<td>
+									<input type="checkbox" value="1" class="checkbox-ro" name="addshow[]">
+									<input type="hidden" value="0" name="addshowh[]"/>
+								</td>
+								<td>
+									<a href="#" class="delIcon" onclick="deleteAddField(); return false;"><i class="icon-trash"></i></a>
+								</td>						
+							</tr>
+													
+							
+							
+							<tr id="curFields_0_504" class="addFieldsTr">						
+								<td>
+									<input type="text" name="curname[504]" value="Название" class="text">
+								</td>
+								<td>
+									<input type="text" name="curkey[504]" value="name" class="text">
+								</td>
+								<td>
+				
+								<select name="curtype[504]" class="addtype">		
+									
+										<option value="text" selected="selected">однострочный текст - (text)</option>
+									
+										<option value="select">выпадающий список с единственным выбором - (select)</option>
+									
+										<option value="mselect">список с множественным выбором - (mselect)</option>
+									
+										<option value="checkbox">триггер - (checkbox)</option>
+									
+										<option value="html">html код - (html)</option>
+									
+										<option value="file">поле для загрузки файла - (file)</option>
+									
+										<option value="date">дата - (date)</option>
+									
+										<option value="items">вложенные блоки - (items)</option>
+									
+										<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+									
+										<option value="time">Время - (time)</option>
+									
+										<option value="counter">Многострочный текст без форматирования - (counter)</option>
+									
+										<option value="imageload">Загрузка изображений - (imageload)</option>
+									
+										<option value="features">Характеристики - (features)</option>
+									
+								</select>
+									
+								</td>
+								<td>
+									<input type="text" name="curdefault[504]" value="" class="text">
+								</td>
+								<td>
+									<input type="text" name="curinfo[504]" value="" class="text">
+								</td>							
+								<td>
+									<input type="text" name="cursort[504]" value="1" class="text small">
+									<input type="hidden" name="curtab[504]" value="0" class="tab-input">
+								</td>
+								<td>
+									<input type="checkbox" value="1" class="checkbox-ro" name="curro[504]">
+									<input type="hidden" value="0" name="curroh[504]">
+								</td>
+								<td>
+									<input type="checkbox" value="1" class="checkbox-ro" name="curshow[504]" checked="checked">
+									<input type="hidden" value="1" name="curshowh[504]">
+								</td>
+								<td>
+									<a href="#" class="delIcon" onclick="deleteCurField(0, 504); return false;"><i class="icon-trash"></i></a>
+
+								</td>						
+							</tr>
+							
+						</table>
+						
+						<table cellspacing="1" cellpadding="0" border="0" width="100%" id="addFieldsTable_1" style="display: none;">
+							<tr>						
+								<th>Имя</th>
+								<th>Ключ</th>
+								<th>Тип данных</th>
+								<th>По умолчанию</th>
+								<th>Служебная информация</th>							
+								<th>Сорт.</th>
+								<th>R.only</th>
+								<th>Отобр.</th>
+								<th>Уд.</th>
+							</tr>
+							
+													
+							
+							
+							<tr id="curFields_1_506" class="addFieldsTr">						
+								<td>
+									<input type="text" name="curname[506]" value="Изображения" class="text">
+								</td>
+								<td>
+									<input type="text" name="curkey[506]" value="images" class="text">
+								</td>
+								<td>
+				
+								<select name="curtype[506]" class="addtype">		
+									
+										<option value="text">однострочный текст - (text)</option>
+									
+										<option value="select">выпадающий список с единственным выбором - (select)</option>
+									
+										<option value="mselect">список с множественным выбором - (mselect)</option>
+									
+										<option value="checkbox">триггер - (checkbox)</option>
+									
+										<option value="html">html код - (html)</option>
+									
+										<option value="file">поле для загрузки файла - (file)</option>
+									
+										<option value="date">дата - (date)</option>
+									
+										<option value="items">вложенные блоки - (items)</option>
+									
+										<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+									
+										<option value="time">Время - (time)</option>
+									
+										<option value="counter">Многострочный текст без форматирования - (counter)</option>
+									
+										<option value="imageload" selected="selected">Загрузка изображений - (imageload)</option>
+									
+										<option value="features">Характеристики - (features)</option>
+									
+								</select>
+									
+								</td>
+								<td>
+									<input type="text" name="curdefault[506]" value="" class="text">
+								</td>
+								<td>
+									<input type="text" name="curinfo[506]" value="resize:100x61" class="text">
+								</td>							
+								<td>
+									<input type="text" name="cursort[506]" value="1" class="text small">
+									<input type="hidden" name="curtab[506]" value="1" class="tab-input">
+								</td>
+								<td>
+									<input type="checkbox" value="1" class="checkbox-ro" name="curro[506]">
+									<input type="hidden" value="0" name="curroh[506]">
+								</td>
+								<td>
+									<input type="checkbox" value="1" class="checkbox-ro" name="curshow[506]">
+									<input type="hidden" value="0" name="curshowh[506]">
+								</td>
+								<td>
+									<a href="#" class="delIcon" onclick="deleteCurField(1, 506); return false;"><i class="icon-trash"></i></a>
+
+								</td>						
+							</tr>
+							
+						</table>
+						
+
+					</div>
+					<!--/TAB CONTENT-->
+
+				</div>		
+			
+				
+				
+				
+			
+				<div class="buttons">				
+					<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
+					<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blocktemplate/'; return false;">
+					<input type="button" class="btn btn-primary" value="Добавить поле" onclick="addField();">
+					<input type="button" class="btn btn-primary" value="Добавить вкладку" onclick="addTab();">
+				</div>
+			
+			</form>
+		</div>
+		<!--/CONTENT-->
+
+		<script>
+
+			$(".checkbox-ro").change(function() {
+				if ($(this).attr("checked")) {
+					$(this).next().val("1");
+				}
+				else {
+					$(this).next().val("0");
+				}
+					
+			});
+			
+			//Инициализация массива вкладок (см. php)
+			var tabber = [1,1];
+			
+			var	curTab = 0,
+				countTabs = tabber.length;
+			
+
+			//Добавления поля
+			function addField() {
+				var tab = curTab,
+					newitem,
+					i = 0;
+
+				//Увеличиваем счетчик полей для текущей вкладки
+				tabber[tab] += 1;					
+				
+				//Создаем новую строку путем клонирования
+				newitem = $("#addFields_0_0").clone();
+
+				//Меняем в новой строке кнопку удаления
+				newitem.find('a.delIcon').attr("onclick", "deleteAddField("+tab+","+tabber[tab]+"); return false;");
+
+				//Меняем в новой строке значение вкладки
+				newitem.find('.tab-input').val(tab);
+
+				//Добавляем новую строку к таблице, ставим новый ID и показываем ее
+				newitem.appendTo("#addFieldsTable_"+tab).attr("id", "addFields_"+tab+"_"+tabber[tab]).show();
+
+				//Показываем блок с полями
+				$("#addFields").show();
+				
+
+				//Проставляем новые значения поля sort для текущей вкладки
+				if (tab > 0) {
+					i ++;
+				}
+				$("#addFieldsTable_"+tab+" input.small").each(function() {						
+					$(this).val(i);
+					i ++;
+				});
+				
+				//Вешаем триггер на изменение состояния чекбокса в строке (можно и live, ну да пофиг)
+				$(".checkbox-ro").change(function() {
+					if ($(this).attr("checked")) {
+						$(this).next().val("1");
+					}
+					else {
+						$(this).next().val("0");
+					}	
+				});
+			}
+			
+			//Удаление поля
+			function deleteAddField(tab, id) {
+				var tab = curTab,
+					i = 0,
+					count = tabber.length,
+					length = 0;
+
+				if (confirm("Удалить поле?")) {					
+
+					//Уменьшаем счетчик полей текущей строки
+					tabber[tab] -= 1;
+					
+					//Удаляем строку из HTML
+					$("#addFields_"+tab+"_"+id).remove();
+
+					//Если строк нету ни в одной вкладке - скрываем блок с полями
+					for (i = 0; i < count; i ++) {
+						length += tabber[i];
+					}
+					if (length == 0) {
+						$("#addFields").hide();
+					}
+
+					i = 0;
+
+					//Проставляем новые значения поля sort для текущей вкладки
+					if (tab > 0) {
+						i ++;
+					}
+					$("#addFieldsTable_"+tab+" input.small").each(function() {
+						$(this).val(i);
+						i ++;
+					});
+				}
+				else {
+					return false;
+				}
+			}
+
+			function deleteCurField(tab, id) {
+				var tab = curTab,
+					i = 0,
+					count = tabber.length,
+					length = 0;
+
+				if (confirm("Удалить поле?")) {					
+
+					//Уменьшаем счетчик полей текущей строки
+					tabber[tab] -= 1;
+					
+					//Удаляем строку из HTML
+					$("#curFields_"+tab+"_"+id).remove();
+
+					//Если строк нету ни в одной вкладке - скрываем блок с полями
+					for (i = 0; i < count; i ++) {
+						length += tabber[i];
+					}
+					if (length == 0) {
+						$("#addFields").hide();
+					}
+
+					i = 0;
+
+					//Проставляем новые значения поля sort для текущей вкладки
+					if (tab > 0) {
+						i ++;
+					}
+					$("#addFieldsTable_"+tab+" input.small").each(function() {
+						$(this).val(i);
+						i ++;
+					});
+				}
+				else {
+					return false;
+				}
+			}
+
+
+			//Добавление новой вкладки
+			function addTab() {					
+				var el,
+					newitem,
+					tab = 0;
+				
+				//Увеличиваем количество вкладок
+				countTabs ++;
+
+				tab = countTabs - 1;
+				
+				//Добавляем элемент в массив вкладок
+				tabber.push(0);
+				
+				//Создаем новый элемент для закладки вкладки
+				el = $("<li data-tab='"+tab+"' id='nav-tab_"+tab+"'><a href='#'>Вкладка "+tab+" <i class='icon-trash' onclick='deleteTab("+tab+"); return false;'></i></a> </li>");
+				$("#tabber").append(el);
+				
+				//Создаем новую таблицу путем клонирования
+				newitem = $("#addFieldsTable_0").clone();
+				
+				//Удаляем из таблиццы все строки
+				newitem.find(".addFieldsTr").remove();					
+
+				//Добавляем таблицу к HTML, ставим новый ID и скрываем (не текущая вкладка)
+				newitem.appendTo("#tab-content").attr("id", "addFieldsTable_"+tab).hide();					
+			}
+
+			//Удаление вкладки
+			function deleteTab(tab) {				
+				if (confirm("Удалить вкладку?")) {
+				
+					//Удаляем элемент массива
+					tabber.splice(tab, 1);
+
+					//Уменьшаем количество вкладок
+					countTabs --;
+
+					//Удаляем закладку вкладки
+					$("#nav-tab_"+tab).remove();
+
+					//Удаляем вкладку
+					$("#addFieldsTable_"+tab).remove();
+
+					//Передаем фокус на начальную вкладку в случае, если удаляемая была текущая
+					if (curTab == tab) {
+						$("#nav-tab_0").trigger("click");
+					}
+				}
+				else {
+					return false;
+				}
+			}
+		</script>
+	
+									
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

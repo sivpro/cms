@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css" />
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/editor3/js/jquery-ui-1.8.13.custom.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/smoothness/jquery-ui-1.8.13.custom.css" media="screen" charset="utf-8">
+
+	<!-- elRTE -->
+	<script src="/admin/editor3/js/elrte.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/elrte.min.css" media="screen" charset="utf-8">
+
+	<!-- elRTE translation messages -->
+	<script src="/admin/editor3/js/i18n/elrte.ru.js" charset="utf-8"></script>
+
+	<script src="/admin/scripts/decor.js"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/moduleorders/"><i class="icon-barcode icon-white"></i>&nbsp;Заказы</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Редактирование пользователя</h1>
+			
+			<form action="/manage/users/_aedit" method="post" enctype="multipart/form-data" name="form1" autocomplete="off">			
+				<input type="hidden" value="20" name="parent"/>
+				
+				<div class="block">
+					<h2>Основные параметры</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Ник (латиницей)</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="name" value="admin"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Пароль</p>						
+						</div>
+						<div class="value">							
+							<input type="password" class="text" name="password" value=""/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Повторите пароль</p>						
+						</div>
+						<div class="value">							
+							<input type="password" class="text" name="passwordrep" value=""/>
+						</div>
+					</div>
+					
+				</div>
+			
+				<div class="block">
+					<h2>Статус</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Статус</p>
+						</div>
+						<div class="value">
+							
+								<p><input type="radio" class="rad" name="status" value="2" checked="checked"/> Администратор</p>
+								<p><input type="radio" class="rad" name="status" value="3"> Редактор</p>
+							
+							
+						</div>
+					</div>				
+				</div>
+				
+			
+				<div class="block" id="mapblock" style="display: none;">
+				
+					<h2>Права редактора</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Права редактора</p>
+						</div>
+						<div class="value">
+							<ul class="map">
+								
+	<li>
+		<label for="cat_1">Главная страница</label> <input type="checkbox" name="cat[]" id="cat_1" value="1"/>
+		
+			<ul>
+				
+	<li>
+		<label for="cat_378">О компании</label> <input type="checkbox" name="cat[]" id="cat_378" value="378"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_381">Каталог</label> <input type="checkbox" name="cat[]" id="cat_381" value="381"/>
+		
+			<ul>
+				
+	<li>
+		<label for="cat_382">Охранные системы</label> <input type="checkbox" name="cat[]" id="cat_382" value="382"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_383">GPS-навигаторы</label> <input type="checkbox" name="cat[]" id="cat_383" value="383"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_384">Видеорегистраторы</label> <input type="checkbox" name="cat[]" id="cat_384" value="384"/>
+		
+	</li>
+
+			</ul>
+		
+	</li>
+
+	<li>
+		<label for="cat_379">Доставка и оплата</label> <input type="checkbox" name="cat[]" id="cat_379" value="379"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_380">Установка и сервис</label> <input type="checkbox" name="cat[]" id="cat_380" value="380"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_278">Контакты</label> <input type="checkbox" name="cat[]" id="cat_278" value="278"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_323">Новости</label> <input type="checkbox" name="cat[]" id="cat_323" value="323"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_375">Промо-блоки</label> <input type="checkbox" name="cat[]" id="cat_375" value="375"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_377">Корзина</label> <input type="checkbox" name="cat[]" id="cat_377" value="377"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_319">Служебная страница обратной связи</label> <input type="checkbox" name="cat[]" id="cat_319" value="319"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_315">Обратная связь</label> <input type="checkbox" name="cat[]" id="cat_315" value="315"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_291">Блок с телефоном</label> <input type="checkbox" name="cat[]" id="cat_291" value="291"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_244">Футер</label> <input type="checkbox" name="cat[]" id="cat_244" value="244"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_235">404</label> <input type="checkbox" name="cat[]" id="cat_235" value="235"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_391">Таблицы характеристик</label> <input type="checkbox" name="cat[]" id="cat_391" value="391"/>
+		
+			<ul>
+				
+	<li>
+		<label for="cat_392">GPS Навигаторы</label> <input type="checkbox" name="cat[]" id="cat_392" value="392"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_393">Охранные системы</label> <input type="checkbox" name="cat[]" id="cat_393" value="393"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_394">Спутниковые телефоны</label> <input type="checkbox" name="cat[]" id="cat_394" value="394"/>
+		
+	</li>
+
+	<li>
+		<label for="cat_396">Видеорегистраторы</label> <input type="checkbox" name="cat[]" id="cat_396" value="396"/>
+		
+	</li>
+
+			</ul>
+		
+	</li>
+
+	<li>
+		<label for="cat_390">Сравнить товары</label> <input type="checkbox" name="cat[]" id="cat_390" value="390"/>
+		
+	</li>
+
+			</ul>
+		
+	</li>
+
+							</ul>
+						</div>
+					</div>							
+				</div>
+				
+				
+				<script>
+					$(".rad").change(function() {
+						if ($(this).val() == 2) {
+							$("#mapblock").hide();
+						}
+						else {
+							$("#mapblock").show();
+						}
+					});
+				</script>
+			
+				<div class="buttons">				
+					<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
+					<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/users'; return false;">				
+				</div>
+			
+			</form>
+		</div>
+		<!--/CONTENT-->
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

@@ -1,0 +1,22 @@
+{reduce:space}
+{mask:main}
+
+	<h1>{name}</h1>	
+	
+	<div class="info-box">
+		{set:admin}
+			<a href="#" class="editLink" id="editLink_{id}" onclick="editCont({id}); return false;">Редактировать</a>				
+			<a style="display: none;" href="#" class="saveLink" id="saveLink_{id}" onclick="saveCont('block', 'html', '{editTemplate}', '{editField}', {id}); return false;">Сохранить</a>
+
+			<div id="editbl_{id}" class="editblHtml" contentEditable="false">
+				{text}
+			</div>
+		{/set}
+
+		{mis:admin}
+			{text}
+		{/mis}
+
+		<p class="back"><a href="{back}">Назад</a></p>
+	</div>
+{/mask}

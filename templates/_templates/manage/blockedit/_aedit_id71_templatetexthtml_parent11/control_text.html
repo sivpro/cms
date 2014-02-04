@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8">	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css">	
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+	
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>	
+	
+	
+	<!--CROPPER-->
+	<script src="/admin/scripts/jcrop/js/jquery.color.js"></script>
+    <script src="/admin/scripts/jcrop/js/jquery.Jcrop.min.js"></script>
+    <link rel="stylesheet" href="/admin/scripts/jcrop/css/jquery.Jcrop.css">
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/moduleorders/"><i class="icon-barcode icon-white"></i>&nbsp;Заказы</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->		
+		<div class="content">
+			<h1>Редактирование блока</h1>
+			
+					
+					
+					<form action="/manage/blockedit/_aedit/" method="post" enctype="multipart/form-data" name="form1">
+					
+			
+			<input type="hidden" name="template" value="texthtml">
+			<input type="hidden" name="parent" value="11">
+			
+			<input type="hidden" name="blockid" value="71">	
+			
+				
+			
+			
+			<!--TABBER-->
+			<ul class="nav nav-pills block-tabber" id="block-tabber">
+				
+				<li class="active" data-tab="0" id="nav-tab_0"><a href="#">Вкладка 1</a></li>
+				
+				
+				
+			</ul>
+			<!--/TABBER-->
+			
+			
+			
+			<div id="block-tab-content" class="block-tab-content">
+				
+				
+			
+				<div class="block" id="block-tab_0">
+					<h2>Параметры блока</h2>
+					
+						<div class="stroke">
+							<div class="name">
+								<p>Текст</p>
+								
+									<span>texthtml</span>
+								
+							</div>
+							<div class="value">							
+								<div id="data0" style="width: 100%; height: 467px;" class="elgrow_html"><div id="lipsum">
+<p><img src="/ufiles/vetton_ru_634.jpg" alt="" width="300" /></p>
+<p style="text-align: center;">&nbsp;</p>
+<p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed volutpat volutpat scelerisque. Pellentesque at quam non dolor gravida venenatis. Duis suscipit purus et semper auctor. Nullam in nisl nec mauris accumsan semper id sed lectus. Nam porttitor arcu et nulla adipiscing, at lacinia massa vulputate. Nulla dictum ante vel convallis gravida. Ut lobortis lacus nec velit facilisis, id iaculis turpis facilisis. <span style="font-size: 1.25em;">Aliquam</span> ante lectus, eleifend ut neque eget, fermentum hendrerit nunc. Ut et orci nec leo euismod condimentum. Nulla purus ligula, condimentum in adipiscing et, gravida ac <span style="font-size: 0.875em;">ante</span>.</p>
+<ul>
+<li>Nulla</li>
+<li>urna</li>
+<li>tellus,</li>
+<li>vehicula</li>
+</ul>
+<p><a href="/hsahsahsaha" target="_blank"><img src="/ufiles/vetton_ru_788.jpg" alt="" width="200" /></a></p>
+<p>eu massa a, ultrices pellentesque velit. Maecenas eget nunc ut quam facilisis laoreet ut id urna. Duis congue odio nisi, eget bibendum libero semper sed. Donec imperdiet tristique tellus, nec luctus nisl vulputate quis. Fusce lectus purus, tristique suscipit quam eu, laoreet aliquam sem. Donec molestie elit ac dui tincidunt, eget lacinia risus condimentum. Morbi congue quis turpis eu fermentum. Proin luctus quis lacus mattis molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum orci sem, ultrices sed accumsan a, placerat ac urna. Mauris eleifend semper libero eu feugiat. Nullam sollicitudin felis vehicula nibh eleifend, scelerisque ornare eros tincidunt. Aenean rutrum mattis velit sed sodales. Fusce aliquet dolor tellus, at pellentesque neque venenatis non. Ut id diam non lorem pretium eleifend eu et mauris. Ut sit amet est dignissim, fermentum risus ut, ultrices est.</p>
+<p>Nulla rutrum velit nec leo interdum, gravida porttitor sem lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc id pellentesque justo. Aenean luctus leo eget orci volutpat, eleifend imperdiet magna dapibus. Praesent facilisis nulla sed mi molestie, vitae mattis ipsum condimentum. Phasellus dui dolor, vehicula vitae ultrices eget, lacinia ut metus. Nulla facilisi. Mauris ac ullamcorper est. Quisque vulputate ligula sem, elementum ultrices tellus posuere et. Praesent fermentum a nulla sit amet sagittis. Maecenas laoreet euismod elit, id convallis nisl sollicitudin in. Mauris felis magna, convallis rhoncus scelerisque sit amet, laoreet ac nibh.</p>
+<p>Suspendisse potenti. Integer nec vestibulum lacus. Praesent gravida sem in urna bibendum, ut egestas est volutpat. Integer posuere tortor magna, auctor tempor odio luctus non. Donec eget diam in leo dapibus laoreet sed in augue. Nunc porta aliquet magna ut commodo. Mauris vel sem nec erat lobortis ultricies nec ac libero. Phasellus elementum enim vitae felis iaculis, vitae egestas elit hendrerit. Integer sit amet luctus neque. Nam lorem urna, volutpat ut lectus quis, luctus accumsan lacus. Sed varius dignissim lacinia. Donec tempus pharetra turpis tristique venenatis.</p>
+<p>Suspendisse potenti. Nunc mattis fermentum ipsum, in euismod risus. Curabitur mattis blandit tincidunt. Curabitur nec semper massa. Pellentesque sit amet convallis eros. Nunc lorem nisi, facilisis imperdiet odio quis, faucibus hendrerit urna. Mauris eget laoreet metus, a accumsan risus. Donec mollis ante non tempus condimentum. Morbi fringilla quam sed tellus consectetur, sed euismod arcu suscipit. Sed eget auctor dui. Praesent adipiscing porta sapien eu fringilla. In et diam vulputate, fermentum nisl id, ullamcorper elit. Vestibulum bibendum ac ligula vel tempor.</p>
+</div></div>
+								<input type="hidden" name="dat[]" value="texthtml"> 
+								<input type="hidden" name="dkey[]" value="html"> 
+							</div>
+						</div>
+					
+				</div>
+
+				
+
+				
+
+			</div>
+			
+				
+			
+				
+				
+			<div class="buttons">				
+				<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
+				<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blockedit/_alist_parent11/'; return false;">			
+			</div>			
+
+		</form>
+	
+		</div>						
+		<!--/CONTENT-->								
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

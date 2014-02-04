@@ -1,0 +1,1208 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/modern/css/calendar.css" />
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/editor3/js/jquery-ui-1.8.13.custom.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/smoothness/jquery-ui-1.8.13.custom.css" media="screen" charset="utf-8">
+
+	<!-- elRTE -->
+	<script src="/admin/editor3/js/elrte.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/admin/editor3/css/elrte.min.css" media="screen" charset="utf-8">
+
+	<!-- elRTE translation messages -->
+	<script src="/admin/editor3/js/i18n/elrte.ru.js" charset="utf-8"></script>
+
+	<script src="/admin/scripts/decor.js" type="text/javascript"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/moduleorders/"><i class="icon-barcode icon-white"></i>&nbsp;Заказы</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->		
+		<div class="content">
+			<h1>Редактирование шаблона блока</h1>
+			
+			<form action="/manage/blocktemplate/_aedit" method="post" enctype="multipart/form-data" name="form1">
+				
+				<input type="hidden" name="hide-parent" value="58"/>
+			
+				
+				<div class="block">
+					<h2>Основные параметры</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Название</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="name" value="Заказ"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Ключ</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="key" value="order"/>
+							<input type="hidden" class="text" name="oldkey" value="order"/>
+						</div>
+					</div>
+					
+				</div>
+			
+				<div class="block longleft">
+					<h2>Права доступа</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Право на удаление</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="candel" value="1" checked="cheked"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на редактирование</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canedit" value="1" checked="cheked"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на создание</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canadd" value="1"/>
+						</div>
+					</div>				
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на перенос</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canmove" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на копирование</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="cancopy" value="1"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Право на скрытие/показ</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="canhide" value="1"/>
+						</div>
+					</div>
+			
+					
+				</div>
+			
+				<div class="block longleft">
+					<h2>Отдельные настройки</h2>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Включить SEO</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="seo" value="1"/>
+							<input type="hidden" name="oldseo" value="0"/>
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Виртуальный блок?</p>
+						</div>
+						<div class="value">
+							<input type="checkbox" class="ch" name="virtual" value="1" checked="cheked"/>
+						</div>
+					</div>
+				</div>
+			
+							
+				
+				<div class="block" id="addFields">
+					<h2>Поля шаблона</h2>
+					<table cellspacing="1" cellpadding="0" border="0" width="100%" id="addFieldsTable">
+						<tr>						
+							<th>Имя</th>
+							<th>Ключ</th>
+							<th>Тип данных</th>
+							<th>По умолчанию</th>
+							<th>Служебная информация</th>							
+							<th>Сорт.</th>
+							<th>R.only</th>
+							<th>Отобр.</th>
+							<th>Уд.</th>
+						</tr>
+			
+						<tr id="addFields_0" class="addFieldsTr" style="display: none;">						
+							<td>
+								<input type="text" name="addname[]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="addkey[]" value="" class="text"/>
+							</td>
+							<td>
+								<select name="addtype[]" class="addtype">
+									
+										<option value="text" selected="selected">однострочный текст - (text)</option>
+									
+										<option value="select">выпадающий список с единственным выбором - (select)</option>
+									
+										<option value="mselect">список с множественным выбором - (mselect)</option>
+									
+										<option value="checkbox">триггер - (checkbox)</option>
+									
+										<option value="html">html код - (html)</option>
+									
+										<option value="file">поле для загрузки файла - (file)</option>
+									
+										<option value="date">дата - (date)</option>
+									
+										<option value="items">вложенные блоки - (items)</option>
+									
+										<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+									
+										<option value="time">Время - (time)</option>
+									
+										<option value="counter">Многострочный текст без форматирования - (counter)</option>
+									
+										<option value="features">Характеристики - (features)</option>
+									
+								</select>
+							</td>
+							<td>
+								<input type="text" name="adddefault[]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="addinfo[]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="addsort[]" value="" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="addro[]"/>
+								<input type="hidden" value="0" name="addroh[]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="addshow[]"/>
+								<input type="hidden" value="0" name="addshowh[]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteAddField(); return false;"><i class="icon-trash"></i></a>
+							</td>						
+						</tr>
+			
+						
+						<tr id="curFields_443" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[443]" value="Дата" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[443]" value="date" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[443]" class="addtype">		
+								
+									<option value="text">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date" selected="selected">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[443]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[443]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[443]" value="1" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[443]"/>
+								<input type="hidden" value="0" name="curroh[443]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[443]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[443]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(443); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_444" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[444]" value="ФИО" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[444]" value="name" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[444]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[444]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[444]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[444]" value="2" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[444]"/>
+								<input type="hidden" value="0" name="curroh[444]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[444]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[444]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(444); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_449" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[449]" value="Номер телефона" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[449]" value="phone" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[449]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[449]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[449]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[449]" value="3" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[449]"/>
+								<input type="hidden" value="0" name="curroh[449]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[449]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[449]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(449); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_448" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[448]" value="E-mail" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[448]" value="email" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[448]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[448]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[448]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[448]" value="4" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[448]"/>
+								<input type="hidden" value="0" name="curroh[448]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[448]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[448]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(448); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_467" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[467]" value="Город" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[467]" value="city" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[467]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[467]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[467]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[467]" value="5" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[467]"/>
+								<input type="hidden" value="0" name="curroh[467]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[467]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[467]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(467); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_468" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[468]" value="Адрес" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[468]" value="address" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[468]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[468]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[468]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[468]" value="6" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[468]"/>
+								<input type="hidden" value="0" name="curroh[468]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[468]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[468]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(468); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_450" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[450]" value="Сумма заказа" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[450]" value="price" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[450]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[450]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[450]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[450]" value="7" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[450]"/>
+								<input type="hidden" value="0" name="curroh[450]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[450]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[450]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(450); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_445" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[445]" value="Товары" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[445]" value="order" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[445]" class="addtype">		
+								
+									<option value="text">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items" selected="selected">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[445]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[445]" value="itembasket" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[445]" value="8" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[445]"/>
+								<input type="hidden" value="0" name="curroh[445]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[445]"/>
+								<input type="hidden" value="0" name="curshowh[445]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(445); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_452" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[452]" value="Комментарий" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[452]" value="comment" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[452]" class="addtype">		
+								
+									<option value="text">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter" selected="selected">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[452]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[452]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[452]" value="9" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[452]"/>
+								<input type="hidden" value="0" name="curroh[452]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[452]"/>
+								<input type="hidden" value="0" name="curshowh[452]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(452); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_477" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[477]" value="Установка" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[477]" value="install" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[477]" class="addtype">		
+								
+									<option value="text">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox" selected="selected">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[477]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[477]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[477]" value="10" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[477]"/>
+								<input type="hidden" value="0" name="curroh[477]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[477]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[477]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(477); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_478" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[478]" value="Оплата" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[478]" value="pay" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[478]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[478]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[478]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[478]" value="11" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[478]"/>
+								<input type="hidden" value="0" name="curroh[478]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[478]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[478]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(478); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_481" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[481]" value="Доставка?" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[481]" value="delivery" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[481]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[481]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[481]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[481]" value="12" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[481]"/>
+								<input type="hidden" value="0" name="curroh[481]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[481]" checked="checked"/>
+								<input type="hidden" value="1" name="curshowh[481]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(481); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_483" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[483]" value="Статус" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[483]" value="status" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[483]" class="addtype">		
+								
+									<option value="text">однострочный текст - (text)</option>
+								
+									<option value="select" selected="selected">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[483]" value="Новый" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[483]" value="Новый;Принят;Выполнен" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[483]" value="13" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[483]" checked="checked"/>
+								<input type="hidden" value="1" name="curroh[483]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[483]"/>
+								<input type="hidden" value="0" name="curshowh[483]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(483); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+						<tr id="curFields_500" class="addFieldsTr">						
+							<td>
+								<input type="text" name="curname[500]" value="Пользователь" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curkey[500]" value="ouser" class="text"/>
+							</td>
+							<td>
+			
+							<select name="curtype[500]" class="addtype">		
+								
+									<option value="text" selected="selected">однострочный текст - (text)</option>
+								
+									<option value="select">выпадающий список с единственным выбором - (select)</option>
+								
+									<option value="mselect">список с множественным выбором - (mselect)</option>
+								
+									<option value="checkbox">триггер - (checkbox)</option>
+								
+									<option value="html">html код - (html)</option>
+								
+									<option value="file">поле для загрузки файла - (file)</option>
+								
+									<option value="date">дата - (date)</option>
+								
+									<option value="items">вложенные блоки - (items)</option>
+								
+									<option value="mapfrom">Карта сайта от элемента - (mapfrom)</option>
+								
+									<option value="time">Время - (time)</option>
+								
+									<option value="counter">Многострочный текст без форматирования - (counter)</option>
+								
+									<option value="features">Характеристики - (features)</option>
+								
+							</select>
+								
+							</td>
+							<td>
+								<input type="text" name="curdefault[500]" value="" class="text"/>
+							</td>
+							<td>
+								<input type="text" name="curinfo[500]" value="" class="text"/>
+							</td>							
+							<td>
+								<input type="text" name="cursort[500]" value="14" class="text small"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curro[500]" checked="checked"/>
+								<input type="hidden" value="1" name="curroh[500]"/>
+							</td>
+							<td>
+								<input type="checkbox" value="1" class="checkbox-ro" name="curshow[500]"/>
+								<input type="hidden" value="0" name="curshowh[500]"/>
+							</td>
+							<td>
+								<a href="#" class="delIcon" onclick="deleteCurField(500); return false;"><i class="icon-trash"></i></a>
+
+							</td>						
+						</tr>
+						
+					</table>
+				</div>		
+			
+				
+				
+				
+			
+				<div class="buttons">				
+					<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
+					<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blocktemplate/'; return false;">
+					<input type="button" class="btn btn-primary" value="Добавить поле" onclick="addField();">
+				</div>
+			
+			</form>
+		</div>
+		<!--/CONTENT-->
+
+		<script>
+
+			$(".checkbox-ro").change(function() {
+				if ($(this).attr("checked")) {
+					$(this).next().val("1");
+				}
+				else {
+					$(this).next().val("0");
+				}
+					
+			});
+
+			var fi = 14;
+
+			function addField() {				
+				fi ++;				
+				var newitem = $("#addFields_0").clone();				
+				newitem.find('a.delIcon').attr("onclick", "deleteAddField("+fi+"); return false;");
+				newitem.appendTo("#addFieldsTable").attr("id", "addFields_"+fi).show();
+				$("#addFields").show();
+				
+				var i = 0;
+
+				/*Значения поля sort*/
+				$("input.small").each(function() {
+					$(this).val(i);
+					i ++;
+				});
+				
+				$(".checkbox-ro").change(function() {
+					if ($(this).attr("checked")) {
+						$(this).next().val("1");
+					}
+					else {
+						$(this).next().val("0");
+					}
+						
+				});
+			}
+
+			function deleteAddField(id) {
+				if (confirm("Удалить поле?")) {
+					fi --;
+					$("#addFields_"+id).remove();
+					if (fi == 0) {
+						$("#addFields").hide();
+					}
+					/*Значения поля sort*/
+					var i = 0;
+					$("input.small").each(function() {
+						$(this).val(i);
+						i ++;
+					});
+					return false;
+				}
+				else {
+					return false;
+				}
+			}
+
+			function deleteCurField(id) {
+				if (confirm("Удалить поле?")) {
+					fi --;
+					$("#curFields_"+id).remove();
+					if (fi == 0) {
+						$("#addFields").hide();
+					}
+					/*Значения поля sort*/
+					var i = 0;
+					$("input.small").each(function() {
+						$(this).val(i);
+						i ++;
+					});
+					return false;
+				}
+				else {
+					return false;
+				}
+			}
+		</script>
+	
+									
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

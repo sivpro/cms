@@ -1,0 +1,24 @@
+{reduce:nothing}
+{mask:main}
+
+
+		{set:items}
+		{mask:items}
+
+				{if:!{_last}}
+					<a href="{url}" title="{name}">{name}</a> /
+				{/if}
+
+				{if:{_last}}
+
+				{if:{//last}}<span>{name}</span>{/if}
+				{if:!{//last}}<a href="{url}" title="{name}">{name}</a>{/if}
+
+				{/if}
+
+		{/mask}
+		{/set}
+
+
+
+{/mask}

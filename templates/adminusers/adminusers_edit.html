@@ -1,0 +1,153 @@
+{reduce:nothing}
+{mask:main}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта {sitename}</title>
+	
+	<meta charset="utf-8">	
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/calendar.css">
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+
+	
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png" alt=""></div>
+			{menu}
+		</div>
+		<!--/MENU-->
+
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Редактирование пользователя</h1>
+			
+			<form action="/manage/users/_aedit/" method="post" enctype="multipart/form-data" name="form1" autocomplete="off">			
+				<input type="hidden" value="{parent}" name="parent">
+				{mask:info}
+				<div class="block">
+					<h2>Основные параметры</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Ник (латиницей)</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="name" value="{admin_name}">
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Пароль</p>						
+						</div>
+						<div class="value">							
+							<input type="password" class="text" name="password" value="">
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Повторите пароль</p>						
+						</div>
+						<div class="value">							
+							<input type="password" class="text" name="passwordrep" value="">
+						</div>
+					</div>
+					
+				</div>
+			
+				<div class="block">
+					<h2>Статус</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Статус</p>
+						</div>
+						<div class="value">
+							{if:{status}>1}
+								<p><input type="radio" class="rad" name="status" value="2"{if:{status}==2} checked="checked"{/if}> Администратор</p>
+								<p><input type="radio" class="rad" name="status" value="3"{if:{status}==3} checked="checked"{/if}> Редактор</p>
+							{/if}
+							{if:{status}==1}
+								<p>Царь и Бог<input type="hidden" name="status" value="1"></p>
+							{/if}
+						</div>
+					</div>				
+				</div>
+				
+			
+				<div class="block" id="mapblock"{if:{status}<3} style="display: none;"{/if}>
+				{/mask}
+					<h2>Права редактора</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Права редактора</p>
+						</div>
+						<div class="value">
+							<ul class="map">
+								{item}
+							</ul>
+						</div>
+					</div>							
+				</div>
+				
+				
+				<script>
+					$(".rad").change(function() {
+						if ($(this).val() == 2) {
+							$("#mapblock").hide();
+						}
+						else {
+							$("#mapblock").show();
+						}
+					});
+				</script>
+			
+				<div class="buttons">				
+					<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
+					<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/users/'; return false;">				
+				</div>
+			
+			</form>
+		</div>
+		<!--/CONTENT-->
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		
+{/mask}
+
+{mask:item}
+	<li>
+		<label for="cat_{id}">{name}</label> <input type="checkbox" name="cat[]" id="cat_{id}" value="{id}"{if:{canedit}==true} checked="checked"{/if}/>
+		{set:item}
+			<ul>
+				{item}
+			</ul>
+		{/set}
+	</li>
+{/mask}

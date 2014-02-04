@@ -1,0 +1,246 @@
+{reduce:nothing}
+{mask:main}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта {sitename}</title>
+
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+	<!--right click and table sorter-->
+	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
+	<script src="/admin/scripts/jquery.tablesorter.min.js"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#tree").tablesorter({
+				headers: {
+					0: {
+						sorter: false
+					},
+					1: {
+						sorter: false
+					}
+				}
+			});
+		});
+	</script>
+
+
+
+</head>
+
+<body>
+
+	<!--MAIN-->
+	<div class="main">
+
+
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png" alt=""></div>
+			{menu}
+		</div>
+		<!--/MENU-->
+
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Содержимое страницы "{name}"</h1>
+			<input type="hidden" id="hide-blockid" name="hide-blockid" value="0">
+			<input type="hidden" id="hide-parent" name="hide-parent" value="{parent}">
+			<input type="hidden" id="hide-template" name="hide-template" value="{template}">
+
+			<div class="block">
+				<h2>Блоки "{templname}"</h2>
+				{mis:super}
+					{set:blocktypes}
+						<div class="block-chooser">
+							<p>Эта папка содержит блоки разных типов</p>
+							<span>Выводить: </span>
+							<select name="btypes" id="btypes" style="width: 200px;">
+								{mask:blocktypes}
+								<option value="{key}"{if:{key}=={//template}} selected="selected"{/if}>{name}</option>
+								{/mask}
+							</select>
+						</div>
+					{/set}
+				{/mis}
+				{set:super}
+
+						<div class="block-chooser">
+							<span>Выводить: </span>
+							<select name="btypes" id="btypes" style="width: 200px;">
+								{set:blocktypes}
+								<optgroup label="Выбранные блоки" class="chbl">
+									{mask:blocktypes}
+									<option value="{key}"{if:{key}=={//template}} selected="selected"{/if}>{name}</option>
+									{/mask}
+								</optgroup>
+								{/set}
+								<optgroup label="Все блоки" class="allbl">
+									{mask:sblocktypes}
+										<option value="{key}"{if:{key}=={//template}} selected="selected"{/if}>{name}</option>
+									{/mask}
+								</optgroup>
+							</select>
+						</div>
+
+				{/set}
+				{set:item}
+
+
+				<table cellspacing="1" cellpadding="0" border="0" id="tree" class="blocks">
+					<thead>
+						<tr>
+							<th class="none"></th>
+							<th><button class="checkAll btn btn-small">☑</button></th>
+							<th>№</th>
+							{if:{//super}}
+								<th>ID</th>
+							{/if}
+							{mask:fields}
+								<th>{name}</th>
+							{/mask}
+						</tr>
+					</thead>
+
+					<tbody>
+						{mask:item}
+						<tr class="trtree" id="block_{id}" style="cursor: pointer;">
+							<td class="none">
+								{set:visible:0}
+									<i class="icon-eye-close hidden"></i>
+								{/set}
+								{set:visible:1}
+									<i class="icon-eye-open"></i>
+								{/set}
+							</td>
+							<td><input type="checkbox" class="group-checkbox" data-id="{id}"></td>
+							<td>{_rank}</td>
+							{if:{//super}}
+								<td>{id}</td>
+							{/if}
+							{mask:fields}
+								<td{if:{../visible}==0} class="hiddentext"{/if}>{val}</td>
+							{/mask}
+						</tr>
+						{/mask}
+					</tbody>
+				</table>
+				{/set}
+				{mis:item}
+					<p class="empty">Вложенных блоков "{templname}" нет</p>
+				{/mis}
+			</div>
+
+
+
+			<div class="buttons">
+				<input type="button" class="btn btn-primary" value="Создать блок" onclick="javascript:location.href='/manage/blockedit/_aadd_parent{parent}_template{template}/'; return false;">
+				<input type="button" class="btn btn-danger" value="Вернуться" onclick="javascript:location.href='/manage/'; return false;">
+			</div>
+
+
+			<div id="groupactions">
+				<p>С отмеченными:</p>
+				<div class="btn-group">
+					<button class="btn btn-danger" onclick="groupDel(); return false;"><i class="icon-trash"></i> Удалить</button>
+
+					<button class="btn btn-warning" onclick="groupHide(); return false;"><i class="icon-eye-close"></i> Скрыть</button>
+					<button class="btn btn-success" onclick="groupShow(); return false;"><i class="icon-eye-open"></i> Показать</button>
+				</div>
+			</div>
+		</div>
+
+		<!--/CONTENT-->
+
+		<!--POPUP-->
+		<div class="popup-index" id="popup-index">
+			<div class="popup-index">
+				<div class="top"><h1>Действие</h1></div>
+				<ul>
+
+					{mask:rights}
+
+						{if:{canedit}==1 || {super}}
+							<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editBlock(); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+						{/if}
+
+						{if:{canmove}==1 || {super}}
+							<li><a href="#" rel="1" class="aMove" id="aMove" onclick="moveBlock(); return false;"><i class="icon-move"></i>&nbsp;Переместить</a></li>
+						{/if}
+
+						{if:{cancopy}==1 || {super}}
+							<li><a href="#" rel="1" class="aCopy" id="aCopy" onclick="copyBlock(); return false;"><i class="icon-edit"></i>&nbsp;Создать копию</a></li>
+						{/if}
+
+						{if:{canhide}==1 || {super}}
+							<li><a href="#" rel="1" class="aHide" id="aHide" onclick="showHideBlock(); return false;"><i class="icon-eye-close"></i>&nbsp;Скрыть/показать</a></li>
+						{/if}
+
+						{if:{candel}==1 || {super}}
+							<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delBlock(); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+						{/if}
+
+					{/mask}
+
+				</ul>
+			</div>
+		</div>
+		<!--/POPUP-->
+
+		<script type="text/javascript">
+		{#
+			$(".trtree").jscontext({
+				html: $("#popup-index").html(),
+				closeOnMouseLeave : true,
+				open : function() {
+					$("#hide-blockid").val(this.substr(6));
+				}
+			});
+
+			$(".checkAll").click(function() {
+				$(".group-checkbox").each(function() {
+					var attr = $(this).attr('checked');
+					if (typeof attr !== 'undefined' && attr !== false) {
+						$(".group-checkbox").removeAttr("checked");
+						return false;
+					}
+					else {
+						$(".group-checkbox").attr("checked", "checked");
+						return false;
+					}
+					console.log(attr);
+				});
+			});
+		#}
+
+		$("#btypes").change(function() {
+			window.location.href = '/manage/blockedit/_alist_parent'+{parent}+'_template'+$("#btypes option:selected").val()+'/';
+		});
+
+
+
+
+	</script>
+
+
+
+	</div>
+	<!--/MAIN-->
+
+
+
+
+</body>
+</html>
+{/mask}

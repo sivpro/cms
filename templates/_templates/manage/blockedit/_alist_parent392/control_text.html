@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
+	<script src="/admin/scripts/jquery.tablesorter.min.js"></script>
+	<script src="/admin/scripts/adminNew.js"></script>	
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#tree").tablesorter({
+				headers: {
+					0: {
+						sorter: false 
+					}
+				}
+			}); 
+		});
+	</script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/moduleorders/"><i class="icon-barcode icon-white"></i>&nbsp;Заказы</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Содержимое страницы "GPS Навигаторы"</h1>
+			<input type="hidden" id="hide-blockid" name="hide-blockid" value="0"/>
+			<input type="hidden" id="hide-parent" name="hide-parent" value="392"/>
+			<input type="hidden" id="hide-template" name="hide-template" value="spec"/>
+			
+			<div class="block">
+				<h2>Блоки "Характеристика"</h2>
+				
+					
+				
+				
+				
+			
+				
+				<table cellspacing="1" cellpadding="0" border="0" id="tree" class="blocks">			
+					<thead>
+						<tr>
+							<th class="none"></th>
+							<th>№</th>
+							
+							
+								<th>Название</th>
+							
+								<th>Служебное название</th>
+							
+								<th>Единица измерения</th>
+							
+						</tr>
+					</thead>
+			
+					<tbody>
+						
+						<tr class="trtree" id="block_40" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>1</td>
+							
+							
+								<td>Комплектация</td>
+							
+								<td>Komplektaziya</td>
+							
+								<td></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_39" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>2</td>
+							
+							
+								<td>Интернет</td>
+							
+								<td>internet</td>
+							
+								<td></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_38" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>3</td>
+							
+							
+								<td>Слот для SIM-карты</td>
+							
+								<td>Slot1</td>
+							
+								<td></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_37" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>4</td>
+							
+							
+								<td>Слот для карт памяти</td>
+							
+								<td>Slot</td>
+							
+								<td></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_35" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>5</td>
+							
+							
+								<td>Процессор</td>
+							
+								<td>Prozessor</td>
+							
+								<td></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_34" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>6</td>
+							
+							
+								<td>Операционная система</td>
+							
+								<td>sistema</td>
+							
+								<td></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_33" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>7</td>
+							
+							
+								<td>Аккумуляторная батарея</td>
+							
+								<td>batareya</td>
+							
+								<td></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_32" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>8</td>
+							
+							
+								<td>Встроенная память</td>
+							
+								<td>vstroenna</td>
+							
+								<td>гб</td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_21" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>9</td>
+							
+							
+								<td>Оперативная память</td>
+							
+								<td>operativnapamat</td>
+							
+								<td>мб</td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_20" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>10</td>
+							
+							
+								<td>Диагональ экрана</td>
+							
+								<td>diagonal</td>
+							
+								<td>"</td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_14" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>11</td>
+							
+							
+								<td>Разрешение экрана</td>
+							
+								<td>Razreshenie</td>
+							
+								<td>пикселей</td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_12" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>12</td>
+							
+							
+								<td>Карта</td>
+							
+								<td>karta</td>
+							
+								<td></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_11" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>13</td>
+							
+							
+								<td>Размер</td>
+							
+								<td>Razmer</td>
+							
+								<td>мм</td>
+							
+						</tr>
+							
+					</tbody>
+				</table>
+				
+									
+			</div>	
+			
+			
+			
+			<div class="buttons">				
+				<input type="button" class="btn btn-primary" value="Создать блок" onclick="javascript:location.href='/manage/blockedit/_aadd_parent392_templatespec/'; return false;">				
+				<input type="button" class="btn btn-danger" value="Вернуться" onclick="javascript:location.href='/manage/'; return false;">				
+			</div>
+		</div>
+
+		<!--/CONTENT-->
+		
+		<!--POPUP-->
+		<div class="popup-index" id="popup-index">
+			<div class="popup-index">
+				<div class="top"><h1>Действие</h1></div>
+				<ul>			
+				
+					
+
+						
+							<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editBlock(); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+						
+
+						
+
+						
+
+						
+							<li><a href="#" rel="1" class="aHide" id="aHide" onclick="showHideBlock(); return false;"><i class="icon-eye-close"></i>&nbsp;Скрыть/показать</a></li>
+						
+
+						
+							<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delBlock(); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+						
+
+					
+				
+				</ul>
+			</div>
+		</div>
+		<!--/POPUP-->		
+		
+		<script type="text/javascript">
+			
+			$(".trtree").jscontext({
+				html: $("#popup-index").html(),				
+				closeOnMouseLeave : true,
+				open : function() {
+					$("#hide-blockid").val(this.substr(6));					
+				}				
+			});
+		
+
+		$("#btypes").change(function() {
+			window.location.href = '/manage/blockedit/_alist_parent'+392+'_template'+$("#btypes option:selected").val();
+		});
+			
+			
+		
+	
+	</script>
+	
+	
+
+	
+	
+									
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

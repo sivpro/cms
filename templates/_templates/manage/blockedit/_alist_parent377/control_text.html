@@ -1,0 +1,910 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
+	<script src="/admin/scripts/jquery.tablesorter.min.js"></script>
+	<script src="/admin/scripts/adminNew.js"></script>	
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#tree").tablesorter({
+				headers: {
+					0: {
+						sorter: false 
+					}
+				}
+			}); 
+		});
+	</script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/modern/img/logo.png" alt=""></div>
+			
+<ul>
+<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
+<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
+<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+<li><a href="/manage/adminfm/"><i class="icon-picture icon-white"></i>&nbsp;Файловый менеджер</a></li>
+<li><a href="/manage/moduleorders/"><i class="icon-barcode icon-white"></i>&nbsp;Заказы</a></li>
+<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>
+<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+</ul>
+
+		</div>
+		<!--/MENU-->
+		
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Содержимое страницы "Корзина"</h1>
+			<input type="hidden" id="hide-blockid" name="hide-blockid" value="0"/>
+			<input type="hidden" id="hide-parent" name="hide-parent" value="377"/>
+			<input type="hidden" id="hide-template" name="hide-template" value="order"/>
+			
+			<div class="block">
+				<h2>Блоки "Заказ"</h2>
+				
+				
+					
+						<div class="block-chooser">						
+							<span>Выводить: </span>
+							<select name="btypes" id="btypes" style="width: 200px;">
+								
+								<optgroup label="Выбранные блоки" class="chbl">
+									
+									<option value="order" selected="selected">Заказ</option>
+									
+								</optgroup>
+								
+								<optgroup label="Все блоки" class="allbl">
+									
+										<option value="texthtml">Текст</option>
+									
+										<option value="os">Обратная связь</option>
+									
+										<option value="news">Новость</option>
+									
+										<option value="catitem">Товар</option>
+									
+										<option value="image">Изображение</option>
+									
+										<option value="spec">Характеристика</option>
+									
+										<option value="user">Пользователь</option>
+									
+										<option value="promo">Промо-блок</option>
+									
+										<option value="itembasket">Товар из корзины</option>
+									
+										<option value="slider">Слайдер</option>
+									
+										<option value="car">Автомобиль</option>
+									
+								</optgroup>
+							</select>
+						</div>
+					
+				
+				
+			
+				
+				<table cellspacing="1" cellpadding="0" border="0" id="tree" class="blocks">			
+					<thead>
+						<tr>
+							<th class="none"></th>
+							<th>№</th>
+														
+								<th>ID</th>
+							
+							
+								<th>Дата</th>
+							
+								<th>ФИО</th>
+							
+								<th>Номер телефона</th>
+							
+								<th>E-mail</th>
+							
+								<th>Город</th>
+							
+								<th>Адрес</th>
+							
+								<th>Сумма заказа</th>
+							
+								<th>Установка</th>
+							
+								<th>Оплата</th>
+							
+								<th>Доставка?</th>
+							
+						</tr>
+					</thead>
+			
+					<tbody>
+						
+						<tr class="trtree" id="block_52" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>1</td>
+														
+								<td>52</td>
+							
+							
+								<td class="hiddentext">2012-08-29</td>
+							
+								<td class="hiddentext">Тест</td>
+							
+								<td class="hiddentext">ыва</td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext">ыва</td>
+							
+								<td class="hiddentext">ыва</td>
+							
+								<td class="hiddentext">3490</td>
+							
+								<td class="hiddentext">0</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_51" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>2</td>
+														
+								<td>51</td>
+							
+							
+								<td class="hiddentext">2012-08-29</td>
+							
+								<td class="hiddentext">Варова Анна Сергеевна</td>
+							
+								<td class="hiddentext">287-09-08</td>
+							
+								<td class="hiddentext">ias@coordinates.ru</td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext">3490</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата наличнымии</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_50" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>3</td>
+														
+								<td>50</td>
+							
+							
+								<td class="hiddentext">2012-08-14</td>
+							
+								<td class="hiddentext">Анна Сергеевна Варова</td>
+							
+								<td class="hiddentext">287-09-08</td>
+							
+								<td class="hiddentext">ias@coordinates.ru</td>
+							
+								<td class="hiddentext">Екатеринбург</td>
+							
+								<td class="hiddentext">Боровая 19</td>
+							
+								<td class="hiddentext">17970</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_49" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>4</td>
+														
+								<td>49</td>
+							
+							
+								<td class="hiddentext">2012-08-13</td>
+							
+								<td class="hiddentext">hsd</td>
+							
+								<td class="hiddentext">hshs</td>
+							
+								<td class="hiddentext">hshsd</td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext">11900</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_48" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>5</td>
+														
+								<td>48</td>
+							
+							
+								<td class="hiddentext">2012-08-13</td>
+							
+								<td class="hiddentext">1111</td>
+							
+								<td class="hiddentext">1111111</td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext">1111111111</td>
+							
+								<td class="hiddentext">11111111111</td>
+							
+								<td class="hiddentext">15900</td>
+							
+								<td class="hiddentext">0</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_47" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>6</td>
+														
+								<td>47</td>
+							
+							
+								<td class="hiddentext">2012-08-13</td>
+							
+								<td class="hiddentext">sdfsdf</td>
+							
+								<td class="hiddentext">sf</td>
+							
+								<td class="hiddentext">sdf</td>
+							
+								<td class="hiddentext">sf</td>
+							
+								<td class="hiddentext">sdf</td>
+							
+								<td class="hiddentext">3490</td>
+							
+								<td class="hiddentext">0</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_46" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>7</td>
+														
+								<td>46</td>
+							
+							
+								<td class="hiddentext">2012-08-10</td>
+							
+								<td class="hiddentext">вапывап</td>
+							
+								<td class="hiddentext">вап</td>
+							
+								<td class="hiddentext">уке</td>
+							
+								<td class="hiddentext">345</td>
+							
+								<td class="hiddentext">34535</td>
+							
+								<td class="hiddentext">4990</td>
+							
+								<td class="hiddentext">0</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_45" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>8</td>
+														
+								<td>45</td>
+							
+							
+								<td class="hiddentext">2012-08-10</td>
+							
+								<td class="hiddentext">Анна</td>
+							
+								<td class="hiddentext">4564</td>
+							
+								<td class="hiddentext">3453</td>
+							
+								<td class="hiddentext">dfvg</td>
+							
+								<td class="hiddentext">dfd</td>
+							
+								<td class="hiddentext">4990</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_44" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>9</td>
+														
+								<td>44</td>
+							
+							
+								<td class="hiddentext">2012-08-10</td>
+							
+								<td class="hiddentext">Анна Ильина</td>
+							
+								<td class="hiddentext">2873307</td>
+							
+								<td class="hiddentext">ghf@mail.ru</td>
+							
+								<td class="hiddentext">Екатеринбург</td>
+							
+								<td class="hiddentext">Боровая</td>
+							
+								<td class="hiddentext">3990</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой при получении</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_43" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>10</td>
+														
+								<td>43</td>
+							
+							
+								<td class="hiddentext">2012-08-10</td>
+							
+								<td class="hiddentext">Анна</td>
+							
+								<td class="hiddentext">8902345454</td>
+							
+								<td class="hiddentext">fgdf@mail.ru</td>
+							
+								<td class="hiddentext">Екатеринбург</td>
+							
+								<td class="hiddentext">Вилонова</td>
+							
+								<td class="hiddentext">4990</td>
+							
+								<td class="hiddentext">0</td>
+							
+								<td class="hiddentext">Оплата картой при получении</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_42" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>11</td>
+														
+								<td>42</td>
+							
+							
+								<td class="hiddentext">2012-08-09</td>
+							
+								<td class="hiddentext">чучулин</td>
+							
+								<td class="hiddentext">3535353</td>
+							
+								<td class="hiddentext">dmitry@elgrow.ru</td>
+							
+								<td class="hiddentext">Екщ</td>
+							
+								<td class="hiddentext">праве</td>
+							
+								<td class="hiddentext">50000</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой при получении</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_41" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>12</td>
+														
+								<td>41</td>
+							
+							
+								<td class="hiddentext">2012-08-08</td>
+							
+								<td class="hiddentext">Чучулин Дмитрий</td>
+							
+								<td class="hiddentext">3535353</td>
+							
+								<td class="hiddentext">dmitry@elgrow.ru</td>
+							
+								<td class="hiddentext">Екатеринбург</td>
+							
+								<td class="hiddentext">Свердлова 62</td>
+							
+								<td class="hiddentext">50000</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой при получении</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_40" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>13</td>
+														
+								<td>40</td>
+							
+							
+								<td class="hiddentext">2012-08-08</td>
+							
+								<td class="hiddentext">lktgnl</td>
+							
+								<td class="hiddentext">lbsdck</td>
+							
+								<td class="hiddentext">lbjsx@jbdc.hj</td>
+							
+								<td class="hiddentext">kj.d</td>
+							
+								<td class="hiddentext">k.jbv</td>
+							
+								<td class="hiddentext">50</td>
+							
+								<td class="hiddentext">0</td>
+							
+								<td class="hiddentext">Оплата наличнымии</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_39" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>14</td>
+														
+								<td>39</td>
+							
+							
+								<td class="hiddentext">2012-08-07</td>
+							
+								<td class="hiddentext">Чучулин Дмитрий Сергеевич</td>
+							
+								<td class="hiddentext">3535353</td>
+							
+								<td class="hiddentext">dmitry@elgrow.ru</td>
+							
+								<td class="hiddentext">Екатеринбург</td>
+							
+								<td class="hiddentext">Свердлова 62</td>
+							
+								<td class="hiddentext">287</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой при получении</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_38" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>15</td>
+														
+								<td>38</td>
+							
+							
+								<td class="hiddentext">2012-08-07</td>
+							
+								<td class="hiddentext">q</td>
+							
+								<td class="hiddentext">q</td>
+							
+								<td class="hiddentext">q@ee.ru</td>
+							
+								<td class="hiddentext">rr</td>
+							
+								<td class="hiddentext">r</td>
+							
+								<td class="hiddentext">16000</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_37" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>16</td>
+														
+								<td>37</td>
+							
+							
+								<td class="hiddentext">2012-08-07</td>
+							
+								<td class="hiddentext">gas</td>
+							
+								<td class="hiddentext">gasga</td>
+							
+								<td class="hiddentext">gsa</td>
+							
+								<td class="hiddentext">gasag</td>
+							
+								<td class="hiddentext">gsagasg</td>
+							
+								<td class="hiddentext">44200</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext">Оплата картой</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_36" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>17</td>
+														
+								<td>36</td>
+							
+							
+								<td class="hiddentext">2012-08-07</td>
+							
+								<td class="hiddentext">hdshs</td>
+							
+								<td class="hiddentext">hsd</td>
+							
+								<td class="hiddentext">hsdh</td>
+							
+								<td class="hiddentext">hsd</td>
+							
+								<td class="hiddentext">hshs</td>
+							
+								<td class="hiddentext">16000</td>
+							
+								<td class="hiddentext">0</td>
+							
+								<td class="hiddentext">Оплата картой при получении</td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_35" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>18</td>
+														
+								<td>35</td>
+							
+							
+								<td class="hiddentext">2012-08-07</td>
+							
+								<td class="hiddentext">gzxg</td>
+							
+								<td class="hiddentext">gzxg</td>
+							
+								<td class="hiddentext">gzx</td>
+							
+								<td class="hiddentext">zzxg</td>
+							
+								<td class="hiddentext">gzxg</td>
+							
+								<td class="hiddentext">16000</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_34" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>19</td>
+														
+								<td>34</td>
+							
+							
+								<td class="hiddentext">2012-08-07</td>
+							
+								<td class="hiddentext">ga</td>
+							
+								<td class="hiddentext">gas</td>
+							
+								<td class="hiddentext">gas</td>
+							
+								<td class="hiddentext">gas</td>
+							
+								<td class="hiddentext">gas</td>
+							
+								<td class="hiddentext">16000</td>
+							
+								<td class="hiddentext">1</td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+						
+						<tr class="trtree" id="block_33" style="cursor: pointer;">
+							<td class="none">
+								
+									<i class="icon-eye-close hidden"></i>
+								
+								
+							</td>
+							<td>20</td>
+														
+								<td>33</td>
+							
+							
+								<td class="hiddentext">2012-08-07</td>
+							
+								<td class="hiddentext">jsd</td>
+							
+								<td class="hiddentext">jsdj</td>
+							
+								<td class="hiddentext">jsd</td>
+							
+								<td class="hiddentext">jsdj</td>
+							
+								<td class="hiddentext">jsdjs</td>
+							
+								<td class="hiddentext">16000</td>
+							
+								<td class="hiddentext">0</td>
+							
+								<td class="hiddentext"></td>
+							
+								<td class="hiddentext"></td>
+							
+						</tr>
+							
+					</tbody>
+				</table>
+				
+									
+			</div>	
+			
+			
+			
+			<div class="buttons">				
+				<input type="button" class="btn btn-primary" value="Создать блок" onclick="javascript:location.href='/manage/blockedit/_aadd_parent377_templateorder/'; return false;">				
+				<input type="button" class="btn btn-danger" value="Вернуться" onclick="javascript:location.href='/manage/'; return false;">				
+			</div>
+		</div>
+
+		<!--/CONTENT-->
+		
+		<!--POPUP-->
+		<div class="popup-index" id="popup-index">
+			<div class="popup-index">
+				<div class="top"><h1>Действие</h1></div>
+				<ul>			
+				
+					
+
+						
+							<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editBlock(); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+						
+
+						
+							<li><a href="#" rel="1" class="aMove" id="aMove" onclick="moveBlock(); return false;"><i class="icon-move"></i>&nbsp;Переместить</a></li>
+						
+
+						
+							<li><a href="#" rel="1" class="aCopy" id="aCopy" onclick="copyBlock(); return false;"><i class="icon-edit"></i>&nbsp;Создать копию</a></li>
+						
+
+						
+							<li><a href="#" rel="1" class="aHide" id="aHide" onclick="showHideBlock(); return false;"><i class="icon-eye-close"></i>&nbsp;Скрыть/показать</a></li>
+						
+
+						
+							<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delBlock(); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+						
+
+					
+				
+				</ul>
+			</div>
+		</div>
+		<!--/POPUP-->		
+		
+		<script type="text/javascript">
+			
+			$(".trtree").jscontext({
+				html: $("#popup-index").html(),				
+				closeOnMouseLeave : true,
+				open : function() {
+					$("#hide-blockid").val(this.substr(6));					
+				}				
+			});
+		
+
+		$("#btypes").change(function() {
+			window.location.href = '/manage/blockedit/_alist_parent'+377+'_template'+$("#btypes option:selected").val();
+		});
+			
+			
+		
+	
+	</script>
+	
+	
+
+	
+	
+									
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		

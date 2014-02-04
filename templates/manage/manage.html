@@ -1,0 +1,246 @@
+{reduce:nothing}
+{mask:main}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<title>Система администрирования сайта {sitename}</title>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />	
+	<link rel="stylesheet" type="text/css" href="/admin/decor/{theme}/css/styles.css" />	
+	<link rel="stylesheet" type="text/css" href="/admin/decor/bootstrap/css/bootstrap.css" />
+
+	<script type="text/javascript" src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script type="text/javascript" src="/admin/scripts/jquery.jscontext-1.0.js"></script>
+	<script type="text/javascript" src="/admin/scripts/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/admin/scripts/adminNew.js"></script>
+	<script type="text/javascript" src="/admin/scripts/decor.js"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png"  alt=""></div>
+			{menu}
+		</div>
+		<!--/MENU-->	
+		
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Структура сайта</h1>
+			<input type="hidden" id="hide-parent" name="hide-parent" value="0"/>
+			<table  width="100%" id="tree" class="itemtree">				
+			
+					{set:super}
+					<tr style="cursor:hand" id="tr0">
+					{/set}
+			
+					{mis:super}
+					<tr id="tr0">
+					{/mis}
+			
+						<td class="simpletd"><i class="icon-home"></i></td>
+						<td colspan="100">Корень сайта</td>					
+			
+					</tr>
+			
+					{item}
+					
+				
+			</table>
+		</div>
+		<!--/CONTENT-->
+		
+		<!--POPUP-->
+		<div class="popup-index" id="popup-index">
+			<div class="popup-index">
+				<div class="top"><h1>Действие</h1></div>
+				<ul>
+					<li><a href="#" rel="1" class="aAdd" id="aAdd" onclick="addCat(this); return false;"><i class="icon-plus-sign"></i>&nbsp;Создать новую</a></li>
+
+					<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editCat(this); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+
+					<li><a href="#" rel="1" class="aEditbl" id="aEditbl" onclick="blockList(this); return false;"><i class="icon-th"></i>&nbsp;Блоки</a></li>
+
+					<li><a href="#" rel="1" class="aMove" id="aMove" onclick="moveCat(this); return false;"><i class="icon-move"></i>&nbsp;Переместить</a></li>					
+
+					<li><a href="#" rel="1" class="aCopy" id="aCopy" onclick="copyCat(this); return false;"><i class="icon-edit"></i>&nbsp;Копировать</a></li>
+
+					<li><a href="#" rel="1" class="aHide" id="aHide" onclick="showHideCat(this); return false;"><i class="icon-eye-close"></i>&nbsp;Скрыть/показать</a></li>
+
+					<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delCat(this); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--/POPUP-->		
+		
+		<script type="text/javascript">
+		{#	
+			$(".trtree-click").jscontext({
+				html: $("#popup-index").html(),				
+				closeOnMouseLeave : true,
+				open : function() {
+					$("#hide-parent").val(this.substr(2));
+					#}
+					{mis:super}
+						var id = $("#hide-parent").val();
+						var candel = parseInt($("#candel_"+id).val());
+						var canedit = parseInt($("#canedit_"+id).val());
+						var canaddcat = parseInt($("#canaddcat_"+id).val());
+						var canaddbl = parseInt($("#canaddbl_"+id).val());
+						var canmoveto = parseInt($("#canmoveto_"+id).val());
+						var cancopyto = parseInt($("#cancopyto_"+id).val());
+						var canhide = parseInt($("#canhide_"+id).val());
+
+						if (canedit < 1) $(".aEdit").attr("rel", "0").parents("li").addClass("disabled");
+						else $(".aEdit").attr("rel", "1").parents("li").removeClass("disabled");
+
+						if (candel < 1) $(".aDel").attr("rel", "0").parents("li").addClass("disabled");							
+						else $(".aDel").attr("rel", "1").parents("li").removeClass("disabled");
+
+						if (canaddcat < 1) $(".aAdd").attr("rel", "0").parents("li").addClass("disabled");
+						else $(".aAdd").attr("rel", "1").parents("li").removeClass("disabled");
+
+						if (canaddbl < 1) $(".aEditbl").attr("rel", "0").parents("li").addClass("disabled");
+						else $(".aEditbl").attr("rel", "1").parents("li").removeClass("disabled");
+
+						if (canmoveto < 1) $(".aMove").attr("rel", "0").parents("li").addClass("disabled");
+						else $(".aMove").attr("rel", "1").parents("li").removeClass("disabled");
+
+						if (cancopyto < 1) $(".aCopy").attr("rel", "0").parents("li").addClass("disabled");
+						else $(".aCopy").attr("rel", "1").parents("li").removeClass("disabled");
+
+						if (canhide < 1) $(".aHide").attr("rel", "0").parents("li").addClass("disabled");
+						else $(".aHide").attr("rel", "1").parents("li").removeClass("disabled");
+
+						
+					{/mis}
+					{#
+				}
+
+			});
+
+			$(".trtree-no").jscontext({			
+				
+
+			});
+
+			$(".plus").click(function() {
+				var id = $(this).attr("id").substr(10);
+				$.cookie("hs_"+id, 1);
+				window.location.href = '/manage';
+				return false;
+			});
+
+			$(".minus").click(function() {
+				var id = $(this).attr("id").substr(10);
+				$.cookie("hs_"+id, 0);
+				window.location.href = '/manage';
+				return false;
+			});
+			
+			
+		#}
+	
+		</script>
+	
+		{set:error}
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				if ({error}==1) {
+					alert("Перемещение в выбранную папку невозможно");
+				}
+				if ({error}==2) {
+					alert("Перемещение этой папки запрещено");
+				}
+				if ({error}==3) {
+					alert("Копирование в выбранную папку невозможно");
+				}
+				if ({error}==4) {
+					alert("Копирование этой папки запрещено");
+				}
+				
+				window.location.href = '/manage';
+			});
+		</script>
+		{/set}
+
+	
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		
+{/mask}
+
+{mask:item}
+	
+	<tr class="trtree{mis:no} trtree-click{/mis}{set:no} trtree-no{/set}" style="cursor: pointer;" id="tr{id}">		
+		{mask:td}
+			<td class="{class}">
+				{if:{class}!="none" && {../hs}==1 && {_last}}{set:../item}<a href="#" id="openclose_{id}" class="plus"></div>{/set}{/if}
+				{if:{class}!="none" && {../hs}==2 && {_last}}{set:../item}<a href="#" id="openclose_{id}" class="minus"></div>{/set}{/if}
+			</td>
+		{/mask}		
+		<td class="icon{set:item} hassub{/set}{set:visible:0} hidden{/set}"></td>			
+		
+		{if:{//super}}
+			<td colspan="{php}100-{level}-1{/php}"{set:visible:0} class="hiddentext"{/set}>
+				{set:item}<b>{name}</b>{/set}
+				{mis:item}{name}{/mis}
+				{if:!{virtual}}
+					{if:{id}!=1}
+						(<a href="/{url}" target="_blank" class="ext"><i class="icon-share-alt"></i>{php}htmlspecialchars({key}){/php}</a>)
+					{/if}
+					{if:{id}==1}
+						(<a href="/" target="_blank" class="ext"><i class="icon-share-alt"></i>Главная</a>)
+					{/if}
+				{/if}				
+				- {template} - {id}
+			</td>
+		{/if}
+		{if:!{//super}}
+			<td colspan="{php}100-{level}-1{/php}"{set:visible:0} class="hiddentext"{/set}>
+				{set:no}<strike>{/set}{name}
+				{if:!{virtual}}
+					{if:{id}!=1}
+						(<a href="/{url}" target="_blank" class="ext"><i class="icon-share-alt"></i>{php}htmlspecialchars({key}){/php}</a>)
+					{/if}
+					{if:{id}==1}
+						(<a href="/" target="_blank" class="ext"><i class="icon-share-alt"></i>Главная</a>)
+					{/if}
+				{/if}
+				{set:no}</strike>{/set}</td>
+		{/if}
+		<td>
+			{mis:no}
+			<input type="hidden" id="candel_{id}" name="candel_{id}" value="{candel}"/>			
+			<input type="hidden" id="canedit_{id}" name="canedit_{id}" value="{canedit}"/>
+			<input type="hidden" id="canaddcat_{id}" name="canaddcat_{id}" value="{canaddcat}"/>
+			<input type="hidden" id="canaddbl_{id}" name="canaddbl_{id}" value="{canaddbl}"/>
+			<input type="hidden" id="canmoveto_{id}" name="canmoveto_{id}" value="{canmoveto}"/>
+			<input type="hidden" id="cancopyto_{id}" name="cancopyto_{id}" value="{cancopyto}"/>
+			<input type="hidden" id="canhide_{id}" name="canhide_{id}" value="{canhide}"/>
+			{/mis}
+		</td>
+	</tr>
+	{if:{hs}==0 || {hs}==2}
+	{set:item}		
+		{item}
+	{/set}
+	{/if}
+	
+
+{/mask}

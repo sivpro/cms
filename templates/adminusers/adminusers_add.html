@@ -1,0 +1,148 @@
+{reduce:nothing}
+{mask:main}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта {sitename}</title>
+	
+	<meta charset="utf-8">	
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/calendar.css">
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+
+	
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+	
+</head>
+
+<body>
+	
+	<!--MAIN-->
+	<div class="main">
+	
+		
+		<!--MENU-->
+		<div class="menu">
+			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png" alt=""></div>
+			{menu}
+		</div>
+		<!--/MENU-->
+
+		<!--CONTENT-->
+		<div class="content">
+			<h1>Добавление нового пользователя</h1>
+			
+			<form action="/manage/users/_aadd/" method="post" enctype="multipart/form-data" name="form1" autocomplete="off">			
+				
+				<div class="block">
+					<h2>Основные параметры</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Ник (латиницей)</p>						
+						</div>
+						<div class="value">							
+							<input type="text" class="text" name="name" value="">
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Пароль</p>						
+						</div>
+						<div class="value">							
+							<input type="password" class="text" name="password" value="">
+						</div>
+					</div>
+			
+					<div class="stroke">
+						<div class="name">
+							<p>Повторите пароль</p>						
+						</div>
+						<div class="value">							
+							<input type="password" class="text" name="passwordrep" value="">
+						</div>
+					</div>
+					
+				</div>
+			
+				<div class="block">
+					<h2>Статус</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Статус</p>
+						</div>
+						<div class="value">
+							<p><input type="radio" class="rad" name="status" value="2" checked="checked"> Администратор</p>
+							<p><input type="radio" class="rad" name="status" value="3"> Редактор</p>						
+						</div>
+					</div>				
+				</div>
+			
+				<div class="block" id="mapblock" style="display: none;">
+					<h2>Права редактора</h2>
+						
+					<div class="stroke">
+						<div class="name">
+							<p>Права редактора</p>
+						</div>
+						<div class="value">
+							<ul class="map">
+								{item}
+							</ul>
+						</div>
+					</div>
+								
+				</div>
+			
+				
+			
+				<script>
+					$(".rad").change(function() {
+						if ($(this).val() == 2) {
+							$("#mapblock").hide();
+						}
+						else {
+							$("#mapblock").show();
+						}
+					});
+				</script>
+				
+				
+			
+				<div class="buttons">				
+					<input type="submit" class="btn btn-success" name="add" value="Добавить">				
+					<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/users/'; return false;">
+					
+				</div>
+			
+			</form>
+		</div>
+		<!--/CONTENT-->
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		
+{/mask}
+
+{mask:item}
+	<li>
+		<label for="cat_{id}">{name}</label> <input type="checkbox" name="cat[]" id="cat_{id}" value="{id}"/>
+		{set:item}
+			<ul>
+				{item}
+			</ul>
+		{/set}
+	</li>
+{/mask}

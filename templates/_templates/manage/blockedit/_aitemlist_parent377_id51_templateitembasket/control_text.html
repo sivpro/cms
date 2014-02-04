@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	<title>Система администрирования сайта </title>
+	
+	<meta charset="utf-8" />	
+	<link rel="stylesheet" href="/admin/decor/modern/css/styles.css" />	
+	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css" />
+	
+
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>	
+	<script src="/admin/scripts/adminNew.js"></script>
+
+	
+	
+</head>
+
+<body>
+	
+	<script>
+	$(function() {
+		var iframe = $('#itemframeitembasket', parent.document.body);
+		iframe.height($(document.body).height()+200);
+	});
+	</script>
+
+	
+	<!--MAIN-->
+	<div class="main no-bg">
+	
+		
+
+				
+			<!--CONTENT-->
+			<h1>Вложенные блоки</h1>
+			<input type="hidden" id="hide-blockid" name="hide-blockid" value="0"/>
+			<input type="hidden" id="hide-parent" name="hide-parent" value="377"/>
+			<input type="hidden" id="hide-template" name="hide-template" value="itembasket"/>
+			<input type="hidden" id="hide-blockparent" name="hide-blockparent" value="51"/>
+		
+		
+			<div class="block">
+				
+				
+				
+				<table cellspacing="1" cellpadding="0" border="0" id="tree" class="blocks">			
+					<thead>
+						<tr>
+							<th class="none"></th>
+							<th>№</th>
+														
+								<th>ID</th>
+							
+							
+								<th>Название</th>
+							
+								<th>Цена</th>
+							
+								<th>Количество</th>
+							
+						</tr>
+					</thead>
+
+					<tbody>
+						
+						<tr class="trtree" id="block_76" style="cursor: pointer;">
+							<td class="none">
+								
+								
+									<i class="icon-eye-open"></i>
+								
+							</td>
+							<td>1</td>
+														
+								<td>76</td>
+							
+							
+								<td>Shturmann® Mini500</td>
+							
+								<td>3490</td>
+							
+								<td>1</td>
+							
+						</tr>
+							
+					</tbody>
+				</table>
+				
+				
+				
+						
+			</div>	
+
+		
+
+			<div class="buttons">			
+				
+				<input type="button" class="btn btn-primary" value="Создать" onclick="javascript:location.href='/manage/blockedit/_aitemadd_parent377_blockparent51_templateitembasket/'; return false;">
+				
+			</div>
+		
+
+		<!--/CONTENT-->
+		
+		<!--POPUP-->
+		<div class="popup-index" id="popup-index">
+			<div class="popup-index">
+				<div class="top"><h1>Действие</h1></div>
+				<ul>			
+				
+					
+
+						
+							<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editItemBlock(); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+												
+
+						
+							<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delItemBlock(); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+						
+
+					
+				
+				</ul>
+			</div>
+		</div>
+		<!--/POPUP-->		
+		
+		<script type="text/javascript">
+			
+			$(".trtree").jscontext({
+				html: $("#popup-index").html(),				
+				closeOnMouseLeave : true,
+				open : function() {
+					$("#hide-blockid").val(this.substr(6));					
+				}				
+			});
+			
+			
+		
+	
+	</script>
+	
+	
+
+	
+	
+									
+									
+									
+	</div>
+	<!--/MAIN-->						
+
+
+
+
+</body>
+</html>		
