@@ -32,7 +32,7 @@ class passgen {
 		if ($strength & 8) {
 			$consonants .= '@#$%';
 		}
-	 
+
 		$password = '';
 		$alt = time() % 2;
 		for ($i = 0; $i < $length; $i++) {

@@ -5,65 +5,65 @@
 <head>
 
 	<title>Система администрирования сайта {sitename}</title>
-	
-	<meta charset="utf-8">	
+
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
 	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
 
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery.js"></script>	
+	<script src="/admin/scripts/jquery.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
-	
-	
+
+
 	<script src="/admin/decor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
 	<script src="/admin/scripts/jquery.tablesorter.min.js"></script>
-	
+
 
 	<script>
 		$(document).ready(function() {
 			$("#tree").tablesorter({
 				headers: {
 					0: {
-						sorter: false 
+						sorter: false
 					}
 				}
 			});
-			
+
 			$('.changeStatus').tooltip();
 		});
 	</script>
 
-	
-	
+
+
 </head>
 
 <body>
-	
+
 	<!--MAIN-->
 	<div class="main">
-	
-		
+
+
 		<!--MENU-->
 		<div class="menu">
 			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png" alt=""></div>
 			{menu}
 		</div>
 		<!--/MENU-->
-		
+
 		<!--CONTENT-->
 		<div class="content">
 			<h1>Заказы</h1>
 			<input type="hidden" id="hide-blockid" name="hide-blockid" value="0">
 			<input type="hidden" id="hide-parent" name="hide-parent" value="{parent}">
 			<input type="hidden" id="hide-template" name="hide-template" value="{template}">
-			
-					
-				
+
+
+
 			{set:item}
-		
-			
+
+
 			<div class="clearfix module-basket">
 				<div class="left-part">
 					<table cellspacing="1" cellpadding="0" border="0" id="tree" class="blocks">
@@ -77,7 +77,7 @@
 								<th>Пользователь</th>
 							</tr>
 						</thead>
-								
+
 						<tbody>
 							{mask:item}
 							<tr class="trtree" id="block_{id}" data-id="{id}" style="cursor: pointer;">
@@ -95,8 +95,8 @@
 											<a style="padding-right: 10px;" href="#" data-status="2" data-mode="ls" data-id="{id}" class="changeStatus" rel="tooltip" title="Снять пометку о выполнении"><i class="icon-arrow-left"></i></a>
 										{/if}
 
-										<b id="status_{id}">{status_sel}</b> 
-									
+										<b id="status_{id}">{status_sel}</b>
+
 										{if:{status_sel}=="Новый"}
 											<a style="padding-left: 10px;" href="#" data-status="0" data-mode="gs" data-id="{id}" class="changeStatus" rel="tooltip" title="Принять заказ"><i class="icon-arrow-right"></i></a>
 										{/if}
@@ -111,23 +111,23 @@
 							{/mask}
 						</tbody>
 					</table>
-				
+
 					{pages_down}
 				</div>
-				
+
 				<div class="right-part">
 					<h3>Заказанные товары:</h3>
 					{mask:item}
-				
+
 					<table cellspacing="1" cellpadding="0" border="0" id="goodsFor_{id}" class="blocks goodsFor" style="display: none;">
 						<thead>
-							<tr>								
+							<tr>
 								<th>Наименование</th>
 								<th>Цена</th>
-								<th>Количество</th>								
+								<th>Количество</th>
 							</tr>
 						</thead>
-								
+
 						<tbody>
 							{mask:order}
 							<tr>
@@ -138,7 +138,7 @@
 							{/mask}
 							<tr>
 								<td>Итого:</td>
-								<td colspan="2">{price}</td>								
+								<td colspan="2">{price}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -147,10 +147,10 @@
 					<h3>Контактные данные и условия покупки</h3>
 
 					{mask:item}
-					
-					<table cellspacing="1" cellpadding="0" border="0" id="contactsFor_{id}" class="blocks contactsFor" style="display: none;">						
-								
-						<tbody>	
+
+					<table cellspacing="1" cellpadding="0" border="0" id="contactsFor_{id}" class="blocks contactsFor" style="display: none;">
+
+						<tbody>
 							{mask:fields}
 								{if:{value} != ""}
 								<tr>
@@ -161,38 +161,38 @@
 							{/mask}
 						</tbody>
 					</table>
-					{/mask}				
-				
+					{/mask}
+
 				</div>
 
 			</div>
-								
+
 			{/set}
-			
+
 		</div>
 
-		<!--/CONTENT-->	
-		
-		
+		<!--/CONTENT-->
+
+
 		<script>
 		{#
 			$(".trtree").click(function() {
 				var item = $(this);
 				$(".trtree").removeClass("act");
 				item.addClass("act");
-				var id = item.attr("data-id");				
+				var id = item.attr("data-id");
 				$(".goodsFor").hide();
 				$("#goodsFor_"+id).show();
 
 				$(".contactsFor").hide();
 				$("#contactsFor_"+id).show();
-				
+
 			});
-			
+
 			$(".changeStatus").live("click", function(e) {
-				
+
 				var tt = $(this);
-				
+
 				$.post(
 					'/manage/moduleorders/',
 					{
@@ -204,31 +204,31 @@
 					function(data) {
 						if (data != "no") {
 							data = data.split("##");
-							$(".changeStatus").tooltip('destroy');						
+							$(".changeStatus").tooltip('destroy');
 							$("#statustd_"+tt.attr("data-id")).html(data[0]);
 							$(".changeStatus").tooltip();
 							$("#ouser_"+tt.attr("data-id")).text(data[1]);
 						}
 					}
 				);
-						
+
 			});
 		#}
 		</script>
-	
-	
 
-	
-	
-									
-									
-									
+
+
+
+
+
+
+
 	</div>
-	<!--/MAIN-->						
+	<!--/MAIN-->
 
 
 
 
 </body>
-</html>		
+</html>
 {/mask}

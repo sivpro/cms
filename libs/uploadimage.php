@@ -70,7 +70,7 @@ else {
 		$currentDimensions = array('width'=>$size[0],'height'=>$size[1]);
 
 
-		//Накладываем на белый фон, чтобы пыли поля (для кадрирования)
+		//Накладываем на белый фон, чтобы были поля (для кадрирования)
 		$whiteImage = imagecreatetruecolor($currentDimensions['width'] + 400, $currentDimensions['height'] + 400);
 		ImageFilledRectangle($whiteImage, 0, 0, $currentDimensions['width'] + 400, $currentDimensions['height'] + 400, 0xffffff);
 

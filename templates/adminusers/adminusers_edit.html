@@ -5,28 +5,28 @@
 <head>
 
 	<title>Система администрирования сайта {sitename}</title>
-	
-	<meta charset="utf-8">	
+
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/calendar.css">
 	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
 
-	
+
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
 
-	
-	
+
+
 </head>
 
 <body>
-	
+
 	<!--MAIN-->
 	<div class="main">
-	
-		
+
+
 		<!--MENU-->
 		<div class="menu">
 			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png" alt=""></div>
@@ -37,45 +37,45 @@
 		<!--CONTENT-->
 		<div class="content">
 			<h1>Редактирование пользователя</h1>
-			
-			<form action="/manage/users/_aedit/" method="post" enctype="multipart/form-data" name="form1" autocomplete="off">			
+
+			<form action="/manage/users/_aedit/" method="post" enctype="multipart/form-data" name="form1" autocomplete="off">
 				<input type="hidden" value="{parent}" name="parent">
 				{mask:info}
 				<div class="block">
 					<h2>Основные параметры</h2>
-						
+
 					<div class="stroke">
 						<div class="name">
-							<p>Ник (латиницей)</p>						
+							<p>Ник (латиницей)</p>
 						</div>
-						<div class="value">							
+						<div class="value">
 							<input type="text" class="text" name="name" value="{admin_name}">
 						</div>
 					</div>
-			
+
 					<div class="stroke">
 						<div class="name">
-							<p>Пароль</p>						
+							<p>Пароль</p>
 						</div>
-						<div class="value">							
+						<div class="value">
 							<input type="password" class="text" name="password" value="">
 						</div>
 					</div>
-			
+
 					<div class="stroke">
 						<div class="name">
-							<p>Повторите пароль</p>						
+							<p>Повторите пароль</p>
 						</div>
-						<div class="value">							
+						<div class="value">
 							<input type="password" class="text" name="passwordrep" value="">
 						</div>
 					</div>
-					
+
 				</div>
-			
+
 				<div class="block">
 					<h2>Статус</h2>
-						
+
 					<div class="stroke">
 						<div class="name">
 							<p>Статус</p>
@@ -89,14 +89,14 @@
 								<p>Царь и Бог<input type="hidden" name="status" value="1"></p>
 							{/if}
 						</div>
-					</div>				
+					</div>
 				</div>
-				
-			
+
+
 				<div class="block" id="mapblock"{if:{status}<3} style="display: none;"{/if}>
 				{/mask}
 					<h2>Права редактора</h2>
-						
+
 					<div class="stroke">
 						<div class="name">
 							<p>Права редактора</p>
@@ -106,10 +106,10 @@
 								{item}
 							</ul>
 						</div>
-					</div>							
+					</div>
 				</div>
-				
-				
+
+
 				<script>
 					$(".rad").change(function() {
 						if ($(this).val() == 2) {
@@ -120,25 +120,25 @@
 						}
 					});
 				</script>
-			
-				<div class="buttons">				
-					<input type="submit" class="btn btn-success" name="add" value="Сохранить">				
-					<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/users/'; return false;">				
+
+				<div class="buttons">
+					<input type="submit" class="btn btn-success" name="add" value="Сохранить">
+					<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/users/'; return false;">
 				</div>
-			
+
 			</form>
 		</div>
 		<!--/CONTENT-->
-									
-									
+
+
 	</div>
-	<!--/MAIN-->						
+	<!--/MAIN-->
 
 
 
 
 </body>
-</html>		
+</html>
 {/mask}
 
 {mask:item}

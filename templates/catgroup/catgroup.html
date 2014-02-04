@@ -1,14 +1,14 @@
 {reduce:nothing}
 {mask:main}
-	
+
 			<!--pagepatch//-->
 
 			<div class="name">
 				<h1>{name}</h1>
 			</div>
-	
+
 			<!--CATALOG STROKE-->
-			<article class="catalog-stroke">				
+			<article class="catalog-stroke">
 
 				<div class="catalog">
 					{mask:item}
@@ -22,10 +22,10 @@
 									{mask:image}{if:{_first}}
 									<a href="{../url}"><img src="/files/1/{image}" alt=""></a>
 									{/if}{/mask}
-								
+
 							</div>
-							
-							<div class="tools">								
+
+							<div class="tools">
 								<div class="rating">
 									<div id="rating_{id}"></div>
 									<p id="ratingText_{id}">{rating} {ratingword} ({vote})</p>
@@ -42,10 +42,10 @@
 							<script type="text/javascript">
 								{#
 									$(document).ready(function() {
-										$('#rating_#}{id}{#').raty({														
+										$('#rating_#}{id}{#').raty({
 											start: #}{rating}{#,
 											width: 120,
-											path: '/scripts/jquery.raty/img',											
+											path: '/scripts/jquery.raty/img',
 											hintList:    ['плохо', 'не очень', 'нормально', 'хорошо', 'отлично'],
 											scoreName: 'rating_#}{id}{#',
 											halfShow: true,
@@ -59,16 +59,16 @@
 													},
 													function(e) {
 															$('#ratingText_#}{id}{#').text("Оценка: "+e);
-															$('#rating_#}{id}{#').raty('start', e); 
+															$('#rating_#}{id}{#').raty('start', e);
 															$('#rating_#}{id}{#').raty('readOnly', true);
 													}
-												);														
-											}  
+												);
+											}
 										});
 									});
 								#}
 							</script>
-							
+
 							{mis:inbasket}
 								<a href="#" data-id="{id}" class="toBasket button-price{if:{action}==1 || {hit}==1 || {sale}==1} action{/if}">{if:{price} != ""}{price} <span>i</span>{/if}{if:{price}==""}нет цены{/if}</a>
 							{/mis}
@@ -78,8 +78,8 @@
 						</div>
 					</div>{if:!{_last}}<!--{/if}
 					{/mask}
-				</div>				
+				</div>
 			</article>
 			<!--/CATALOG STROKE-->
-		
+
 {/mask}

@@ -1,31 +1,35 @@
-{reduce:space}
+ {reduce:space}
 	{mask:main}
 		{set:page}
+			<div class="pagination">
+				{mask:page}
 
-				<!--	
-					<li class="act"><a href="#">1</a></li>
-					
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li class="empty"><a href="#">...</a></li>
-					<li><a href="#">25</a></li>
-					<li class="next"><a href="#">&gt;</a></li>  -->
-		
-			<div class="pagebar">
-				<ul>
-				<div class="pagination">
-					{if:{url_p}}<li class="pre"><a href="{url_p}{if:{//page_now}==1}/{/}_a{//fcode}">&lt;</a></li>{/}
-					
-					{mask:page}
-						{set:current}
-							<li class="act"><a href="{url}{if:{//page_now}==1}/{/}_a{//fcode}">{title}</a></li>
-						{/set}
-						{mis:current} 
-							<li><a href="{url}{if:{//page_now}==1}/{/}_a{//fcode}">{title}</a></li>
-						{/mis}
-					{/mask}  
-					{if:{url_n}}<li class="next"><a href="{url_n}{if:{//page_now}==1}/{/}_a{//fcode}">&gt;</a></li>{/}
-				</ul>
+
+					{set:current}
+						{choose}
+							{when:{//url_p}}
+								<a class="prev" href="{//url_p}">&larr;</a>
+							{/when}
+						{/choose}
+
+						<span class="current">{title}</span>
+
+						{choose}
+							{when:{//url_n}}
+								 <a class="next" href="{//url_n}">&rarr;</a>
+							{/when}
+						{/choose}
+					{/set}
+					{mis:current}
+						<a href="{url}{if:{//page_now}==1}/{/}">{title}</a>
+						{if:!{_last}}<i> | </i>{/if}
+					{/mis}
+
+
+
+				{/mask}
+
 			</div>
+
 		{/set}
-{/mask}
+	{/mask}

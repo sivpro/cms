@@ -1,6 +1,6 @@
 {reduce:nothing}
 {mask:main}
-	
+
 
 		<div class="name">
 			<h1>Новости</h1>
@@ -8,7 +8,7 @@
 
 		<!--NEWS-->
 		<div class="news">
-	
+
 				<div class="info">
 					<p class="date">{date_2}</p>
 					<p class="name">{name}</p>
@@ -25,24 +25,24 @@
 					{if:{photo} != ""}
 					<img src="/files/2/{photo}" alt="">
 					{/if}
-					
+
 					{set:item}
 					<div class="other-news">
 						{mask:item}
 						<div class="item">
 							<p class="date">{date_2}</p>
 							<p class="name">{name}</p>
-							
+
 							<p class="all"><a href="{url}">Читать полностью</a> &rarr;</p>
 						</div>
-						{/mask}						
+						{/mask}
 					</div>
 					{/set}
 				</div>
 
-				
-				
+
+
 
 		</div>
 		<!--/NEWS-->
-{/mask}			
+{/mask}

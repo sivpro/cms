@@ -5,50 +5,50 @@
 <head>
 
 	<title>Система администрирования сайта {sitename}</title>
-	
-	<meta charset="utf-8">	
+
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
 	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
 
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>	
+	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
 
 	<!--right click-->
 	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
 
-	
-	
+
+
 </head>
 
 <body>
-	
+
 	<!--MAIN-->
 	<div class="main">
-	
-		
+
+
 		<!--MENU-->
 		<div class="menu">
 			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png" alt=""></div>
 			{menu}
 		</div>
 		<!--/MENU-->
-		
+
 		<!--CONTENT-->
 		<div class="content">
-			<h1>Пользователи системы управления сайтом</h1>	
+			<h1>Пользователи системы управления сайтом</h1>
 			<input type="hidden" id="hide-parent" name="hide-parent" value="0"/>
 			<table  width="100%" id="tree" class="itemtree">
 				{mask:user}
 					<tr class="trtree trtree-click" style="cursor: pointer;" id="tr{admin_id}">
 						<td class="none"><i class="icon-user"></i></td>
-						<td{if:{enabled}<1} class="hiddentext"{/if}>{admin_name}</td>					
+						<td{if:{enabled}<1} class="hiddentext"{/if}>{admin_name}</td>
 					</tr>
 				{/mask}
 			</table>
-			
-			<div class="buttons">				
+
+			<div class="buttons">
 				<button class="btn btn-primary" onclick="javascript:location.href='/manage/users/_aadd/'; return false;" type="button">Добавить</button>
 			</div>
 		</div>
@@ -70,12 +70,12 @@
 		<!--/POPUP-->
 
 		<script>
-		{#	
+		{#
 			$(".trtree-click").jscontext({
-				html: $("#popup-index").html(),				
+				html: $("#popup-index").html(),
 				closeOnMouseLeave : true,
 				open : function() {
-					$("#hide-parent").val(this.substr(2));					
+					$("#hide-parent").val(this.substr(2));
 				}
 			});
 
@@ -100,33 +100,33 @@
 				}
 				else {
 					$(".trtree").removeClass("click");
-				}				
+				}
 			}
-			
+
 		#}
 		</script>
 
-		<!--/CONTENT-->	
-		
+		<!--/CONTENT-->
+
 		{set:error}
-		<script>		
+		<script>
 			$(document).ready(function() {
 				if ({error}==1) {
 					alert("Нет прав");
-				}			
-				
+				}
+
 				window.location.href = '/manage/users/';
 			});
 		</script>
 		{/set}
-									
-									
+
+
 	</div>
-	<!--/MAIN-->						
+	<!--/MAIN-->
 
 
 
 
 </body>
-</html>		
+</html>
 {/mask}

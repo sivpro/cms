@@ -1,33 +1,24 @@
 {reduce:nothing}
 {mask:main}
-			{#			
-			
-			<script type="text/javascript">function fid_134459834937532712712(ymaps) {var map = new ymaps.Map("gmap", {center: [60.559841203704764, 56.844846366440116], zoom: 16, type: "yandex#map"});map.controls.add("zoomControl").add("mapTools").add(new ymaps.control.TypeSelector(["yandex#map", "yandex#satellite", "yandex#hybrid", "yandex#publicMap"]));map.geoObjects.add(new ymaps.Placemark([60.559691, 56.844717], {balloonContent: ""}, {preset: "twirl#redDotIcon"}));};</script>
-			<script type="text/javascript" src="http://api-maps.yandex.ru/2.0/?coordorder=longlat&load=package.full&wizard=constructor&lang=ru-RU&onload=fid_134459834937532712712"></script>			
-			#}
-
 	<div class="name">
 		<h1>{name}</h1>
 	</div>
 
 	<div class="info-box">
-		
+
 		{mask:item}
 			{texthtml}
 		{/mask}
-		
+
 	</div>
 
-	<!--MAP-->			
+	<!--MAP-->
 	<div class="gmap">
 		<h2>Как до нас добраться:</h2>
 		<div id="gmap">
-			
+
 		</div>
 	</div>
 	<!--/MAP-->
 
-
-		
-		
 {/mask}
