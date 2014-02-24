@@ -82,6 +82,8 @@ class adminblockedit extends manage {
 	function printList() {
 		global $control;
 		global $config;
+		$limit = 40;
+
 		$parent = all::getVar("parent");
 
 		$page->status = $_SESSION['admin_status'];
@@ -98,6 +100,7 @@ class adminblockedit extends manage {
 
 		$blockTypes = preg_split("/ /", $blockTypes, null, PREG_SPLIT_NO_EMPTY);
 		$blockTypes = array_unique($blockTypes);
+
 
 		//Если папка не имеет возможных блоков
 		if (count($blockTypes) == 0 && !user_is("super")) {
@@ -139,10 +142,41 @@ class adminblockedit extends manage {
 			}
 		}
 
+
+
+
 		//Только если есть что выбирать
 		if ($currentTemplate) {
+			// Страница текущая
+			if (all::getVar("page") != "") {
+				$lpage = all::getVar("page");
+			}
+			else {
+				$lpage = 0;
+			}
+
+			$start = 0 + $lpage * $limit;
+
+			// Узнаем кол-во блоков текущего шаблона
+			$totalcount = sql::one_record("SELECT count(id) FROM prname_b_".$currentTemplate." WHERE parent=".$parent);
+
+			$tempUrl = $control->module_url;
+
+			// Если блоков больше, чем влазит на страницу - делаем постраничку
+			if ($totalcount > $limit) {
+				$pagecount = ceil($totalcount / $limit);
+				for ($i = 0; $i < $pagecount; $i ++) {
+					$page->page[$i]->title = $i+1;
+					$page->page[$i]->url = $tempUrl."_alist_parent".$parent."_page".$i."/";
+
+					$page->page[$i]->active = $i == $lpage ? true : false;
+				}
+			}
+
+
+
 			//Выборка блоков текущего шаблона
-			$result = sql::query("SELECT * FROM prname_b_".$currentTemplate." WHERE parent=".$parent." ORDER by sort ASC");
+			$result = sql::query("SELECT * FROM prname_b_".$currentTemplate." WHERE parent=".$parent." ORDER by sort ASC LIMIT $start, $limit");
 
 			$dataRel = sql::query("SELECT p2.* from prname_btemplates p1, prname_bdatarel p2 WHERE p1.key='".$currentTemplate."' AND p2.templid=p1.id AND p2.show=1 ORDER by p2.tab, p2.sort");
 
@@ -177,7 +211,7 @@ class adminblockedit extends manage {
 
 		$page->menu = $this->menu;
 		$page->name = sql::one_record("SELECT name FROM prname_tree WHERE id=".$parent);
-        $this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'.html');
+		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'.html');
 	}
 
 	//Вывод списка вложенных блоков
@@ -237,7 +271,7 @@ class adminblockedit extends manage {
 			$page->no = true;
 		}
 
-        $this->html['text'] = sprintt($page, 'templates/'.$control->template.'/itemlist.html');
+		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/itemlist.html');
 	}
 
 	//Вывод формы добавления блока
@@ -290,7 +324,7 @@ class adminblockedit extends manage {
 
 			$class = "type_".$field['datatkey'];
 			$obj = new $class();
-			$genValue = $obj->input('data'.$i, '', $field['comment'], $field['readonly']);
+			$genValue = $obj->input('data'.$i, '', $field['comment']);
 
 			//Если тип данных - загрузка изображений - выносим в отдельную вкладку (так как нужна новая форма для dropzone)
 
@@ -507,7 +541,7 @@ class adminblockedit extends manage {
 
 			$class = "type_".$field['datatkey'];
 			$obj = new $class();
-			$genValue = $obj->input('data'.$i, $value, $field['comment'], $field['readonly']);
+			$genValue = $obj->input('data'.$i, $value, $field['comment']);
 
 
 			//Если тип данных - загрузка изображений - выносим в отдельную вкладку (так как нужна новая форма для dropzone)

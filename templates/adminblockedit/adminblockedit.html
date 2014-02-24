@@ -18,6 +18,8 @@
 	<!--right click and table sorter-->
 	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
 	<script src="/admin/scripts/jquery.tablesorter.min.js"></script>
+	<script src="/admin/scripts/jquery.touchSwipe.js"></script>
+
 
 
 	<script type="text/javascript">
@@ -97,6 +99,21 @@
 				{/set}
 				{set:item}
 
+				{set:page}
+				<div class="pagination pagination-small">
+					<ul>
+						{mask:page}
+							{if:!{active}}
+							<li><a href="{url}">{title}</a></li>
+							{/if}
+							{if:{active}}
+							<li class="active"><span>{title}</span></li>
+							{/if}
+						{/mask}
+					</ul>
+				</div>
+				{/set}
+
 
 				<table cellspacing="1" cellpadding="0" border="0" id="tree" class="blocks">
 					<thead>
@@ -136,6 +153,21 @@
 						{/mask}
 					</tbody>
 				</table>
+				{/set}
+
+				{set:page}
+				<div class="pagination pagination-small">
+					<ul>
+						{mask:page}
+							{if:!{active}}
+							<li><a href="{url}">{title}</a></li>
+							{/if}
+							{if:{active}}
+							<li class="active"><span>{title}</span></li>
+							{/if}
+						{/mask}
+					</ul>
+				</div>
 				{/set}
 				{mis:item}
 					<p class="empty">Вложенных блоков "{templname}" нет</p>
@@ -203,6 +235,7 @@
 			$(".trtree").jscontext({
 				html: $("#popup-index").html(),
 				closeOnMouseLeave : true,
+				bind: "right-click",
 				open : function() {
 					$("#hide-blockid").val(this.substr(6));
 				}

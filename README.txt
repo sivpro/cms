@@ -1,5 +1,7 @@
 Elgrow CMS
 
+Last Modified 24.02.2014 -  Добавлена постраничка в вывод блоков в админке (файлы adminblockedit.php и adminblockedit.html)
+
 Last Modified 04.02.2014 -  Исправлен шаблон вывода редактирования вложенных блоков в админке. (Файл itemedit.html)
 
 							Добавлена генерация ЧПУ (изменен файл admincatedit.html, добавлен скрипт seo-url.js)
