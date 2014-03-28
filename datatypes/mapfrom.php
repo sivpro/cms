@@ -61,5 +61,9 @@ class type_mapfrom {
 		}
 		return $page;
 	}
+
+	public function get($data, $comment, $ro) {
+		return "";
+	}
 }
 ?>

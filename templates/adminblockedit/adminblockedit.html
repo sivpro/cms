@@ -11,14 +11,21 @@
 	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
 
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery-1.7.2.min.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+	<!--bootstrap js-->
+	<script src="/admin/decor/bootstrap/js/bootstrap.min.js"></script>
 
 	<!--right click and table sorter-->
 	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
 	<script src="/admin/scripts/jquery.tablesorter.min.js"></script>
 	<script src="/admin/scripts/jquery.touchSwipe.js"></script>
+
+	<!--flip switch-->
+	<script src="/admin/scripts/flipswitch/iphone-style-checkboxes.js"></script>
+	<link rel="stylesheet" href="/admin/scripts/flipswitch/style.css">
 
 
 
@@ -32,6 +39,27 @@
 					1: {
 						sorter: false
 					}
+				}
+			});
+
+			// Чекбоксы - триггеры
+			$(".flipswitch").iphoneStyle({
+				checkedLabel: 'Да',
+				uncheckedLabel: 'Нет',
+				onChange: function(e, c) {
+					$.post(
+						"/manage/blockedit/",
+						{
+							mode: "trigger",
+							value: c,
+							template: $("#hide-template").val(),
+							id: $(e).attr("data-id"),
+							field: $(e).attr("data-field")
+						},
+						function() {
+
+						}
+					);
 				}
 			});
 		});
@@ -60,6 +88,7 @@
 			<input type="hidden" id="hide-blockid" name="hide-blockid" value="0">
 			<input type="hidden" id="hide-parent" name="hide-parent" value="{parent}">
 			<input type="hidden" id="hide-template" name="hide-template" value="{template}">
+			<input type="hidden" id="hide-page" name="hide-page" value="{lpage}">
 
 			<div class="block">
 				<h2>Блоки "{templname}"</h2>
@@ -121,9 +150,7 @@
 							<th class="none"></th>
 							<th><button class="checkAll btn btn-small">☑</button></th>
 							<th>№</th>
-							{if:{//super}}
-								<th>ID</th>
-							{/if}
+							<th>ID</th>
 							{mask:fields}
 								<th>{name}</th>
 							{/mask}
@@ -143,9 +170,7 @@
 							</td>
 							<td><input type="checkbox" class="group-checkbox" data-id="{id}"></td>
 							<td>{_rank}</td>
-							{if:{//super}}
-								<td>{id}</td>
-							{/if}
+							<td>{id}</td>
 							{mask:fields}
 								<td{if:{../visible}==0} class="hiddentext"{/if}>{val}</td>
 							{/mask}
@@ -177,7 +202,7 @@
 
 
 			<div class="buttons">
-				<input type="button" class="btn btn-primary" value="Создать блок" onclick="javascript:location.href='/manage/blockedit/_aadd_parent{parent}_template{template}/'; return false;">
+				<input type="button" class="btn btn-primary" value="Создать блок" onclick="javascript:location.href='/manage/blockedit/_aadd_parent{parent}_template{template}_page{lpage}/'; return false;">
 				<input type="button" class="btn btn-danger" value="Вернуться" onclick="javascript:location.href='/manage/'; return false;">
 			</div>
 
@@ -186,10 +211,24 @@
 				<p>С отмеченными:</p>
 				<div class="btn-group">
 					<button class="btn btn-danger" onclick="groupDel(); return false;"><i class="icon-trash"></i> Удалить</button>
-
 					<button class="btn btn-warning" onclick="groupHide(); return false;"><i class="icon-eye-close"></i> Скрыть</button>
 					<button class="btn btn-success" onclick="groupShow(); return false;"><i class="icon-eye-open"></i> Показать</button>
 				</div>
+
+				{set:moveTo}
+				<div class="dropdown" style="margin-top: 20px;">
+					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+					Переместить в
+					<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						{mask:moveTo}
+						<li><a href="#">{levels}{name}</a></li>
+						{/mask}
+
+					</ul>
+				</div>
+				{/set}
 			</div>
 		</div>
 
@@ -230,7 +269,7 @@
 		</div>
 		<!--/POPUP-->
 
-		<script type="text/javascript">
+		<script>
 		{#
 			$(".trtree").jscontext({
 				html: $("#popup-index").html(),

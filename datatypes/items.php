@@ -39,6 +39,10 @@ class type_items {
 		return ${"$name"};
 	}
 
+	public function get($data, $comment, $ro) {
+		return "";
+	}
+
 }
 
 ?>

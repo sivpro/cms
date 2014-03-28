@@ -1,4 +1,20 @@
 Elgrow CMS
+							Переработан вывод таблицы с блоками. В классы типов данных добавлена функция get для генерации своего
+							вывода для каждого типа данных.
+							Тип данных "триггер" (чекбокс) теперь выводится в список. И можно переключать прямоиз списка.
+
+							Файлы затронуты: adminblockedit.php, adminblockedit.html, все файлы типов данных (datatypes/),
+Last Modified 23.03.2014 -  добавлены файлы /admin/scripts/flipswitch/
+
+
+							Исправлен метод getVar, чтобы корректно работать с get переменными и со своими переменными одновременно (all.php)
+							То же сдедано в control.php в месте, где достаются $this->oper и $this->bid
+							Исправлен тип данных date для множественного испольования. Перенесены скрипты календаря в папку с админкой,
+							вызов скриптов ушел в шаблоны, а не в тип данных. Файлы задеты adminblockedit_add.html,
+Last Modified 14.03.2014 -  itemedit.html, admincatedit.html, datatypes/date.php
+
+
+Last Modified 11.03.2014 -  Исправления для постранички в админке (файлы adminblockedit.php adminblockedit.html adminblockedit_add.html adminNew.js)
 
 Last Modified 24.02.2014 -  Добавлена постраничка в вывод блоков в админке (файлы adminblockedit.php и adminblockedit.html)
 

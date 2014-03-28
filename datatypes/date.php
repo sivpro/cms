@@ -47,10 +47,8 @@ class type_date {
 		if (!$ro) {
 			$s .= "
 					<button style=\"margin-left: 10px;$style\" class=\"calend\" id=\"trigger".htmlspecialchars($name)."\" ></button>
-					<script type=\"text/javascript\" src=\"/scripts/calendar.js\"></script>
-					<script type=\"text/javascript\" src=\"/scripts/calendar-ru.js\"></script>
-					<script type=\"text/javascript\" src=\"/scripts/calendar-setup.js\"></script>
-					<script type=\"text/javascript\">
+
+					<script>
 						Calendar.setup({
 							inputField: \"".htmlspecialchars($name)."\",
 							ifFormat: \"%d.%m.%Y\",
@@ -74,6 +72,12 @@ class type_date {
 			$data = strftime("%Y-%m-%d");
 		}
 		return stripslashes($data);
+	}
+
+	public function get($data, $comment, $ro) {
+		$data = explode("-", $data);
+		$data = $data[2].".".$data[1].".".$data[0];
+		return $data;
 	}
 
 }

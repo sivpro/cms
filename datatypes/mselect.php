@@ -116,6 +116,62 @@ class type_mselect {
 		return $s;
 	}
 
+	// Значение, комментарий, рид-онли
+	public function get($data, $comment, $ro) {
+		$splitData = splstr($data, ";");
+
+
+		if ( strpos($comment, "c:") !== false || strpos($comment, "b:") !== false ) {
+			$d = explode(":", $comment);
+
+			$type = $d[0];
+			$field = $d[1];
+			$visible = $d[2] == 'vis' ? ' and `visible`=1' : ($d[2] == 'hide' ? ' and `visible`=0' : '');
+			$parent = $d[3];
+			$table = $d[4];
+
+			if ($parent == '$parent') {
+				$parent = all::getVar("parent");
+			}
+
+
+			$parent = ($parent == 'all' ? '`parent`>1' : "`parent`='$parent'");
+
+			if ($type == 'b') {
+				$query = "SELECT id, $field FROM prname_".$type."_".$table." WHERE $parent $visible ORDER BY sort";
+			}
+			if ($type == 'c') {
+				$query = "SELECT id, name FROM prname_categories WHERE $parent $visible AND template='$table' ORDER BY sort";
+			}
+
+			$result = sql::query($query);
+
+			if (sql::num_rows($result) > 0) {
+				while ($arr = sql::fetch_assoc($result)) {
+					if(in_array($arr['id'], $splitData)) {
+						$s .= htmlspecialchars($arr[$field]).", ";
+					}
+				}
+				$s = trim($s, ", ");
+			}
+		}
+
+		else {
+			$val = splstr($comment, ";");
+
+			$d = splstr($data, ";");
+			for ($i = 0; $i < count($val); $i++) {
+				if(in_array(htmlspecialchars($val[$i + 1]), $d)) {
+					$s .= htmlspecialchars($val[$i + 1]).", ";
+				}
+				$s = trim($s, ", ");
+
+			}
+		}
+
+		return $s;
+	}
+
 }
 
 ?>

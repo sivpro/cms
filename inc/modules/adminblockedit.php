@@ -75,6 +75,10 @@ class adminblockedit extends manage {
 			return $this->groupDel();
 		}
 
+		if (isset($_POST['mode']) && $_POST['mode'] == 'trigger') {
+			return $this->trigger();
+		}
+
 
 	}
 
@@ -142,6 +146,20 @@ class adminblockedit extends manage {
 			}
 		}
 
+		// Если есть текущий шаблон - выбираем возможные места переноса блоков
+		if ($currentTemplate) {
+			$sql = "SELECT tree.* FROM prname_ctemplates templ, prname_tree tree WHERE tree.id <> '$parent' AND tree.visible=1 AND templ.key=tree.template AND (templ.blocktypes LIKE '".$currentTemplate." %' OR templ.blocktypes LIKE '% ".$currentTemplate." %')";
+
+			$query = sql::query($sql);
+			while ($res = sql::fetch_object($query)) {
+				$i = $res->level;
+				while($i > 1) {
+					$res->levels += "&nbsp;&nbsp;";
+				}
+				$page->moveTo[] = $res;
+			}
+		}
+
 
 
 
@@ -149,10 +167,10 @@ class adminblockedit extends manage {
 		if ($currentTemplate) {
 			// Страница текущая
 			if (all::getVar("page") != "") {
-				$lpage = all::getVar("page");
+				$page->lpage = $lpage = all::getVar("page");
 			}
 			else {
-				$lpage = 0;
+				$page->lpage = $lpage = 0;
 			}
 
 			$start = 0 + $lpage * $limit;
@@ -182,10 +200,11 @@ class adminblockedit extends manage {
 
 			$j = 0;
 			while ($dr = sql::fetch_assoc($dataRel)) {
-				$dataKey[$j] = $dr['key'];
-				$page->fields[$j]->name = $dr['name'];
+				$page->fields[$j] = (object)$dr;
 				$j ++;
 			}
+
+
 			$j = 0;
 			while ($r = sql::fetch_assoc($result)) {
 				$page->item[$j]->id = $r['id'];
@@ -193,8 +212,17 @@ class adminblockedit extends manage {
 				$name = "";
 
 				$jj = 0;
-				foreach ($dataKey as $val1) {
-					$page->item[$j]->fields[$jj]->val = mb_substr(strip_tags($r[$val1]), 0, 50);
+				foreach ($page->fields as $val1) {
+					// генерируем вывод информации в таблицу
+					$value = $r[$val1->key];
+					$datatkey = $val1->datatkey;
+
+					$class = "type_".$datatkey;
+					$obj = new $class();
+					$genValue = $obj->get($value, $val1->comment, $val1->readonly, $r['id'], $val1->key);
+
+					$page->item[$j]->fields[$jj]->val = $genValue;
+
 					$jj ++;
 				}
 
@@ -281,6 +309,10 @@ class adminblockedit extends manage {
 
 		$parent = all::getVar("parent");
 		$template = all::getVar("template");
+		$page->lpage = all::getVar("page");
+		if (!$page->lpage) {
+			$page->lpage = 0;
+		}
 
 
 		$page->status = $_SESSION['admin_status'];
@@ -324,7 +356,7 @@ class adminblockedit extends manage {
 
 			$class = "type_".$field['datatkey'];
 			$obj = new $class();
-			$genValue = $obj->input('data'.$i, '', $field['comment']);
+			$genValue = $obj->input('data'.$i, '', $field['comment'], $field['readonly']);
 
 			//Если тип данных - загрузка изображений - выносим в отдельную вкладку (так как нужна новая форма для dropzone)
 
@@ -372,6 +404,7 @@ class adminblockedit extends manage {
 		global $control;
 		$parent = $_POST['parent'];
 		$template = $_POST['template'];
+		$lpage = $_POST['page'];
 
 
 
@@ -464,7 +497,7 @@ class adminblockedit extends manage {
 
 
 		if ($mode == '') {
-			header("Location: /manage/blockedit/_alist_parent".$parent."_template".$template."/");
+			header("Location: /manage/blockedit/_alist_parent".$parent."_template".$template."_page".$lpage."/");
 		}
 		else {
 			header("Location: /manage/blockedit/_aitemlist_parent".$parent."_id".$blockparent."_template".$template."/");
@@ -478,6 +511,11 @@ class adminblockedit extends manage {
 		$parent = all::getVar("parent");
 		$template = all::getVar("template");
 		$blockid = all::getVar("id");
+
+		$page->lpage = all::getVar("page");
+		if (!$page->lpage) {
+			$page->lpage = 0;
+		}
 
 		if ($mode == 'item') {
 			$page->blockparent = all::getVar("blockparent");
@@ -526,8 +564,6 @@ class adminblockedit extends manage {
 		}
 
 
-
-
 		//Поля блока
 		$templId = sql::one_record("SELECT id FROM prname_btemplates WHERE `key`='".$template."'");
 
@@ -541,7 +577,7 @@ class adminblockedit extends manage {
 
 			$class = "type_".$field['datatkey'];
 			$obj = new $class();
-			$genValue = $obj->input('data'.$i, $value, $field['comment']);
+			$genValue = $obj->input('data'.$i, $value, $field['comment'], $field['readonly']);
 
 
 			//Если тип данных - загрузка изображений - выносим в отдельную вкладку (так как нужна новая форма для dropzone)
@@ -593,6 +629,7 @@ class adminblockedit extends manage {
 		$parent = $_POST['parent'];
 		$template = $_POST['template'];
 		$blockid = $_POST['blockid'];
+		$lpage = $_POST['page'];
 
 
 
@@ -611,10 +648,6 @@ class adminblockedit extends manage {
 
 			$query .= " , `".addslashes($_POST['dat'][$i])."` = '".$genValue."' ";
 		}
-
-
-
-
 
 
 		//А потом SEO-поля
@@ -669,7 +702,7 @@ class adminblockedit extends manage {
 		sql::query($query);
 
 		if ($mode == '') {
-			header("Location: /manage/blockedit/_alist_parent".$parent."_template".$template."/");
+			header("Location: /manage/blockedit/_alist_parent".$parent."_template".$template."_page".$lpage."/");
 		}
 		else {
 			header("Location: /manage/blockedit/_aitemlist_parent".$parent."_id".$blockparent."_template".$template."/");
@@ -938,7 +971,25 @@ class adminblockedit extends manage {
 				}
 			}
 		}
+	}
 
+	private function trigger() {
+		global $control, $config;
+
+		$id = $_POST['id'] + 1 - 1;
+		$template = $_POST['template'];
+		$field = $_POST['field'];
+		$value = $_POST['value'];
+
+		if ($value == "true") {
+			$value = 1;
+		}
+		else {
+			$value = 0;
+		}
+		$sql = "UPDATE prname_b_$template SET $field=$value WHERE id=$id";
+		sql::query($sql);
+		die();
 	}
 }
 ?>

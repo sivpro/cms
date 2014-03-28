@@ -164,8 +164,11 @@ function delCat(a) {
 
 function blockList(a) {
 	if ($(a).attr("rel") > 0) {
-		var parent = $("#hide-parent").val();
+		var parent = $("#hide-parent").val(),
+			page = $("#hide-page").val();
+
 		if (!parent) return false;
+
 		window.location.href = '/manage/blockedit/_alist_parent'+parent+'/';
 	}
 }
@@ -260,11 +263,13 @@ function beginMove(parent, mode) {
 
 
 function editBlock() {
-	var parent = $("#hide-parent").val();
-	var blockid =  $("#hide-blockid").val();
-	var btemplate =  $("#hide-template").val();
+	var parent = $("#hide-parent").val(),
+		blockid =  $("#hide-blockid").val(),
+		btemplate =  $("#hide-template").val(),
+		page = $("#hide-page").val();
+
 	if (!parent) return false;
-	window.location.href = '/manage/blockedit/_aedit_id'+blockid+'_template'+btemplate+'_parent'+parent+'/';
+	window.location.href = '/manage/blockedit/_aedit_id'+blockid+'_template'+btemplate+'_parent'+parent+'_page'+page+'/';
 }
 
 function editItemBlock() {

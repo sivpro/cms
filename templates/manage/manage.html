@@ -1,20 +1,24 @@
 {reduce:nothing}
 {mask:main}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
 
 	<title>Система администрирования сайта {sitename}</title>
 
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="/admin/decor/{theme}/css/styles.css" />
-	<link rel="stylesheet" type="text/css" href="/admin/decor/bootstrap/css/bootstrap.css" />
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/admin/decor/{theme}/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="/admin/decor/bootstrap/css/bootstrap.css">
 
-	<script type="text/javascript" src="/admin/scripts/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="/admin/scripts/jquery.jscontext-1.0.js"></script>
-	<script type="text/javascript" src="/admin/scripts/jquery.cookie.js"></script>
-	<script type="text/javascript" src="/admin/scripts/adminNew.js"></script>
-	<script type="text/javascript" src="/admin/scripts/decor.js"></script>
+	<!--admin scripts AND TinyMce-->
+	<script src="/admin/scripts/jquery-1.7.2.min.js"></script>
+	<script src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+	<!--right click and cookie-->
+	<script src="/admin/scripts/jquery.jscontext-1.0.js"></script>
+	<script src="/admin/scripts/jquery.cookie.js"></script>
+
 
 
 
@@ -27,7 +31,7 @@
 
 		<!--MENU-->
 		<div class="menu">
-			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png"  alt=""></div>
+			<div class="logo"><img src="/admin/decor/{theme}/img/logo.png" alt=""></div>
 			{menu}
 		</div>
 		<!--/MENU-->
@@ -90,14 +94,14 @@
 					$("#hide-parent").val(this.substr(2));
 					#}
 					{mis:super}
-						var id = $("#hide-parent").val();
-						var candel = parseInt($("#candel_"+id).val());
-						var canedit = parseInt($("#canedit_"+id).val());
-						var canaddcat = parseInt($("#canaddcat_"+id).val());
-						var canaddbl = parseInt($("#canaddbl_"+id).val());
-						var canmoveto = parseInt($("#canmoveto_"+id).val());
-						var cancopyto = parseInt($("#cancopyto_"+id).val());
-						var canhide = parseInt($("#canhide_"+id).val());
+						var id = $("#hide-parent").val(),
+							candel = parseInt($("#candel_"+id).val()),
+							canedit = parseInt($("#canedit_"+id).val()),
+							canaddcat = parseInt($("#canaddcat_"+id).val()),
+							canaddbl = parseInt($("#canaddbl_"+id).val()),
+							canmoveto = parseInt($("#canmoveto_"+id).val()),
+							cancopyto = parseInt($("#cancopyto_"+id).val()),
+							canhide = parseInt($("#canhide_"+id).val());
 
 						if (canedit < 1) $(".aEdit").attr("rel", "0").parents("li").addClass("disabled");
 						else $(".aEdit").attr("rel", "1").parents("li").removeClass("disabled");
@@ -152,7 +156,7 @@
 		</script>
 
 		{set:error}
-		<script type="text/javascript">
+		<script>
 			$(document).ready(function() {
 				if ({error}==1) {
 					alert("Перемещение в выбранную папку невозможно");
@@ -167,7 +171,7 @@
 					alert("Копирование этой папки запрещено");
 				}
 
-				window.location.href = '/manage';
+				window.location.href = '/manage/';
 			});
 		</script>
 		{/set}
@@ -226,13 +230,13 @@
 		{/if}
 		<td>
 			{mis:no}
-			<input type="hidden" id="candel_{id}" name="candel_{id}" value="{candel}"/>
-			<input type="hidden" id="canedit_{id}" name="canedit_{id}" value="{canedit}"/>
-			<input type="hidden" id="canaddcat_{id}" name="canaddcat_{id}" value="{canaddcat}"/>
-			<input type="hidden" id="canaddbl_{id}" name="canaddbl_{id}" value="{canaddbl}"/>
-			<input type="hidden" id="canmoveto_{id}" name="canmoveto_{id}" value="{canmoveto}"/>
-			<input type="hidden" id="cancopyto_{id}" name="cancopyto_{id}" value="{cancopyto}"/>
-			<input type="hidden" id="canhide_{id}" name="canhide_{id}" value="{canhide}"/>
+			<input type="hidden" id="candel_{id}" name="candel_{id}" value="{candel}">
+			<input type="hidden" id="canedit_{id}" name="canedit_{id}" value="{canedit}">
+			<input type="hidden" id="canaddcat_{id}" name="canaddcat_{id}" value="{canaddcat}">
+			<input type="hidden" id="canaddbl_{id}" name="canaddbl_{id}" value="{canaddbl}">
+			<input type="hidden" id="canmoveto_{id}" name="canmoveto_{id}" value="{canmoveto}">
+			<input type="hidden" id="cancopyto_{id}" name="cancopyto_{id}" value="{cancopyto}">
+			<input type="hidden" id="canhide_{id}" name="canhide_{id}" value="{canhide}">
 			{/mis}
 		</td>
 	</tr>

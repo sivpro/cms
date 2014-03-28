@@ -18,7 +18,7 @@
  */
 
 
-//error_reporting(E_ALL);
+// error_reporting(E_ALL);
 
 /**
  * Класс контроллера
@@ -108,18 +108,6 @@ class Controller {
 	 */
 	public $NESTEDSETS = true;
 
-	/**
-	 * Папка для кеширования
-	 * @var string
-	 */
-	private $cdir =  '';
-
-	/**
-	 * Некэшируемые плагины
-	 * @var array
-	 */
-	private $nocache_misk = array('basketblock', 'blockcompare', 'footer', 'adminedit');
-
 
 	/**
 	 * Путь без query string
@@ -144,6 +132,7 @@ class Controller {
 		global $sql;
 		global $config;
 		$this->sql = $sql;
+
 
 		// Парсим урл
 		$segments = preg_split("#/#", $rUrl, -1, PREG_SPLIT_NO_EMPTY);
@@ -175,12 +164,12 @@ class Controller {
 		$this->url = $config['server_url'].$this->pathstring.$p;
 		$this->all = new All();
 
-		//Имя сайта
+		// Имя сайта
 		$this->settings = all::c_data_all(12, "settings");
 		$config['site_name'] = $this->settings->sitename;
 
 
-		//Блоковый урл 13.09.2011
+		//Блоковый урл
 		$blockUrl = $sql->fetch_assoc($sql->query("SELECT * FROM prname_urls WHERE url='".$this->pathstring."' OR url='".$this->pathstring."/"."' LIMIT 0,1"));
 
 		if ($blockUrl != null) {
@@ -188,11 +177,11 @@ class Controller {
 			$urlparams = "aview_b".$blockUrl['blockid'];
 		}
 
-		//Выбираем из базы строку с таким урлом
+		// Выбираем из базы строку с таким урлом
 		$q = "SELECT * FROM prname_tree WHERE url = '$this->pathstring' OR url = '$this->pathstring/' ";
 		$str = $sql->fetch_array($sql->query($q));
 
-		//Если есть - ставим переменные
+		// Если есть - ставим переменные
 		if ($str['id']) {
 			$this->cid = $str['id'];
 			$this->level = $str['level'];
@@ -201,7 +190,7 @@ class Controller {
 			$this->module_url = $config['server_url'].$str['url'];
 			$this->parents = tree::getParentsNew($str['left_key'], $str['right_key']);
 		}
-		//Если нету - ошибка 404 (см. файл inner.php)
+		// Если нету - ошибка 404 (см. файл inner.php)
 		else {
 			$this->error = "error404";
 			return;
@@ -221,23 +210,20 @@ class Controller {
 						}
 					// Режим
 					case "a": {
-							if (!$this->oper)
+							if (!$this->oper) {
 								$this->oper = substr($arr_one, 1);
+								if (($getPos = strpos($this->oper, "?")) > -1) {
+									$this->oper = substr($this->oper, 0, $getPos);
+								}
+							}
 							break;
 						}
 					// Номер блока
 					case "b": {
 							$this->bid = substr($arr_one, 1);
-							break;
-						}
-					// Сортировка
-					case "s": {
-							$this->sort_f = substr($arr_one, 1);
-							break;
-						}
-					// Сортировка
-					case "v": {
-							$this->sort_v = substr($arr_one, 1);
+							if (($getPos = strpos($this->bid, "?")) > -1) {
+								$this->bid = substr($this->bid, 0, $getPos);
+							}
 							break;
 						}
 				}
@@ -318,8 +304,6 @@ class Controller {
 		global $sql;
 		global $config;
 
-		$this->makeDirTemplates();
-
 		$this->getSeoFields();
 
 		if (is_file("inc/modules/".$this->module.".php")) {
@@ -334,52 +318,8 @@ class Controller {
 		$this->html = $this->all->read_file("templates/".$this->wrapper);
 		$this->html = $this->html ? $this->html : 'Отсутствие файла '.$this->wrapper;
 
-		//preg_match_all('/<!--(.*?)\/\/-->/Ui', $this->html, $arr_modules);
 
-
-		//процедура кеширования
-		if ($this->cache('modules', $this->module) == false) {
-
-
-			eval("\$".$this->module." = new ".$this->module." (); ");
-
-
-			preg_match_all('/<!--(control.*?)\/\/-->/Ui', $this->html, $arr_keys);
-
-			if (count($arr_keys) > 0) {
-				foreach ($arr_keys[1] as $one_arr) {
-
-					$one_arr = str_replace('control_', '', $one_arr);
-					if ($fp = fopen($this->cdir.'control_'.$one_arr.'.html', 'w+')) {
-						fputs($fp, ${$this->module}->html[$one_arr]);
-						fclose($fp);
-
-						//ставим указатель на то что результат перекэшировали
-						$q = "DELETE FROM prname__templates WHERE page = '".$sql->escape_string($this->cdir)."' AND html = 'control_".$one_arr."' ";
-						$sql->query($q);
-						$q = "INSERT INTO prname__templates (page, html, flag) VALUES ('".$sql->escape_string($this->cdir)."', '".$sql->escape_string('control_'.$one_arr)."',1) ";
-						$sql->query($q);
-					}
-				}
-			}
-
-
-		}
-		else {
-
-			//достаем из файлов
-			preg_match_all('/<!--(control.*?)\/\/-->/is', $this->html, $arr_keys);
-			if (count($arr_keys) > 0) {
-				foreach ($arr_keys[1] as $one_arr) {
-					$one_arr = str_replace('control_', '', $one_arr);
-
-					${$this->module}->html[$one_arr] = implode(file($this->cdir.'control_'.$one_arr.'.html'));
-				}
-			}
-		}
-
-
-
+		${$this->module} = new $this->module();
 
 		$arr_keys = @array_keys(${$this->module}->html);
 		if (count($arr_keys) > 0) {
@@ -394,12 +334,6 @@ class Controller {
 		if (count($arr_modules) > 0) {
 			foreach ($arr_modules[1] as $one_arr) {
 
-				if (isset($this->misk_type)) {
-					if ($this->misk_type !== $one_arr) {
-						continue;
-					}
-				}
-
 				if (!strstr($one_arr, 'control')) {
 					if (!is_file("inc/misc/".$one_arr.".php")) {
 						$tmp_file_body = $this->all->read_file("inc/misc/_default_.php");
@@ -411,32 +345,10 @@ class Controller {
 					}
 					include_once ("inc/misc/".$one_arr.".php");
 
-					//процедура кеширования
-					if ($this->cache('misc', $one_arr) == false) {
-						eval("\$tmp_print".$one_arr." = new ".$one_arr." (); ");
-						$miskhtml = ${"tmp_print".$one_arr}->Make($one_arr.".html");
-
-
-						if ($fp = fopen($this->cdir.'misc_'.$one_arr.'.html', 'w+')) {
-							fputs($fp, $miskhtml);
-							fclose($fp);
-							//ставим указатель на то что результат перекэшировали )
-							$q = "DELETE FROM prname__templates WHERE page = 			'".$sql->escape_string($this->cdir)."' AND html = 'misc_".$one_arr."' ";
-							$sql->query($q);
-							$q = "INSERT INTO prname__templates (page, html, flag) VALUES (
-								'".$sql->escape_string($this->cdir)."', '".$sql->escape_string('misc_'.$one_arr)."',
-								1) ";
-							$sql->query($q);
-						}
-
-					}
-					else {
-						//достаем из файла
-						$miskhtml = implode(file($this->cdir.'misc_'.$one_arr.'.html'));
-					}
+					${"tmp_print".$one_arr} = new $one_arr();
+					$miskhtml = ${"tmp_print".$one_arr}->Make($one_arr.".html");
 				}
-				if (isset($this->misc_type) && $one_arr == $this->misk_type)
-					$this->html = $miskhtml;
+
 
 				$this->html = str_replace("<!--$one_arr//-->", $miskhtml, $this->html);
 			}
@@ -464,7 +376,12 @@ class Controller {
 			/*Иначе - сами генерируем*/
 			else {
 				$a = all::b_data_all($this->bid, $this->module_wrap);
-				$this->titleSeo = $a->name." - ".$config['site_name'];
+				if ($this->module_wrap == "lot") {
+					$this->titleSeo = "Заявка № ".$a->id. " - ".$config['site_name'];
+				}
+				else {
+					$this->titleSeo = $a->name." - ".$config['site_name'];
+				}
 			}
 			$this->descriptionSeo = $a->udescription;
 			$this->keywordsSeo = $a->ukeywords;
@@ -492,101 +409,6 @@ class Controller {
 		}
 
 	}
-
-	/**
-	 * Функция проверяет кэш, и в сучае необходимости создает его
-	 * @global object of class sql $sql
-	 * @param type $type (modules or misc)
-	 * @param type $script - имя модуля/плагина
-	 * @return boolean
-	 */
-	function cache($type, $script) {
-		global $sql;
-		return false;
-		$cache = true;
-
-		/*Если есть Пост данные - выключение кэша*/
-		if (count($_POST) > 0) {
-			$cache = false;
-		}
-
-
-
-		if ($type == 'misc') {
-
-			//Перебор некэшируемых плагинов*/
-			if (count($this->nocache_misk) > 0) {
-				foreach ($this->nocache_misk as $one_arr) {
-					if ($one_arr == $script) {
-						$cache = false;
-					}
-				}
-			}
-
-			$q = "SELECT flag FROM prname__templates WHERE page = '".$sql->escape_string($this->cdir)."' AND html = 'misc_".$script."' ";
-			$t_flag = $sql->one_record($q);
-			if ($t_flag == 0)
-				$cache = false;
-			if (!is_file($this->cdir.'misc_'.$script.'.html')) {
-				$cache = false;
-			}
-
-		}
-
-
-		if ($type == 'modules') {
-
-			$cache = sql::one_record("SELECT `cache` FROM prname_ctemplates WHERE `key`='".$script."'");
-			if ($cache === 0) {
-				$cache = false;
-			}
-
-			preg_match_all('/<!--(control.*?)\/\/-->/is', $this->html, $arr_keys);
-			if (count($arr_keys) > 0) {
-				foreach ($arr_keys[1] as $one_arr) {
-					$one_arr = str_replace('control_', '', $one_arr);
-					$q = "SELECT flag FROM prname__templates WHERE page = '".$sql->escape_string($this->cdir)."' AND html = 'control_".$one_arr."' ";
-
-
-					$t_flag = $sql->one_record($q);
-					if ($t_flag == 0)
-						$cache = false;
-					if (!is_file($this->cdir.'control_'.$one_arr.'.html')) {
-						$cache = false;
-					}
-				}
-			}
-		}
-		return $cache;
-	}
-
-	/**
-	 * Функция создает папки для кэша
-	 */
-	function makeDirTemplates() {
-		$rmdir = 'templates/_templates/'.$this->pathstring.'/';
-
-		if ($this->urlparams != '') {
-			$rmdir .= $this->urlparams.'/';
-		}
-		$arr_string = preg_split('#/#', $rmdir, null, PREG_SPLIT_NO_EMPTY);
-
-		if (count($arr_string) > 0) {
-			$cdir = '';
-
-			foreach ($arr_string as $one_arr) {
-				$cdir .= $one_arr.'/';
-			}
-
-			file::checkDir($cdir);
-		}
-
-		if (file_exists($cdir)) {
-			$this->cdir = $cdir;
-		}
-
-	}
-
 }
 
 ?>

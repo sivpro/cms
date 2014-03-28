@@ -23,7 +23,7 @@
 class type_time {
 	public function input($name, $data, $comment = '') {
 		if ($data == "") $data = date('H:i');
-		
+
 		$s =  "<input  class=\"text\" maxlength=10 id=\"t".htmlspecialchars($name)."\" name=\"".htmlspecialchars($name)."\" type=\"text\" value=\"".htmlspecialchars($data)."\" onkeypress=\"return false\">
 		<button class=\"calend\" id=\"trigger".htmlspecialchars($name)."\"></button>
 
@@ -42,6 +42,10 @@ class type_time {
 	public function save($name) {
 		global ${"$name"};
 		return stripslashes(${"$name"});
+	}
+
+	public function get($data, $comment, $ro) {
+		return $data;
 	}
 
 }

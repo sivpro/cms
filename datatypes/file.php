@@ -28,9 +28,9 @@
  * запятую. Например <resize:100x500,300x600,400x200xcrop>
  */
 class type_file {
-	public function input($name, $data, $comment = '') {		
-		global $config;		
-		
+	public function input($name, $data, $comment = '') {
+		global $config;
+
 		if (strpos($comment, "resize") > -1) {
 			$aspectRatio = str_replace("resize:", "", $comment);
 			$aspectRatio = explode("x", $aspectRatio);
@@ -55,7 +55,7 @@ class type_file {
 		/*Если файл - изображение и оно уже загружено, при условии атрибута realcrop - выводим кроппер*/
 		$fileInfo = pathinfo(DOC_ROOT."/files/0/".$data);
 		$fileInfo['extension'] = strtolower($fileInfo['extension']);
-		
+
 		if (($fileInfo['extension'] == 'jpg' || $fileInfo['extension'] == 'jpeg' || $fileInfo['extension'] == 'png') && strpos($comment, "realcrop") > -1) {
 			$s .= "<div class=\"cropper\" style=\"margin-top: 20px;\">
 				<img src=\"/files/3/".$data."\" id=\"crop-target\" alt=\"\" style=\"margin-top: 20px; display: none;\"/ >
@@ -72,9 +72,9 @@ class type_file {
 
 			$s .= "<script>
 				var api;
-				
+
 				function initCrop() {
-				  $('#crop-target').Jcrop({					
+				  $('#crop-target').Jcrop({
 					bgOpacity: 0.5,
 					bgColor: 'white',
 					addClass: 'jcrop-dark',
@@ -82,7 +82,7 @@ class type_file {
 					onSelect:   writeCoords,
 					aspectRatio: ".$aspectRatio."
 				  },function(){
-					api = this;					
+					api = this;
 					api.setOptions({ bgFade: true });
 					api.ui.selection.addClass('jcrop-selection');
 				  });
@@ -96,7 +96,7 @@ class type_file {
 					$('#w').val(c.w);
 					$('#h').val(c.h);
 				};
-			 
+
 
 				$('#cropDataButton').live('click', function() {
 					$('#crop-target').show();
@@ -104,21 +104,21 @@ class type_file {
 					$('#cropDataButton').hide();
 					$('#cropDataCancel').show();
 					return false;
-					
+
 				});
 
 				$('#cropDataCancel').live('click', function() {
 					api.destroy();
 					$('#crop-target').hide();
-					
+
 					$('#cropDataButton').show();
 					$('#cropDataCancel').hide();
 					return false;
-					
+
 				});
-				
+
 			</script>
-			
+
 			";
 
 		}
@@ -134,7 +134,7 @@ class type_file {
 		global ${"$name"."_size"};
 		global ${"$name"."_remove"};
 		global $error;
-		
+
 		$uploaded = false;
 		${"$name"} = $_FILES[$name]['tmp_name'];
 		${"$name"."_type"} = $_FILES[$name]['type'];
@@ -150,9 +150,9 @@ class type_file {
 		$y2 = $_POST['y2'];
 
 		$w = $_POST['w'];
-		$h = $_POST['h'];		
+		$h = $_POST['h'];
 
-		if (is_uploaded_file(${"$name"})) {			
+		if (is_uploaded_file(${"$name"})) {
 
 			$uploaded = true;
 			$fn = $_FILES[$name]['name'];
@@ -186,7 +186,7 @@ class type_file {
 
 			}
 
-			
+
 
 			if (($n = strpos($comment, 'selfname:')) !== false) {
 
@@ -200,7 +200,7 @@ class type_file {
 						$fn1 = explode('resize:',$comment);
 						$fs = explode(',',$fn1[1]);
 
-						for ($if=0;$if<count($fs);$if++) {							
+						for ($if=0;$if<count($fs);$if++) {
 							resize_image($fn, $fs[$if], $if+1);
 						}
 					}
@@ -220,7 +220,7 @@ class type_file {
 						$fs = explode(',',$fn1[1]);
 
 						for ($if=0;$if<count($fs);$if++) {
-							resize_image($fn, $fs[$if], $if+1);							
+							resize_image($fn, $fs[$if], $if+1);
 						}
 
 					}
@@ -235,10 +235,10 @@ class type_file {
 		if (!$uploaded) {
 			/*Кадрирование*/
 			if (isset($_POST['x1'])) {
-				
+
 				$data = pack("H*", stripslashes(${"$name"."_wasuploaded"}));
 
-				
+
 
 				$fn = $data;
 
@@ -247,12 +247,12 @@ class type_file {
 					$fs = explode(',',$fn1[1]);
 
 					for ($if=0;$if<count($fs);$if++) {
-						
+
 
 						$mimes = explode("x", $fs[$if]);
-						
+
 						if ($mimes[3] == 'realcrop') {
-							
+
 							$cropData['x1'] = $x1;
 							$cropData['y1'] = $y1;
 							$cropData['x2'] = $x2;
@@ -281,6 +281,10 @@ class type_file {
 		}
 
 		return $data;
+	}
+
+	public function get($data, $comment, $ro) {
+		return "";
 	}
 
 }

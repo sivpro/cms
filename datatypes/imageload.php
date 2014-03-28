@@ -23,7 +23,7 @@
 
  /**
  * Тип данных для загрузки изображений.
- * Параметры в комментарии: 
+ * Параметры в комментарии:
  * "resize:" - ресайзы изображений. например <resize:100x500> сделает точный ресайз (с выводом кроппера)
  * Чтобы сделать несколько ресайзов нужно писать их через
  * запятую. Например <resize:100x500,300x600>
@@ -38,10 +38,10 @@ class type_imageload {
 			foreach ($sizes as $key => $val) {
 				$sizes[$key] = explode("x", $val);
 				$sizes[$key]['aspectRatio'] = $sizes[$key][0] / $sizes[$key][1];
-			}			
+			}
 		}
-		
-		
+
+
 		//Ресайзы
 		$sizesScript = json_encode($sizes);
 		$sizesScript = "<script>sizes['$name'] = $sizesScript;</script>\n";
@@ -51,13 +51,13 @@ class type_imageload {
 
 		//Значения
 		$data = explode(";", $data);
-		
+
 		$i = 0;
 		foreach ($data as $key => $val) {
 
 			//Проверка на наличие файла и не пустую строку
 			if ($val != "" && file_exists(DOC_ROOT."/files/0/".$val)) {
-				
+
 				$page->data[$i]->name = $val;
 				$page->data[$i]->sname = "file_".$name."_".$i;
 				$i ++;
@@ -72,7 +72,7 @@ class type_imageload {
 
 	public function input2($name, $data, $comment = '') {
 		$data = explode(";", $data);
-		
+
 
 		//Проверка на наличие файла и не пустую строку
 		foreach ($data as $key => $val) {
@@ -91,6 +91,10 @@ class type_imageload {
 	public function save($name) {
 		global ${"$name"};
 		return stripslashes(${"$name"});
+	}
+
+	public function get($data, $comment, $ro) {
+		return "";
 	}
 
 }

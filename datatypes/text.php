@@ -46,5 +46,13 @@ class type_text {
 		return stripslashes(${"$name"});
 	}
 
+	public function get($data, $comment, $ro) {
+		if (strlen($data) >= 50) {
+			$data = substr($data, 0, 50);
+			$data = substr($data, 0, strrpos($data, " "))."...";
+		}
+		return strip_tags(trim($data));
+	}
+
 }
 ?>

@@ -44,5 +44,21 @@ class type_checkbox {
 		return (${"$name"} > 0)?1:0;
 	}
 
+	// Значение, комментарий, рид-онли, id блока, поле
+	public function get($data, $comment, $ro, $id, $field) {
+		if ($ro == 1) {
+			return $data == 1 ? "Да" : "Нет";
+		}
+		else {
+			if ($data == 1) {
+				$return = "<input type='checkbox' class='flipswitch' checked data-id='$id' data-field='$field'>";
+			}
+			else {
+				$return = "<input type='checkbox' class='flipswitch' data-id='$id' data-field='$field'>";
+			}
+			return $return;
+		}
+	}
+
 }
 ?>

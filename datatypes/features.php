@@ -43,18 +43,18 @@ class type_features {
 		$table = all::c_data_all($parent, $template);
 		$table = $table->tablech_sel;
 
-		/*Формируем список характеристик*/
+		// Формируем список характеристик
 		$list = new Listing('spec', 'blocks', $table);
 		$list->getList();
 		$list->getItem();
 		$item = $list->item;
 
-		/*Создание таблицы для характеристик*/
+		// Создание таблицы для характеристик
 		$sql = "CREATE table IF NOT EXISTS prname_ch_".$table." (`id` int(12) NOT NULL auto_increment, `itemid` int(12) NOT NULL, PRIMARY KEY  (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;";
 
 		sql::query($sql);
 
-		/*Добавление полей к таблице если необходимо*/
+		// Добавление полей к таблице если необходимо
 		$fields = array();
 		$sql = "DESCRIBE prname_ch_".$table;
 
@@ -70,7 +70,7 @@ class type_features {
 
 
 
-		/*Доп поля*/
+		// Доп поля
 		if ($item != null) {
 
 			$sqlAdd = "";
@@ -101,7 +101,7 @@ class type_features {
 
 
 
-		/*Удаляем ненужные/устаревшие поля*/
+		// Удаляем ненужные/устаревшие поля
 		if (count($fields) > 0) {
 			foreach ($fields as $val) {
 				$sqlAdd = " DROP `".$val."`";
@@ -110,9 +110,9 @@ class type_features {
 			}
 		}
 
-		/*Выяснение значений*/
+		// Выяснение значений
 		if ($blockid) {
-			/*Проверяем есть ли уже такая запись*/
+			// Проверяем есть ли уже такая запись
 			$is = sql::one_record("SELECT id FROM prname_ch_".$table." WHERE itemid=".$blockid);
 			if ($is) {
 				$data = sql::fetch_assoc(sql::query("SELECT * FROM prname_ch_".$table." WHERE itemid=".$blockid));
@@ -157,7 +157,7 @@ class type_features {
 
 
 
-		/*Проверяем есть ли уже такая запись*/
+		// Проверяем есть ли уже такая запись
 		$is = sql::one_record("SELECT id FROM prname_ch_".$table." WHERE itemid=".$blockid);
 
 
@@ -186,6 +186,10 @@ class type_features {
 		sql::query($query);
 
 		return "all";
+	}
+
+	public function get($data, $comment, $ro) {
+		return "";
 	}
 }
 ?>

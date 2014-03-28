@@ -100,6 +100,40 @@ class type_select {
 		return ${"$name"};
 	}
 
+	public function get($data, $comment, $ro) {
+		if ($data == "") {
+			return "";
+		}
+		if ( strpos($comment, "c:") !== false || strpos($comment, "b:") !== false ) {
+			$d = explode(":", $comment);
+
+			$type = $d[0];
+			$field = $d[1];
+			$visible = $d[2] == 'vis' ? ' and `visible`=1' : ($d[2] == 'hide' ? ' and `visible`=0' : '');
+			$parent = $d[3];
+			$table = $d[4];
+
+			$parent = ($parent == 'all' ? '`parent`>1' : "`parent`='$parent'");
+
+			if ($type == 'b') {
+				$query = "SELECT id, $field FROM prname_".$type."_".$table." WHERE id=$data";
+
+			}
+			if ($type == 'c') {
+				$query = "SELECT id, name FROM prname_categories WHERE id=$data AND template='$table'";
+			}
+
+			$result = sql::fetch_assoc(sql::query($query));
+			$s = $result[$field];
+		}
+
+		else {
+			$s = $data;
+		}
+
+		return $s;
+	}
+
 }
 
 ?>

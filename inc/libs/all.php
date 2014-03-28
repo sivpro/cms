@@ -335,6 +335,10 @@ class All {
 				if (substr($param, 0, strlen($name)) == $name) {
 					$var = substr($param, strlen($name));
 					$var = trim($var, '/');
+
+					if (($getPos = strpos($var, "?")) > -1) {
+						$var = substr($var, 0, $getPos);
+					}
 					return $var;
 				}
 			}
