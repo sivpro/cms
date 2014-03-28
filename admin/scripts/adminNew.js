@@ -32,6 +32,10 @@ $(document).ready(function() {
 	//Удаление изображения
 	$(".erase-button").live("click", deleteImage);
 
+	// Перемещение блоков к другому родителю
+	$("#moveToSelect").change(moveTo);
+
+
 
 	//TinyMce
 	tinymce.init({
@@ -369,12 +373,18 @@ var groupShow = function() {
 	}
 };
 
-var moveTo = function (newParent) {
+var moveTo = function() {
 	var str = "",
+		t = $(this),
+		value = t.val(),
+		newParent = t.attr("data-id") + 1 - 1,
 		parent = $("#hide-parent").val(),
 		btemplate =  $("#hide-template").val(),
-		newParent = newParent + 1 - 1,
 		attr;
+
+	if (value == 0) {
+		return false;
+	}
 
 
 	$(".group-checkbox").each(function() {
@@ -383,7 +393,6 @@ var moveTo = function (newParent) {
 			str += $(this).attr("data-id")+";";
 		}
 	});
-
 
 	if (str !== "" && confirm('Вы действительно хотите переместить выбранные блоки?')) {
 		window.location.href = '/manage/blockedit/_amoveto_parent'+parent+'_new'+newParent+'_template'+btemplate+'_ids'+str+'/';

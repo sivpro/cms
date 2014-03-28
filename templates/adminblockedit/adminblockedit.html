@@ -217,16 +217,15 @@
 
 				{set:moveTo}
 				<div class="dropdown" style="margin-top: 20px;">
-					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-					Переместить в
-					<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu" role="menu">
-						{mask:moveTo}
-						<li><a href="#" onclick="moveTo({id});">{levels}{name}</a></li>
-						{/mask}
 
-					</ul>
+					<p>Переместить в</p>
+
+					<select id="moveToSelect">
+						<option value="0" selected>Переместить в:</option>
+						{mask:moveTo}
+						<option data-id="{id}" value="1">{levels}{name}</option>
+						{/mask}
+					</select>
 				</div>
 				{/set}
 			</div>

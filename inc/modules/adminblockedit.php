@@ -152,7 +152,7 @@ class adminblockedit extends manage {
 
 		// Если есть текущий шаблон - выбираем возможные места переноса блоков
 		if ($currentTemplate) {
-			$sql = "SELECT tree.* FROM prname_ctemplates templ, prname_tree tree WHERE tree.id <> '$parent' AND tree.visible=1 AND templ.key=tree.template AND (templ.blocktypes LIKE '".$currentTemplate." %' OR templ.blocktypes LIKE '% ".$currentTemplate." %')";
+			$sql = "SELECT tree.* FROM prname_ctemplates templ, prname_tree tree WHERE tree.id <> '$parent' AND templ.key=tree.template AND (templ.blocktypes LIKE '".$currentTemplate." %' OR templ.blocktypes LIKE '% ".$currentTemplate." %')";
 
 			$query = sql::query($sql);
 			while ($res = sql::fetch_object($query)) {
