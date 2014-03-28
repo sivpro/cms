@@ -75,6 +75,10 @@ class adminblockedit extends manage {
 			return $this->groupDel();
 		}
 
+		if ($control->oper == 'moveto') {
+			return $this->moveTo();
+		}
+
 		if (isset($_POST['mode']) && $_POST['mode'] == 'trigger') {
 			return $this->trigger();
 		}
@@ -152,9 +156,11 @@ class adminblockedit extends manage {
 
 			$query = sql::query($sql);
 			while ($res = sql::fetch_object($query)) {
+				$res->levels = "";
 				$i = $res->level;
 				while($i > 1) {
-					$res->levels += "&nbsp;&nbsp;";
+					$res->levels .= "&nbsp;&nbsp;&nbsp;&nbsp;";
+					$i--;
 				}
 				$page->moveTo[] = $res;
 			}
@@ -892,6 +898,28 @@ class adminblockedit extends manage {
 		foreach ($ids as $val) {
 			if ($val !== "") {
 				sql::query("UPDATE prname_b_".$template." SET visible=1 WHERE id=".$val);
+			}
+		}
+
+		header("Location: /manage/blockedit/_alist_parent".$parent."_template".$template."/");
+	}
+
+
+	// Перемещение блоков к другому родителю
+	function moveTo() {
+		global $control;
+		$ids = all::getVar("ids");
+		$template = all::getVar("template");
+		$parent = all::getVar("parent");
+		$newParent = all::getVar("new") + 1 - 1;
+
+		$ids = explode(";", $ids);
+		$sort = sql::one_record("SELECT MAX(sort) FROM prname_b_$template WHERE parent=$newParent");
+
+		foreach ($ids as $val) {
+			if ($val !== "") {
+				$sort ++;
+				sql::query("UPDATE prname_b_$template SET parent=$newParent, sort=$sort WHERE id=$val");
 			}
 		}
 

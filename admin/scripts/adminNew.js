@@ -38,7 +38,7 @@ $(document).ready(function() {
 		selector: ".elgrow_html",
 		relative_urls: false,
 		language : 'ru',
-		fontsize_formats: "0.75em 0.875em 1em 1.125em 1.25em",
+		fontsize_formats: "0.75em 0.875em 1em 1.125em 1.25em 1.5em 1.75em 2em",
 		style_formats: [
 			{
 				title: 'Изображение слева',
@@ -68,7 +68,7 @@ $(document).ready(function() {
 		readonly: 1,
 		relative_urls: false,
 		language : 'ru',
-		fontsize_formats: "0.75em 0.875em 1em 1.125em 1.25em",
+		fontsize_formats: "0.75em 0.875em 1em 1.125em 1.25em 1.5em 1.75em 2em",
 		style_formats: [
 			{
 				title: 'Изображение слева',
@@ -366,6 +366,27 @@ var groupShow = function() {
 
 	if (str !== "" && confirm('Вы действительно хотите показать выбранные блоки?')) {
 		window.location.href = '/manage/blockedit/_agroupshow_parent'+parent+'_template'+btemplate+'_ids'+str+'/';
+	}
+};
+
+var moveTo = function (newParent) {
+	var str = "",
+		parent = $("#hide-parent").val(),
+		btemplate =  $("#hide-template").val(),
+		newParent = newParent + 1 - 1,
+		attr;
+
+
+	$(".group-checkbox").each(function() {
+		attr = $(this).attr('checked');
+		if (typeof attr !== 'undefined' && attr !== false) {
+			str += $(this).attr("data-id")+";";
+		}
+	});
+
+
+	if (str !== "" && confirm('Вы действительно хотите переместить выбранные блоки?')) {
+		window.location.href = '/manage/blockedit/_amoveto_parent'+parent+'_new'+newParent+'_template'+btemplate+'_ids'+str+'/';
 	}
 };
 

@@ -223,7 +223,7 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						{mask:moveTo}
-						<li><a href="#">{levels}{name}</a></li>
+						<li><a href="#" onclick="moveTo({id});">{levels}{name}</a></li>
 						{/mask}
 
 					</ul>
@@ -291,7 +291,6 @@
 						$(".group-checkbox").attr("checked", "checked");
 						return false;
 					}
-					console.log(attr);
 				});
 			});
 		#}
