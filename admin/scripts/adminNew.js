@@ -377,7 +377,7 @@ var moveTo = function() {
 	var str = "",
 		t = $(this),
 		value = t.val(),
-		newParent = t.attr("data-id") + 1 - 1,
+		newParent = t.find("option:selected").attr("data-id"),
 		parent = $("#hide-parent").val(),
 		btemplate =  $("#hide-template").val(),
 		attr;
