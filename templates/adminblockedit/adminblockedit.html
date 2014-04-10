@@ -223,7 +223,7 @@
 					<select id="moveToSelect">
 						<option value="0" selected>Переместить в:</option>
 						{mask:moveTo}
-						<option data-id="{id}" value="1">{levels}{name}</option>
+						<option data-id="{id}" value="1" {if:{disabled}}disabled style="background: #cccccc;"{/if}>{levels}{name}</option>
 						{/mask}
 					</select>
 				</div>
