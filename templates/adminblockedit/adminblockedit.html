@@ -92,6 +92,7 @@
 
 			<div class="block">
 				<h2>Блоки "{templname}"</h2>
+
 				{mis:super}
 					{set:blocktypes}
 						<div class="block-chooser">
@@ -105,28 +106,32 @@
 						</div>
 					{/set}
 				{/mis}
+
 				{set:super}
-
-						<div class="block-chooser">
-							<span>Выводить: </span>
-							<select name="btypes" id="btypes" style="width: 200px;">
-								{set:blocktypes}
-								<optgroup label="Выбранные блоки" class="chbl">
-									{mask:blocktypes}
+					<div class="block-chooser">
+						<span>Выводить: </span>
+						<select name="btypes" id="btypes" style="width: 200px;">
+							{set:blocktypes}
+							<optgroup label="Выбранные блоки" class="chbl">
+								{mask:blocktypes}
+								<option value="{key}"{if:{key}=={//template}} selected="selected"{/if}>{name}</option>
+								{/mask}
+							</optgroup>
+							{/set}
+							<optgroup label="Все блоки" class="allbl">
+								{mask:sblocktypes}
 									<option value="{key}"{if:{key}=={//template}} selected="selected"{/if}>{name}</option>
-									{/mask}
-								</optgroup>
-								{/set}
-								<optgroup label="Все блоки" class="allbl">
-									{mask:sblocktypes}
-										<option value="{key}"{if:{key}=={//template}} selected="selected"{/if}>{name}</option>
-									{/mask}
-								</optgroup>
-							</select>
-						</div>
-
+								{/mask}
+							</optgroup>
+						</select>
+					</div>
 				{/set}
+
 				{set:item}
+
+				<div class="search">
+					<input type="text" class="search-query" id="search-blocks-text">
+				</div>
 
 				{set:page}
 				<div class="pagination pagination-small">

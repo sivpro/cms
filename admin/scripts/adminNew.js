@@ -114,7 +114,7 @@ $(document).ready(function() {
 		return false;
 	});
 
-	//tabs in block edite
+	//tabs in block edit
 	$(".block-tabber li").live("click", function() {
 		var t = $(this),
 			tab = t.attr("data-tab");
@@ -126,6 +126,45 @@ $(document).ready(function() {
 
 		return false;
 	});
+
+	// search blocks
+	$("#search-blocks-text").keyup(function() {
+		var text = $(this).val(),
+			regExp = new RegExp("[.]*"+text+"[.]*", "i"),
+			table = $("#tree");
+
+		console.log(regExp);
+
+		if (!text) {
+			$("#tree tr").show();
+			return;
+		}
+
+		$("#tree tr:not(:first)").each(function() {
+			var t = $(this),
+				td = t.find("td"),
+				hide = true;
+
+			t.show();
+
+			td.each(function() {
+				var tt = $(this),
+					val = tt.text(),
+					result = regExp.test(val);
+
+				if (result) {
+					hide = false;
+					return false;
+				}
+			});
+
+			if (hide) {
+				t.hide();
+			}
+
+
+		});
+	})
 });
 
 function addCat(a) {

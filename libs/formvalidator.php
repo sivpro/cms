@@ -55,7 +55,7 @@ $lang['de']='switch ($errorType) {
 if(isset($_GET['js']) && $_GET['js']=='get')
 {
 ?>
-var config = new Array(), 
+var config = new Array(),
 	ready = true;
 
 
@@ -149,12 +149,12 @@ function post(fName) {
 				eval('validate_showErrorMethod = validate_'+fName+'_showErrorMethod;');
 				eval('validate_lastaction = validate_'+fName+'_lastaction;');
 
-				eval('var validate_callback = validate_'+fName+'_callback;');				
+				eval('var validate_callback = validate_'+fName+'_callback;');
 				eval('var validate_param = validate_'+fName+'_param;');
-				
-				
+
+
 				if (validate_lastaction == 'callback') {
-					if (typeof(window[validate_callback]) == "function") {						
+					if (typeof(window[validate_callback]) == "function") {
 						window[validate_callback](validate_param);
 					}
 				}
@@ -179,7 +179,7 @@ function post(fName) {
 				 ready = false;
 				 setTimeout('readyFalse()', 1000);
 			 }
-			 else {				
+			 else {
 				eval('validate_capId = validate_'+fName+'_capId;');
 				var src = jQuery("captcha", msg).text();
 				if (src.length == 0) {
@@ -233,7 +233,7 @@ function readyFalse() {
 
 
 function displayErrors(array, formName) {
-	eval('validate_highlight = validate_'+formName+'_highlight;');	
+	eval('validate_highlight = validate_'+formName+'_highlight;');
 	eval('validate_showErrorMethod = validate_'+formName+'_showErrorMethod;');
 	if (validate_highlight) {
 		highlight(array, formName);
@@ -247,7 +247,7 @@ function displayErrors(array, formName) {
 	}
 }
 
-function highlight(array, formName) {	
+function highlight(array, formName) {
 	for (field in array) {
 		for (error in array[field]) {
 			var errorCaption = jQuery("#"+field+"-error");
@@ -302,7 +302,7 @@ function getError($errorType, $fieldName, $value) {
 			case "login": $string = "Адрес E-mail в поле `" + $fieldName + "` уже зарегистрирован"; break;
 			case "sameas": $string = "Пароли не совпадают"; break;
 			default: $string = "Ошибка"
-	};	
+	};
 	return $string;
 }
 
@@ -315,7 +315,7 @@ function checkForm(formName) {
 	var newArr = config[formName];
 
 	for(elem in newArr) {
-		
+
 		res = checkField(elem, newArr[elem], formName);
 		for (what in res) {
 			if (what.length > 0) {
@@ -338,7 +338,7 @@ function checkForm(formName) {
 //field - имя поля
 //value - массив с ограничителями и их значения
 //formName - имя формы
-function checkField(field, value, formName) {	
+function checkField(field, value, formName) {
 	var error2 = new Array(0);
 	var res;
 	var newArr = value;
@@ -437,7 +437,7 @@ function checkField(field, value, formName) {
 
 		var reg = new RegExp("[^0-9-_+@\s]", 'i');
 		var result = reg.test(string);
-		if (!result)  {
+		if (!result) {
 			return false;
 		}
 		return true;
@@ -459,12 +459,12 @@ function checkField(field, value, formName) {
 		return true;
 	}
 	/*No empty validation*/
-	function check_noempty(field, value, formName) {		
+	function check_noempty(field, value, formName) {
 		try{
 			var string = jQuery("#"+field+"").val();
 		}catch(e){
 			var string = jQuery("#"+field+"").html();
-		}		
+		}
 
 		if (string.length < 1) {
 			return false;
@@ -473,7 +473,7 @@ function checkField(field, value, formName) {
 			return false;
 		}
 
-		
+
 		return true;
 	}
 	/*checkbox validation*/
@@ -554,7 +554,7 @@ class captcha {
 
 		$x_img = 120; $y_img = 29; //ширина и высота
 		$numsymb_img=5; //кол-во символов
-		$bgcolor_img = 0x1f4452; //задний фон		
+		$bgcolor_img = 0x1f4452; //задний фон
 		$font_size_from = 14;
 		$font_size_dis = 14;
 		$fonts = array('a3');
@@ -562,10 +562,10 @@ class captcha {
 		ImageFilledRectangle ($im, 0, 0, $x_img - 1, $y_img - 1, $bgcolor_img);
 		$tx = 7 + rand(0, 5);
 		$s = '';
-		for ($i = 0; $i < $numsymb_img; $i++) {			
+		for ($i = 0; $i < $numsymb_img; $i++) {
 			mt_srand(time());
-			$n = self::getRandomSign();			
-			$nx = $tx;			
+			$n = self::getRandomSign();
+			$nx = $tx;
 			$ny = 15; // координаты цифры
 			//$ny = 25 + rand(0, 35); // координаты цифры
 			$f = rand(5, 10); // размер цифры
@@ -598,9 +598,9 @@ class captcha {
 		foreach (glob(self::$imagePath."*.jpg") as $filename) {
 			if(date("YmdHis", filemtime($filename))<date("YmdHis", mktime(date("H"), date("i")-5, date("s"), date("m"), date("d"), date("Y"))))
 			unlink($filename);
-		}		
+		}
 		return $tmp_cifr_post;
-	}    
+	}
 	private function imagettftext_cr (&$im, $size, $angle, $x_img, $y_img, $color, $fontfile, $text) {
 		$bbox = imagettfbbox($size, $angle, $fontfile, $text);
 		$dx = ($bbox[2]-$bbox[0])/2.0 - ($bbox[2]-$bbox[4])/2.0; // deviation left-right
@@ -612,7 +612,7 @@ class captcha {
 	}
 	private function getRandomSign() {
 		mt_srand();
-		$m = mt_rand(48,57);		
+		$m = mt_rand(48,57);
 		return chr($m);
 	}
 }
