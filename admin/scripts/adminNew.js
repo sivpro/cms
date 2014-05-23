@@ -1,6 +1,13 @@
 var sizes = [],
 	sizesCount = 0;
 
+function iframeLoaded(id) {
+	var iFrameID = document.getElementById(id);
+	if(iFrameID) {
+		iFrameID.height = "";
+		iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+	}
+}
 
 $(document).ready(function() {
 	$(".trtree").removeClass("click");
@@ -27,10 +34,10 @@ $(document).ready(function() {
 	});
 
 	//Сохранение миниатюры
-	$("#imageSave").live("click", saveMini);
+	$("#imageSave").on("click", saveMini);
 
 	//Удаление изображения
-	$(".erase-button").live("click", deleteImage);
+	$(".erase-button").on("click", deleteImage);
 
 	// Перемещение блоков к другому родителю
 	$("#moveToSelect").change(moveTo);
@@ -98,10 +105,9 @@ $(document).ready(function() {
 
 
 
-
 	//tabs in block template
-	$(".tabber li").live("click", function() {
 
+	$(".tabber").on("click", "li", function() {
 		var t = $(this),
 			tab = t.attr("data-tab");
 
@@ -115,7 +121,7 @@ $(document).ready(function() {
 	});
 
 	//tabs in block edit
-	$(".block-tabber li").live("click", function() {
+	$(".block-tabber").on("click", "li", function() {
 		var t = $(this),
 			tab = t.attr("data-tab");
 
@@ -362,11 +368,11 @@ var groupDel = function () {
 	var str = "",
 		parent = $("#hide-parent").val(),
 		btemplate =  $("#hide-template").val(),
-		attr;
+		prop;
 
 	$(".group-checkbox").each(function() {
-		attr = $(this).attr('checked');
-		if (typeof attr !== 'undefined' && attr !== false) {
+		prop = $(this).prop('checked');
+		if (prop === true) {
 			str += $(this).attr("data-id")+";";
 		}
 	});
@@ -380,11 +386,11 @@ var groupHide = function() {
 	var str = "",
 		parent = $("#hide-parent").val(),
 		btemplate =  $("#hide-template").val(),
-		attr;
+		prop;
 
 	$(".group-checkbox").each(function() {
-		attr = $(this).attr('checked');
-		if (typeof attr !== 'undefined' && attr !== false) {
+		prop = $(this).prop('checked');
+		if (prop === true) {
 			str += $(this).attr("data-id")+";";
 		}
 	});
@@ -398,11 +404,11 @@ var groupShow = function() {
 	var str = "",
 		parent = $("#hide-parent").val(),
 		btemplate =  $("#hide-template").val(),
-		attr;
+		prop;
 
 	$(".group-checkbox").each(function() {
-		attr = $(this).attr('checked');
-		if (typeof attr !== 'undefined' && attr !== false) {
+		prop = $(this).prop('checked');
+		if (prop === true) {
 			str += $(this).attr("data-id")+";";
 		}
 	});

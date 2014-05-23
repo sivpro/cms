@@ -4,15 +4,17 @@
 <html lang="ru">
 <head>
 
-	<title>Система администрирования сайта {sitename}</title>
+	<title>{sitename} - *{set:add}Добавление{/set}{mis:add}Редактирование{/mis} блока*</title>
 
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/calendar.css">
-	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/bootstrap/css/bootstrap.css">
+	<link rel="icon" type="image/png" href="/admin/decor/{theme}/img/favicon.png">
+
 
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery-1.11.1.min.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
 
@@ -23,6 +25,13 @@
 	<!--seo url-->
 	<script src="/admin/scripts/seo-url.js"></script>
 
+	<!--chosen-->
+	<link rel="stylesheet" href="/admin/scripts/chosen/chosen.css">
+	<script src="/admin/scripts/chosen/chosen.jquery.min.js"></script>
+
+	<!--iCheck-->
+	<link href="/admin/scripts/iCheck/skins/flat/blue.css" rel="stylesheet">
+	<script src="/admin/scripts/iCheck/icheck.min.js"></script>
 
 	<!--CROPPER-->
 	<script src="/admin/scripts/jcrop/js/jquery.color.js"></script>
@@ -37,7 +46,15 @@
 	<script src="/admin/scripts/fancybox/source/jquery.fancybox.pack.js"></script>
 	<link rel="stylesheet" href="/admin/scripts/fancybox/source/jquery.fancybox.css">
 
-
+	<script>
+		$(document).ready(function() {
+			$(".ch").iCheck({
+				checkboxClass: 'icheckbox_flat-blue',
+				radioClass: 'iradio_flat-blue'
+			});
+			$(".select-styled").chosen();
+		});
+	</script>
 
 </head>
 
@@ -104,7 +121,7 @@
 						<div class="stroke hidden-element">
 						{/if}
 						{if:{datatkey} != "imageload"}
-						<div class="stroke">
+						<div class="stroke clearline">
 						{/if}
 							<div class="name">
 								<p>{name}</p>
@@ -132,7 +149,7 @@
 								<p>{name}</p>
 							</div>
 							<div class="value">
-								<input class="text" name="{key}" type="text" value="{value}"{if:{_first} && {value} == ""} id="cat_key"{/if}>
+								<input class="text form-control" name="{key}" type="text" value="{value}"{if:{_first} && {value} == ""} id="cat_key"{/if}>
 							</div>
 						</div>
 					{/mask}

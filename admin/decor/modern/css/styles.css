@@ -103,21 +103,21 @@ body {background: url(/admin/decor/modern/img/background/bg.png) repeat 0 0;}
 	tr.trtree td {padding: 2px;}
 
 	.icon {width: 16px; height: 16px; background: url("/admin/decor/bootstrap/img/glyphicons-halflings.png") no-repeat 0 0; background-position: -384px -120px;}
-	.icon.man {width: 16px; height: 16px; background: url("/admin/decor/img/ico-user.png") no-repeat 0 2px;}
+	.icon.man {width: 16px; height: 16px; background: url("/admin/decor/modern/img/ico-user.png") no-repeat 0 2px;}
 	.hassub {width: 16px; height: 16px; background-position: -408px -120px;}
 
 
 	.simpletd {width: 16px; height: 16px; padding: 2px;}
 
-	.simple {width: 16px; height: 16px; background: url("/admin/decor/img/m1.png") no-repeat 0 0;}
+	.simple {width: 16px; height: 16px; background: url("/admin/decor/modern/img/m1.png") no-repeat 0 0;}
 
 
-		.plus {display: block; width: 9px; height: 9px; background: url("/admin/decor/standart/img/plus.png") no-repeat 0 0; margin: 1px 0 0 3px;}
-		.minus {display: block; width: 9px; height: 9px; background: url("/admin/decor/standart/img/minus.png") no-repeat 0 0; margin: 1px 0 0 3px;}
+		.plus {display: block; width: 9px; height: 9px; background: url("/admin/decor/modern/img/plus.png") no-repeat 0 0; margin: 1px 0 0 3px;}
+		.minus {display: block; width: 9px; height: 9px; background: url("/admin/decor/modern/img/minus.png") no-repeat 0 0; margin: 1px 0 0 3px;}
 
 
-	.last {width: 16px; height: 16px; background: url("/admin/decor/img/m2.gif") no-repeat 0 0;}
-	.vertical {width: 16px; height: 16px; background: url("/admin/decor/img/m4.gif") repeat-y 0 0;}
+	.last {width: 16px; height: 16px; background: url("/admin/decor/modern/img/m2.gif") no-repeat 0 0;}
+	.vertical {width: 16px; height: 16px; background: url("/admin/decor/modern/img/m4.gif") repeat-y 0 0;}
 	.none {width: 16px; height: 16px; background: none;}
 	.hidden {opacity: 0.3;}
 	.hiddentext {color: #656565;}
@@ -166,7 +166,7 @@ body {background: url(/admin/decor/modern/img/background/bg.png) repeat 0 0;}
 	.block .stroke .value textarea {width: 500px; height: 100px; padding: 5px; min-width: 500px; max-width: 800px; min-height: 100px;}
 	.block .stroke .value select {width: 500px; height: 21px; padding: 0; padding-left: 5px;}
 	.block .stroke .value .multiple {width: 300px; height: 200px;}
-	.block .stroke .value .reset {width: 24px; height: 24px; background: url("/admin/decor/standart/img/icons/reset.png") no-repeat 0 0; border: 0; cursor: pointer;}
+	.block .stroke .value .reset {width: 24px; height: 24px; background: url("/admin/decor/modern/img/icons/reset.png") no-repeat 0 0; border: 0; cursor: pointer;}
 
 	.block .stroke .value ul.map {list-style: none;}
 	.block .stroke .value ul.map li {padding-bottom: 4px;}

@@ -4,18 +4,43 @@
 <html lang="ru">
 <head>
 
-	<title>Система администрирования сайта {sitename}</title>
+	<title>{sitename} - *Редактирование пользователя*</title>
 
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
-	<link rel="stylesheet" href="/admin/decor/{theme}/css/calendar.css">
-	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
-
+	<link rel="stylesheet" href="/admin/decor/{theme}/bootstrap/css/bootstrap.css">
+	<link rel="icon" type="image/png" href="/admin/decor/{theme}/img/favicon.png">
 
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery-1.11.1.min.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+
+	<!--iCheck-->
+	<link href="/admin/scripts/iCheck/skins/flat/blue.css" rel="stylesheet">
+	<script src="/admin/scripts/iCheck/icheck.min.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			$(".ch").iCheck({
+				checkboxClass: 'icheckbox_flat-blue',
+				radioClass: 'iradio_flat-blue'
+			});
+
+			$(".rad").iCheck({
+				checkboxClass: 'icheckbox_flat-blue',
+				radioClass: 'iradio_flat-blue'
+			})
+			.on("ifToggled", function() {
+				if ($(this).val() == 3) {
+					$("#mapblock").show();
+				}
+				else {
+					$("#mapblock").hide();
+				}
+			});
+		});
+	</script>
 
 
 
@@ -44,30 +69,30 @@
 				<div class="block">
 					<h2>Основные параметры</h2>
 
-					<div class="stroke">
+					<div class="stroke clearline">
 						<div class="name">
 							<p>Ник (латиницей)</p>
 						</div>
 						<div class="value">
-							<input type="text" class="text" name="name" value="{admin_name}">
+							<input type="text" class="text form-control" name="name" value="{admin_name}" disabled>
 						</div>
 					</div>
 
-					<div class="stroke">
+					<div class="stroke clearline">
 						<div class="name">
 							<p>Пароль</p>
 						</div>
 						<div class="value">
-							<input type="password" class="text" name="password" value="">
+							<input type="password" class="text form-control" name="password" value="" required>
 						</div>
 					</div>
 
-					<div class="stroke">
+					<div class="stroke clearline">
 						<div class="name">
 							<p>Повторите пароль</p>
 						</div>
 						<div class="value">
-							<input type="password" class="text" name="passwordrep" value="">
+							<input type="password" class="text form-control" name="passwordrep" value="" required>
 						</div>
 					</div>
 
@@ -76,17 +101,17 @@
 				<div class="block">
 					<h2>Статус</h2>
 
-					<div class="stroke">
+					<div class="stroke clearline">
 						<div class="name">
 							<p>Статус</p>
 						</div>
 						<div class="value">
 							{if:{status}>1}
-								<p><input type="radio" class="rad" name="status" value="2"{if:{status}==2} checked="checked"{/if}> Администратор</p>
-								<p><input type="radio" class="rad" name="status" value="3"{if:{status}==3} checked="checked"{/if}> Редактор</p>
+								<p><input type="radio" class="rad" name="status" value="2"{if:{status}==2} checked{/if}> Администратор</p>
+								<p><input type="radio" class="rad" name="status" value="3"{if:{status}==3} checked={/if}> Редактор</p>
 							{/if}
 							{if:{status}==1}
-								<p>Царь и Бог<input type="hidden" name="status" value="1"></p>
+								<p>Суперадмин<input type="hidden" name="status" value="1"></p>
 							{/if}
 						</div>
 					</div>
@@ -97,7 +122,7 @@
 				{/mask}
 					<h2>Права редактора</h2>
 
-					<div class="stroke">
+					<div class="stroke clearline">
 						<div class="name">
 							<p>Права редактора</p>
 						</div>
@@ -108,18 +133,6 @@
 						</div>
 					</div>
 				</div>
-
-
-				<script>
-					$(".rad").change(function() {
-						if ($(this).val() == 2) {
-							$("#mapblock").hide();
-						}
-						else {
-							$("#mapblock").show();
-						}
-					});
-				</script>
 
 				<div class="buttons">
 					<input type="submit" class="btn btn-success" name="add" value="Сохранить">
@@ -143,7 +156,7 @@
 
 {mask:item}
 	<li>
-		<label for="cat_{id}">{name}</label> <input type="checkbox" name="cat[]" id="cat_{id}" value="{id}"{if:{canedit}==true} checked="checked"{/if}/>
+		<label><input type="checkbox" class="ch" name="cat[]" value="{id}"{if:{canedit}==true} checked{/if}> {name}</label>
 		{set:item}
 			<ul>
 				{item}

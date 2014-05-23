@@ -6,7 +6,6 @@ $(document).ready(function() {
 		needUrlConvert = typeof cat_name !== "undefined" && typeof cat_key !== "undefined",
 		needBlockUrlConvert = typeof blockUrlName !== "undefined" && typeof cat_key !== "undefined";
 
-	console.log(needUrlConvert, needBlockUrlConvert);
 
 	// Есть необходимость генерировать УРЛ у страницы
 	if (needUrlConvert) {

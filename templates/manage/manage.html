@@ -4,14 +4,15 @@
 <html lang="ru">
 <head>
 
-	<title>Система администрирования сайта {sitename}</title>
+	<title>{sitename} - *Структура сайта*</title>
 
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="/admin/decor/{theme}/css/styles.css">
-	<link rel="stylesheet" type="text/css" href="/admin/decor/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/bootstrap/css/bootstrap.css">
+	<link rel="icon" type="image/png" href="/admin/decor/{theme}/img/favicon.png">
 
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery-1.7.2.min.js"></script>
+	<script src="/admin/scripts/jquery-1.11.1.min.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
 
@@ -39,8 +40,8 @@
 		<!--CONTENT-->
 		<div class="content">
 			<h1>Структура сайта</h1>
-			<input type="hidden" id="hide-parent" name="hide-parent" value="0"/>
-			<table  width="100%" id="tree" class="itemtree">
+			<input type="hidden" id="hide-parent" name="hide-parent" value="0">
+			<table width="100%" id="tree" class="itemtree">
 
 					{set:super}
 					<tr style="cursor:hand" id="tr0">
@@ -50,7 +51,7 @@
 					<tr id="tr0">
 					{/mis}
 
-						<td class="simpletd"><i class="icon-home"></i></td>
+						<td class="simpletd"><i class="glyphicon glyphicon-home"></i></td>
 						<td colspan="100">Корень сайта</td>
 
 					</tr>
@@ -67,19 +68,19 @@
 			<div class="popup-index">
 				<div class="top"><h1>Действие</h1></div>
 				<ul>
-					<li><a href="#" rel="1" class="aAdd" id="aAdd" onclick="addCat(this); return false;"><i class="icon-plus-sign"></i>&nbsp;Создать новую</a></li>
+					<li><a href="#" rel="1" class="aAdd" id="aAdd" onclick="addCat(this); return false;"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Создать новую</a></li>
 
-					<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editCat(this); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+					<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editCat(this); return false;"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Редактировать</a></li>
 
-					<li><a href="#" rel="1" class="aEditbl" id="aEditbl" onclick="blockList(this); return false;"><i class="icon-th"></i>&nbsp;Блоки</a></li>
+					<li><a href="#" rel="1" class="aEditbl" id="aEditbl" onclick="blockList(this); return false;"><i class="glyphicon glyphicon-th"></i>&nbsp;Блоки</a></li>
 
-					<li><a href="#" rel="1" class="aMove" id="aMove" onclick="moveCat(this); return false;"><i class="icon-move"></i>&nbsp;Переместить</a></li>
+					<li><a href="#" rel="1" class="aMove" id="aMove" onclick="moveCat(this); return false;"><i class="glyphicon glyphicon-move"></i>&nbsp;Переместить</a></li>
 
-					<li><a href="#" rel="1" class="aCopy" id="aCopy" onclick="copyCat(this); return false;"><i class="icon-edit"></i>&nbsp;Копировать</a></li>
+					<li><a href="#" rel="1" class="aCopy" id="aCopy" onclick="copyCat(this); return false;"><i class="glyphicon glyphicon-edit"></i>&nbsp;Копировать</a></li>
 
-					<li><a href="#" rel="1" class="aHide" id="aHide" onclick="showHideCat(this); return false;"><i class="icon-eye-close"></i>&nbsp;Скрыть/показать</a></li>
+					<li><a href="#" rel="1" class="aHide" id="aHide" onclick="showHideCat(this); return false;"><i class="glyphicon glyphicon-eye-close"></i>&nbsp;Скрыть/показать</a></li>
 
-					<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delCat(this); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+					<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delCat(this); return false;"><i class="glyphicon glyphicon-trash"></i>&nbsp;Удалить</a></li>
 				</ul>
 			</div>
 		</div>
@@ -194,11 +195,17 @@
 	<tr class="trtree{mis:no} trtree-click{/mis}{set:no} trtree-no{/set}" style="cursor: pointer;" id="tr{id}">
 		{mask:td}
 			<td class="{class}">
-				{if:{class}!="none" && {../hs}==1 && {_last}}{set:../item}<a href="#" id="openclose_{id}" class="plus"></div>{/set}{/if}
-				{if:{class}!="none" && {../hs}==2 && {_last}}{set:../item}<a href="#" id="openclose_{id}" class="minus"></div>{/set}{/if}
+				{if:{class}!="none" && {../hs}==1 && {_last}}{set:../item}<div id="openclose_{id}" class="plus"></div>{/set}{/if}
+				{if:{class}!="none" && {../hs}==2 && {_last}}{set:../item}<div id="openclose_{id}" class="minus"></div>{/set}{/if}
 			</td>
 		{/mask}
-		<td class="icon{set:item} hassub{/set}{set:visible:0} hidden{/set}"></td>
+		{set:item}
+			<td class="icon{set:visible:0} not-visible{/set}"><i class="glyphicon glyphicon-folder-open"></i></td>
+		{/set}
+		{mis:item}
+			<td class="icon{set:visible:0} not-visible{/set}"><i class="glyphicon glyphicon-folder-close"></i></td>
+		{/mis}
+
 
 		{if:{//super}}
 			<td colspan="{php}100-{level}-1{/php}"{set:visible:0} class="hiddentext"{/set}>
@@ -206,10 +213,10 @@
 				{mis:item}{name}{/mis}
 				{if:!{virtual}}
 					{if:{id}!=1}
-						(<a href="/{url}" target="_blank" class="ext"><i class="icon-share-alt"></i>{php}htmlspecialchars({key}){/php}</a>)
+						(<a href="/{url}" target="_blank" class="ext"><i class="glyphicon glyphicon-share-alt"></i>&nbsp;{php}htmlspecialchars({key}){/php}</a>)
 					{/if}
 					{if:{id}==1}
-						(<a href="/" target="_blank" class="ext"><i class="icon-share-alt"></i>Главная</a>)
+						(<a href="/" target="_blank" class="ext"><i class="glyphicon glyphicon-share-alt"></i>&nbsp;Главная</a>)
 					{/if}
 				{/if}
 				- {template} - {id}
@@ -220,10 +227,10 @@
 				{set:no}<strike>{/set}{name}
 				{if:!{virtual}}
 					{if:{id}!=1}
-						(<a href="/{url}" target="_blank" class="ext"><i class="icon-share-alt"></i>{php}htmlspecialchars({key}){/php}</a>)
+						(<a href="/{url}" target="_blank" class="ext"><i class="glyphicon glyphicon-share-alt"></i>&nbsp;{php}htmlspecialchars({key}){/php}</a>)
 					{/if}
 					{if:{id}==1}
-						(<a href="/" target="_blank" class="ext"><i class="icon-share-alt"></i>Главная</a>)
+						(<a href="/" target="_blank" class="ext"><i class="glyphicon glyphicon-share-alt"></i>&nbsp;Главная</a>)
 					{/if}
 				{/if}
 				{set:no}</strike>{/set}</td>

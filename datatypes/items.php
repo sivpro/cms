@@ -29,7 +29,7 @@ class type_items {
 		$parent = all::getVar("id");
 		$cparent = all::getVar("parent");
 
-		$s = '<iframe name="itemframe" frameborder="no" id="itemframe'.$comment.'" width="100%" src="/manage/blockedit/_aitemlist_parent'.$cparent.'_id'.$parent.'_template'.$comment.'/"></iframe>';
+		$s = '<iframe name="itemframe" frameborder="no" id="itemframe'.$comment.'" width="100%" src="/manage/blockedit/_aitemlist_parent'.$cparent.'_id'.$parent.'_template'.$comment.'/" onload="iframeLoaded(\'itemframe'.$comment.'\')"></iframe>';
 
 		return $s;
 	}

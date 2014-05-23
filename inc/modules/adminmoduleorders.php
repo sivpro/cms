@@ -14,7 +14,7 @@ class adminmoduleorders extends manage {
 		if (isset($_POST) && count($_POST) > 0) {
 			if ($_POST['mode'] == 'gs' || $_POST['mode'] == 'ls') return $this->changeStatus($_POST['mode']);
 		}
-		
+
 		if ($control->oper == 'view') {
 			$this->printOne($control->bid);
 		}
@@ -25,7 +25,7 @@ class adminmoduleorders extends manage {
 
 	private function printOne($bid) {
 		global $control;
-		$page = all::b_data_all($bid, $control->module_wrap);		
+		$page = all::b_data_all($bid, $control->module_wrap);
 
 		$page->back = all::getUrl($control->module_parent).all::addUrl($this->page);
 		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'_one.html');
@@ -33,7 +33,7 @@ class adminmoduleorders extends manage {
 
 	private function printList($cid) {
 		global $control;
-		
+
 		$list = new Listing('order', 'blocks', 'all');
 		$list->sortfield = "id";
 		$list->sortby = "desc";
@@ -45,17 +45,17 @@ class adminmoduleorders extends manage {
 		$list->getItem();
 		$list->getPage();
 
-		
+
 
 		$page->item = $list->item;
 		$page->page = $list->navigation;
 		$page->url_last = $list->url_last;
 		$page->url_p = $list->url_p;
 		$page->url_n = $list->url_n;
-		$page->url_next = $list->url_next;		
+		$page->url_next = $list->url_next;
 
-		$page->theme = "modern";
-		$page->menu = $this->menu;		
+		$page->theme = parent::$mainTheme;
+		$page->menu = $this->menu;
 
 		$page->name = $control->name;
         $page->pages_down = sprintt($page, 'templates/temps/pages_downadmin.html');
@@ -63,56 +63,56 @@ class adminmoduleorders extends manage {
 		//Собираем поля блока заказа (на разных сайтах разные поля у блока заказа - так вот это будет не важно)
 		$dataRel = sql::query("SELECT p2.* from prname_btemplates p1, prname_bdatarel p2 WHERE p1.key='order' AND p2.templid=p1.id ORDER by p2.sort");
 
-		while ($dr = sql::fetch_assoc($dataRel)) {		
+		while ($dr = sql::fetch_assoc($dataRel)) {
 			$fields[$j]->name = $dr['name'];
 			$fields[$j]->key = $dr['key'];
 			$j ++;
 		}
-		
+
 		//Заполняем поля
 		foreach ($page->item as $key => $val) {
 			foreach ($fields as $key2 => $val2) {
-				if ($val2->key != "order" && 
-					$val2->key != "date" && 
-					$val2->key != "status" && 
-					$val2->key != "date_1" && 
-					$val2->key != "date_2" && 
-					$val2->key != "tr" && 
-					$val2->key != "url" && 
-					$val2->key != "id" && 
-					$val2->key != "utemplate" && 
-					$val2->key != "parent" && 
-					$val2->key != "blockparent" && 
-					$val2->key != "sort" && 
+				if ($val2->key != "order" &&
+					$val2->key != "date" &&
+					$val2->key != "status" &&
+					$val2->key != "date_1" &&
+					$val2->key != "date_2" &&
+					$val2->key != "tr" &&
+					$val2->key != "url" &&
+					$val2->key != "id" &&
+					$val2->key != "utemplate" &&
+					$val2->key != "parent" &&
+					$val2->key != "blockparent" &&
+					$val2->key != "sort" &&
 					$val2->key != "visible") {
 
 					$page->item[$key]->fields[$key2]->name = $val2->name;
 					$page->item[$key]->fields[$key2]->value = $val->{$val2->key};
 				}
 			}
-		}			
-		
+		}
 
-		
+
+
         $this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'.html');
 	}
 
 	private function getSettings() {
-		global $control;		
-		$this->settings = all::c_data_all($control->cid, $control->template);		
+		global $control;
+		$this->settings = all::c_data_all($control->cid, $control->template);
 	}
 
 	private function changeStatus($mode) {
 		$id = $_POST['id'];
 		$status = $_POST['status'];
-	
+
 		//Текущий пользователь
 		$user = user_is("admin_name");
 		$userStatus = user_is("status");
 
 		//Пользователь заказа
 		$ouser = sql::one_record("SELECT ouser FROM prname_b_order WHERE id=$id");
-		
+
 		if ($ouser != "") {
 
 			$ouserInfo = sql::fetch_assoc(sql::query("SELECT * FROM prname_sadmin WHERE admin_name='".$ouser."'"));
@@ -142,11 +142,11 @@ class adminmoduleorders extends manage {
 
 		if ($status == "Новый") $user = "";
 
-		
+
 		sql::query("UPDATE prname_b_order SET `status`='".$status."', `ouser`='".$user."' WHERE id=$id");
 
-		
-		
+
+
 		$html = "<div class='$class'>";
 		if ($status == "Принят") {
 			$html .= "<a style='padding-right: 10px;' href='#' data-status='1' data-mode='ls' data-id='$id' class='changeStatus' rel='tooltip' title='Пометить как новый'><i class='icon-arrow-left'></i></a>";
@@ -168,7 +168,7 @@ class adminmoduleorders extends manage {
 
 		$html .= "</div>";
 
-		
+
 
 		die($html."##".$user);
 	}

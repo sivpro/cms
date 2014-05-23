@@ -33,10 +33,10 @@ class type_counter {
 		}
 
 		if ($ro) {
-			$return = "<textarea  class=\"textarea\" name=\"".htmlspecialchars($name)."\" id=\"my$name\" $style readonly>".htmlspecialchars($data)."</textarea>";
+			$return = "<textarea  class=\"textarea form-control\" name=\"".htmlspecialchars($name)."\" id=\"my$name\" $style readonly>".htmlspecialchars($data)."</textarea>";
 		}
 		else {
-			$return = "<textarea  class=\"textarea\" name=\"".htmlspecialchars($name)."\" id=\"my$name\" $style>".htmlspecialchars($data)."</textarea>";
+			$return = "<textarea  class=\"textarea form-control\" name=\"".htmlspecialchars($name)."\" id=\"my$name\" $style>".htmlspecialchars($data)."</textarea>";
 		}
 		return $return;
 	}

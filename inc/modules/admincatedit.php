@@ -50,8 +50,8 @@ class admincatedit extends manage {
 		$page->status = $_SESSION['admin_status'];
 		$page->admin_id = user_is('admin_id');
 
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 		if (user_is("super") == '1') $page->super = true;
 		$page->add = true;
 		$page->parent = $parent;
@@ -142,8 +142,8 @@ class admincatedit extends manage {
 		$page->status = $_SESSION['admin_status'];
 		$page->admin_id = user_is('admin_id');
 
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 		if (user_is("super") == '1') $page->super = true;
 		$page->parent = $parent;
 

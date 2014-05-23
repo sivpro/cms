@@ -4,14 +4,15 @@
 <html lang="ru">
 <head>
 
-	<title>Система администрирования сайта {sitename}</title>
+	<title>{sitename} - *Шаблоны блоков*</title>
 
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
-	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/bootstrap/css/bootstrap.css">
+	<link rel="icon" type="image/png" href="/admin/decor/{theme}/img/favicon.png">
 
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery-1.11.1.min.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
 
@@ -40,7 +41,7 @@
 			<table  width="100%" id="tree" class="itemtree">
 				{mask:tpl}
 					<tr class="trtree trtree-click" style="cursor: pointer;" id="tr{id}">
-						<td class="none"><i class="icon-file"></i></td>
+						<td class="none"><i class="glyphicon glyphicon-file"></i></td>
 						<td>{name} - ({key})</td>
 					</tr>
 				{/mask}
@@ -58,11 +59,11 @@
 			<div class="popup-index">
 				<div class="top"><h1>Действие</h1></div>
 				<ul>
-					<li><a href="#" class="aEdit" id="aEdit" onclick="editTpl(); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+					<li><a href="#" class="aEdit" id="aEdit" onclick="editTpl(); return false;"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Редактировать</a></li>
 
-					<li><a href="#" class="aCopy" id="aCopy" onclick="copyTpl(); return false;"><i class="icon-edit"></i>&nbsp;Копировать</a></li>
+					<li><a href="#" class="aCopy" id="aCopy" onclick="copyTpl(); return false;"><i class="glyphicon glyphicon-edit"></i>&nbsp;Копировать</a></li>
 
-					<li><a href="#"  class="aDel" id="aDel" onclick="delTpl(); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+					<li><a href="#"  class="aDel" id="aDel" onclick="delTpl(); return false;"><i class="glyphicon glyphicon-trash"></i>&nbsp;Удалить</a></li>
 				</ul>
 			</div>
 		</div>

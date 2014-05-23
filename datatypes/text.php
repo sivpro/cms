@@ -32,10 +32,10 @@ class type_text {
 		}
 
 		if ($ro) {
-			$return = '<input  class="text" name="'.htmlspecialchars($name).'" id="'.htmlspecialchars($name).'text" type="text" value="'.htmlspecialchars($data).'" readonly'.$style.'>';
+			$return = '<input  class="text form-control" name="'.htmlspecialchars($name).'" id="'.htmlspecialchars($name).'text" type="text" value="'.htmlspecialchars($data).'" readonly'.$style.'>';
 		}
 		else {
-			$return = '<input  class="text" name="'.htmlspecialchars($name).'" id="'.htmlspecialchars($name).'text" type="text" value="'.htmlspecialchars($data).'"'.$style.'>';
+			$return = '<input  class="text form-control" name="'.htmlspecialchars($name).'" id="'.htmlspecialchars($name).'text" type="text" value="'.htmlspecialchars($data).'"'.$style.'>';
 		}
 
 		return $return;

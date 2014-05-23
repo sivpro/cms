@@ -36,7 +36,7 @@ class type_checkbox {
 			$attr = "";
 		}
 
-		return "<input type=\"checkbox\" name=\"".htmlspecialchars($name)."\" value=\"1\"$ch $attr $style>";
+		return "<input class=\"ch\" type=\"checkbox\" name=\"".htmlspecialchars($name)."\" value=\"1\"$ch $attr $style>";
 	}
 
 	public function save($name) {
@@ -51,10 +51,10 @@ class type_checkbox {
 		}
 		else {
 			if ($data == 1) {
-				$return = "<input type='checkbox' class='flipswitch' checked data-id='$id' data-field='$field'>";
+				$return = "<input type='checkbox' class='ch ch-live' checked data-id='$id' data-field='$field'>";
 			}
 			else {
-				$return = "<input type='checkbox' class='flipswitch' data-id='$id' data-field='$field'>";
+				$return = "<input type='checkbox' class='ch ch-live' data-id='$id' data-field='$field'>";
 			}
 			return $return;
 		}

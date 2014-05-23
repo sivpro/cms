@@ -5,7 +5,9 @@ mb_internal_encoding("UTF-8");
 
 session_start();
 
-// Раскомментировать и скоректровать при наличии языковых версий
+define("CMS_VERSION", 0.9);
+
+// Раскомментировать и скорректировать при наличии языковых версий
 // if (strpos($_SERVER['REQUEST_URI'], '/manage') > -1) {
 // 	if ($_SESSION['lang'] == "") {
 // 		$_SESSION['lang'] = "cz";

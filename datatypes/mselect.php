@@ -53,7 +53,7 @@ class type_mselect {
 			$attr = "";
 		}
 
-		$s = "<select class=\"multi\" name=\"".htmlspecialchars($name)."[]\" multiple $style $attr>";
+		$s = "<select class=\"multi select-styled\" name=\"".htmlspecialchars($name)."[]\" multiple $style $attr data-placeholder='Выберите значение'>";
 
 		if ( strpos($comment, "c:") !== false || strpos($comment, "b:") !== false ) {
 			$d = explode(":", $comment);

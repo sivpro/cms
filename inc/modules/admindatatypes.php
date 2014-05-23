@@ -16,7 +16,7 @@ class admindatatypes extends manage {
 				return $this->add();
 			}
 			else return $this->printAdd();
-		}		
+		}
 		else {
 			return $this->printList();
 		}
@@ -24,47 +24,47 @@ class admindatatypes extends manage {
 
 	function printList() {
 		global $control;
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
-		$tpls = sql::query("SELECT * FROM prname_datatypes ORDER by `id`");		
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
+		$tpls = sql::query("SELECT * FROM prname_datatypes ORDER by `id`");
 
 		$i = 0;
 		while ($tpl = sql::fetch_assoc($tpls)) {
-			foreach ($tpl as $key => $val) {				
+			foreach ($tpl as $key => $val) {
 				$page->tpl[$i]->$key = $val;
 			}
 			$i ++;
 		}
 
-		$page->menu = $this->menu;		
+		$page->menu = $this->menu;
         $this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'.html');
 	}
 
 	function printAdd() {
 		global $control;
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 
 		$page->menu = $this->menu;
 		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'_add.html');
 	}
 
-	function add() {	
-		
+	function add() {
+
 		//Имя, ключ, алиас
 		$dname = $_POST['name'];
 		$dkey = $_POST['key'];
 
-		if (trim($dname) != "" && trim($dkey) != "") {		
+		if (trim($dname) != "" && trim($dkey) != "") {
 			//Добавление в таблицу с шаблонами
 			$sql = "INSERT INTO prname_datatypes (`name`, `key`) VALUES ('".$dname."', '".$dkey."')";
 			sql::query($sql);
 
-			
+
 			$dirName = 'datatypes/';
 			$content = str_replace('tempFFFoooOOXX', $dkey, file_get_contents("datatypes/temp.php"));
 			file::createFile($dkey.'.php', $dirName, $content);
-			
+
 
 			header("Location: /manage/admindatatypes/");
 			return;

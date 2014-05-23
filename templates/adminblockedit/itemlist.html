@@ -4,15 +4,15 @@
 <html lang="ru">
 <head>
 
-	<title>Система администрирования сайта {sitename}</title>
+	<title>{sitename} - **</title>
 
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
-	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/bootstrap/css/bootstrap.css">
 
 
 	<!--admin scripts AND TinyMce-->
-	<script src="/admin/scripts/jquery-1.6.2.min.js"></script>
+	<script src="/admin/scripts/jquery-1.11.1.min.js"></script>
 	<script src="/admin/scripts/adminNew.js"></script>
 	<script src="/admin/tinymce/js/tinymce/tinymce.min.js"></script>
 
@@ -25,14 +25,6 @@
 </head>
 
 <body>
-
-	<script>
-	$(function() {
-		var iframe = $('#itemframe{template}', parent.document.body);
-		iframe.height($(document.body).height()+200);
-	});
-	</script>
-
 
 	<!--MAIN-->
 	<div class="main no-bg">
@@ -59,9 +51,7 @@
 						<tr>
 							<th class="none"></th>
 							<th>№</th>
-							{if:{//super}}
-								<th>ID</th>
-							{/if}
+							<th>ID</th>
 							{mask:fields}
 								<th>{name}</th>
 							{/mask}
@@ -73,16 +63,14 @@
 						<tr class="trtree" id="block_{id}" style="cursor: pointer;">
 							<td class="none">
 								{set:visible:0}
-									<i class="icon-eye-close hidden"></i>
+									<i class="glyphicon glyphicon-eye-close not-visible"></i>
 								{/set}
 								{set:visible:1}
-									<i class="icon-eye-open"></i>
+									<i class="glyphicon glyphicon-eye-open"></i>
 								{/set}
 							</td>
 							<td>{_rank}</td>
-							{if:{//super}}
-								<td>{id}</td>
-							{/if}
+							<td>{id}</td>
 							{mask:fields}
 								<td{if:{../visible}==0} class="hiddentext"{/if}>{val}</td>
 							{/mask}
@@ -118,11 +106,11 @@
 					{mask:rights}
 
 						{if:{canedit}==1 || {super}}
-							<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editItemBlock(); return false;"><i class="icon-pencil"></i>&nbsp;Редактировать</a></li>
+							<li><a href="#" rel="1" class="aEdit" id="aEdit" onclick="editItemBlock(); return false;"><i class=" glyphicon glyphicon-pencil"></i>&nbsp;Редактировать</a></li>
 						{/if}
 
 						{if:{candel}==1 || {super}}
-							<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delItemBlock(); return false;"><i class="icon-trash"></i>&nbsp;Удалить</a></li>
+							<li id="a"><a href="#" rel="1" class="aDel" id="aDel" onclick="delItemBlock(); return false;"><i class="glyphicon glyphicon-trash"></i>&nbsp;Удалить</a></li>
 						{/if}
 
 					{/mask}
@@ -132,7 +120,7 @@
 		</div>
 		<!--/POPUP-->
 
-		<script type="text/javascript">
+		<script>
 		{#
 			$(".trtree").jscontext({
 				html: $("#popup-index").html(),

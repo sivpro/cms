@@ -31,8 +31,8 @@ class manage {
 		$page->admin_id = user_is('admin_id');
 		if ($super == 1) $page->super = true;
 
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 
 
 
@@ -166,8 +166,8 @@ class manage {
 
 
 		$page = new StdClass();
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 
 
 		//Если пришел пост - пробуем авотризоваться

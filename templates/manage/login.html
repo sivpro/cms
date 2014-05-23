@@ -4,14 +4,15 @@
 <html lang="ru">
 <head>
 
-	<title>Система администрирования сайта {sitename}</title>
+	<title>{sitename} - *Вход*</title>
 
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="/admin/decor/{theme}/css/styles.css">
-	<link rel="stylesheet" href="/admin/decor/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/css/styles.css">
+	<link rel="stylesheet" href="/admin/decor/{theme}/bootstrap/css/bootstrap.css">
+	<link rel="icon" type="image/png" href="/admin/decor/{theme}/img/favicon.png">
 
-	<script type="text/javascript" src="/admin/scripts/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="/admin/scripts/adminNew.js"></script>
+	<script src="/admin/scripts/jquery-1.11.1.min.js"></script>
+	<script src="/admin/scripts/adminNew.js"></script>
 
 
 
@@ -25,26 +26,24 @@
 		<!--CONTENT-->
 		<div class="block-auth-only container">
 
-			<div class="row">
-				<div class="span4 offset4" style="margin-top: 200px;">
+
+				<div class="auth" style="margin-top: 200px;">
 					<h4>Авторизуйтесь, пожалуйста</h4>
 					<div class="auth-form">
 						<form method="post" action="/manage/" id="auth-form">
 
 							<p>Логин</p>
-							<input type="text" name="authlogin" id="login" value="">
+							<input type="text" name="authlogin" id="login" value="" autofocus class="form-control">
 
 							<p>Пароль</p>
-							<input type="password" name="authpass" id="pass" value="">
+							<input type="password" name="authpass" id="pass" value="" class="form-control">
 
-							<div>
-								<button type="submit" onclick="checkAuthForm(); return false;" class="btn btn-inverse">Продолжить</button>
+							<div class="button">
+								<button type="submit" onclick="checkAuthForm(); return false;" class="btn btn-primary">Продолжить</button>
 							</div>
 						</form>
 					</div>
 				</div>
-
-			</div>
 
 
 		</div>

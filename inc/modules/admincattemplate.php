@@ -25,21 +25,21 @@ class admincattemplate extends manage {
 			else return $this->printEdit();
 		}
 
-		elseif ($control->oper == 'del') {			
+		elseif ($control->oper == 'del') {
 			return $this->delete();
 		}
-		elseif ($control->oper == 'copy') {			
+		elseif ($control->oper == 'copy') {
 			return $this->copy();
 		}
 		else {
 			return $this->printList();
 		}
-	}	
+	}
 
 	function printList() {
 		global $control;
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 		$tpls = sql::query("SELECT * FROM prname_ctemplates ORDER by `name`");
 
 		if ($control->oper == "error") {
@@ -48,20 +48,20 @@ class admincattemplate extends manage {
 
 		$i = 0;
 		while ($tpl = sql::fetch_assoc($tpls)) {
-			foreach ($tpl as $key => $val) {				
+			foreach ($tpl as $key => $val) {
 				$page->tpl[$i]->$key = $val;
 			}
 			$i ++;
 		}
 
-		$page->menu = $this->menu;		
+		$page->menu = $this->menu;
         $this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'.html');
 	}
 
 	function printAdd() {
 		global $control;
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 		$page->add = true;
 
 		$btypes = sql::query("SELECT * FROM prname_btemplates");
@@ -98,8 +98,8 @@ class admincattemplate extends manage {
 		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'_add.html');
 	}
 
-	function add() {	
-		
+	function add() {
+
 		//Имя, ключ, алиас
 		$catname = $_POST['name'];
 		$catkey = $_POST['key'];
@@ -143,14 +143,14 @@ class admincattemplate extends manage {
 				$blocktypes .= $val." ";
 			}
 		}
-		
+
 		$cattypes = "";
 		if (isset($_POST['ctypes'])) {
 			foreach ($_POST['ctypes'] as $val) {
 				$cattypes .= $val." ";
 			}
 		}
-		
+
 		//Добавление в таблицу с шаблонами
 		$sql = "INSERT INTO prname_ctemplates
 			(`name`,
@@ -187,12 +187,12 @@ class admincattemplate extends manage {
 				".$virtual.",
 				".$cache."
 				)";
-		
-		
-		sql::query($sql);		
+
+
+		sql::query($sql);
 
 		$templid = sql::one_record("SELECT MAX(id) FROM prname_ctemplates");
-		
+
 		//Создание таблицы для шаблона
 		$sql = "CREATE table IF NOT EXISTS prname_c_".$catkey." (`id` int(12) NOT NULL auto_increment, `parent` int(12),`utitle` varchar(255),`udescription` text,`ukeywords` text, PRIMARY KEY  (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;";
 
@@ -229,8 +229,8 @@ class admincattemplate extends manage {
 					)";
 
 				sql::query($sql);
-				
-				
+
+
 				$sqlAdd .= " ADD `".$_POST['addkey'][$key]."` ".$type;
 				if ($_POST['adddefault'][$key] != "") $sqlAdd .= " DEFAULT ".$_POST['adddefault'][$key]." NOT NULL, ";
 				else $sqlAdd .= ", ";
@@ -238,7 +238,7 @@ class admincattemplate extends manage {
 
 			$sqlAdd = substr($sqlAdd, 0, strlen($sqlAdd)-2);
 			$sql = "ALTER TABLE prname_c_".$catkey.$sqlAdd;
-			
+
 			sql::query($sql);
 		}
 
@@ -247,21 +247,21 @@ class admincattemplate extends manage {
 
 	function printEdit() {
 		global $control;
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";		
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 
 		$parent = $page->parent = all::getVar("parent");
-		
+
 		//Вся инфа по шаблону
 		$info = sql::fetch_assoc(sql::query("SELECT * FROM prname_ctemplates WHERE id=".$parent));
 		foreach ($info as $key => $val) {
 			$page->info[0]->$key = $val;
 		}
-		
-		
+
+
 		//Все блоки
 		$btypes = sql::query("SELECT * FROM prname_btemplates");
-		
+
 		//Выбранные блоки
 		$selBlocks = $info['blocktypes'];
 		$selBlocks = explode(" ", $selBlocks);
@@ -278,7 +278,7 @@ class admincattemplate extends manage {
 			}
 			$i ++;
 		}
-		
+
 		//Все папки
 		$ctypes = sql::query("SELECT * FROM prname_ctemplates");
 
@@ -304,25 +304,25 @@ class admincattemplate extends manage {
 		$i = 0;
 		while ($dtype = sql::fetch_assoc($dtypesS)) {
 			foreach ($dtype as $key => $val) {
-				$page->dtypes[$i]->$key = $val;				
+				$page->dtypes[$i]->$key = $val;
 			}
 			$i ++;
-		}	
-		
+		}
+
 		$addFields = sql::query("SELECT * FROM prname_cdatarel WHERE templid=".$parent." ORDER by sort");
 
 		$i = 0;
 		while ($addField = sql::fetch_assoc($addFields)) {
 			foreach ($addField as $key => $val) {
 				$page->addFields[$i]->$key = $val;
-			}			
+			}
 			$page->addFields[$i]->dtypes = $page->dtypes;
 			$i ++;
 		}
 
 		$page->addCount = $i;
-		
-		
+
+
 		$page->menu = $this->menu;
 		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'_edit.html');
 	}
@@ -334,7 +334,7 @@ class admincattemplate extends manage {
 		$catalias = $_POST['alias'];
 		$oldkey = $_POST['oldkey'];
 		$parent = $_POST['hide-parent'];
-		
+
 		//Права
 		if (isset($_POST['candel'])) $candel = 1;
 		else $candel = 0;
@@ -373,42 +373,42 @@ class admincattemplate extends manage {
 				$blocktypes .= $val." ";
 			}
 		}
-		
+
 		$cattypes = "";
 		if (isset($_POST['ctypes'])) {
 			foreach ($_POST['ctypes'] as $val) {
 				$cattypes .= $val." ";
 			}
 		}
-		
+
 		//А вдруг название шаблона изменилось - меняем название таблицы, а также поле "template" в таблице categories
 		if ($_POST['key'] != $_POST['oldkey']) {
 			sql::query("ALTER TABLE prname_c_".$oldkey." RENAME prname_c_".$catkey);
 			sql::query("UPDATE prname_categories SET `template`=REPLACE(`template`,'".$_POST['oldkey']."','".$_POST['key']."')");
 		}
 
-		
-		$sql = "UPDATE prname_ctemplates SET 
+
+		$sql = "UPDATE prname_ctemplates SET
 			name='".$catname."',
-			`key`='".$catkey."', 
-			alias='".$catalias."', 
-			candel=".$candel.", 
-			canedit=".$canedit.", 
-			canaddcat=".$canadd.", 
-			canaddbl=".$canaddbl.", 
-			canmoveto=".$canmoveto.", 
-			cancopyto=".$cancopyto.", 
-			canhide=".$canhide.", 
-			hidestructure=".$hidestr.", 
-			blocktypes='".$blocktypes."', 
+			`key`='".$catkey."',
+			alias='".$catalias."',
+			candel=".$candel.",
+			canedit=".$canedit.",
+			canaddcat=".$canadd.",
+			canaddbl=".$canaddbl.",
+			canmoveto=".$canmoveto.",
+			cancopyto=".$cancopyto.",
+			canhide=".$canhide.",
+			hidestructure=".$hidestr.",
+			blocktypes='".$blocktypes."',
 			cattypes='".$cattypes."',
 			`virtual`=".$virtual.",
-			`cache`=".$cache." 
+			`cache`=".$cache."
 			 WHERE id=".$parent;
-		
+
 
 		sql::query($sql);
-			
+
 
 		//Проверяем старые поля шаблона
 		$oldFields = sql::query("SELECT * FROM prname_cdatarel WHERE templid=".$parent);
@@ -418,7 +418,7 @@ class admincattemplate extends manage {
 
 			//Если пришло постом, значит останется, возможно изменится
 			if (isset($_POST['curname'][$id])) {
-				$sql = "UPDATE prname_cdatarel SET 
+				$sql = "UPDATE prname_cdatarel SET
 					name='".$_POST['curname'][$id]."',
 					`key`='".$_POST['curkey'][$id]."',
 					datatkey='".$_POST['curtype'][$id]."',
@@ -427,7 +427,7 @@ class admincattemplate extends manage {
 					`default`='".$_POST['curdefault'][$id]."',
 					sort='".$_POST['cursort'][$id]."',
 					readonly='".$_POST['curroh'][$id]."'
-					 WHERE id=".$id;					 
+					 WHERE id=".$id;
 
 				$sql2 = "ALTER TABLE prname_c_".$catkey." CHANGE `".$oldField['key']."` ".$_POST['curkey'][$id];
 
@@ -446,8 +446,8 @@ class admincattemplate extends manage {
 
 				if ($_POST['curdefault'][$id] != '') $sql2 .= " DEFAULT ".$_POST['curdefault'][$id]." NOT NULL";
 
-				
-				
+
+
 			}
 			//Не пришло постом - значит удаляем к черту
 			else {
@@ -459,8 +459,8 @@ class admincattemplate extends manage {
 			sql::query($sql2);
 		}
 
-		
-		//Проверяем новые поля шаблона		
+
+		//Проверяем новые поля шаблона
 		if (count($_POST['addname']) > 1) {
 
 			$sqlAdd = "";
@@ -489,11 +489,11 @@ class admincattemplate extends manage {
 					".$_POST['addsort'][$key].",
 					".$parent."
 					)";
-				
+
 
 				sql::query($sql);
-				
-				
+
+
 				$sqlAdd .= " ADD `".$_POST['addkey'][$key]."` ".$type;
 				if ($_POST['adddefault'][$key] != "") $sqlAdd .= " DEFAULT ".$_POST['adddefault'][$key]." NOT NULL, ";
 				else $sqlAdd .= ", ";
@@ -501,7 +501,7 @@ class admincattemplate extends manage {
 
 			$sqlAdd = substr($sqlAdd, 0, strlen($sqlAdd)-2);
 			$sql = "ALTER TABLE prname_c_".$catkey.$sqlAdd;
-			
+
 			sql::query($sql);
 		}
 
@@ -511,8 +511,8 @@ class admincattemplate extends manage {
 	function delete() {
 		$id = all::getVar("id");
 
-		
-		
+
+
 		$template = sql::one_record("SELECT `key` FROM prname_ctemplates WHERE id=".$id);
 		$result = sql::query("SELECT * FROM prname_c_".$template);
 		if (sql::num_rows($result) > 0) {
@@ -529,14 +529,14 @@ class admincattemplate extends manage {
 		}
 	}
 
-	function copy() {		
-		
+	function copy() {
+
 		$parent = all::getVar('parent');
-		
+
 		//Вся инфа по шаблону
 		$info = sql::fetch_assoc(sql::query("SELECT * FROM prname_ctemplates WHERE id=".$parent));
 
-		//Добавление в таблицу с шаблонами		
+		//Добавление в таблицу с шаблонами
 		$sql = "INSERT INTO prname_ctemplates
 				(`name`,
 				`key`,
@@ -554,7 +554,7 @@ class admincattemplate extends manage {
 				`visible`,
 				`virtual`,
 				`cache`)
-			SELECT 
+			SELECT
 				'".$info['name']."_Копия"."',
 				'".$info['key']."copy"."',
 				`alias`,
@@ -570,19 +570,19 @@ class admincattemplate extends manage {
 				`cattypes`,
 				`visible`,
 				`virtual`,
-				`cache` 
+				`cache`
 			FROM prname_ctemplates WHERE id=".$parent;
-		
-		
+
+
 		sql::query($sql);
-		
+
 		$templid = sql::one_record("SELECT MAX(id) FROM prname_ctemplates");
-		
+
 
 		//Копирование таблицы шаблона
 		sql::query("CREATE TABLE prname_c_".$info['key']."copy LIKE prname_c_".$info['key']);
-			
-			
+
+
 		//Поля
 		$datarel = sql::query("SELECT * FROM prname_cdatarel WHERE templid=".$parent);
 
@@ -590,8 +590,8 @@ class admincattemplate extends manage {
 			$sql = "INSERT INTO prname_cdatarel (`name`, `datatkey`, `key`, `attr`, `comment`, `readonly`, `sort`, `templid`)
 				SELECT `name`, `datatkey`, `key`, `attr`, `comment`, `readonly`, `sort`, ".$templid." FROM prname_cdatarel WHERE id=".$data['id'];
 				sql::query($sql);
-			
-		}		
+
+		}
 
 		header("Location: /manage/cattemplate/_aedit_parent".$templid."/");
 	}

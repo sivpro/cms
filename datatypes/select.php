@@ -51,7 +51,7 @@ class type_select {
 			$attr = "";
 		}
 
-		$s = "<select name=\"".htmlspecialchars($name)."\" $style $attr>";
+		$s = "<select name=\"".htmlspecialchars($name)."\" $style $attr class='select-styled' data-placeholder='Выберите значение'>";
 
 		if ( strpos($comment, "c:") !== false || strpos($comment, "b:") !== false ) {
 			$d = explode(":", $comment);

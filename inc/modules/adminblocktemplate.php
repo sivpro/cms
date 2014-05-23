@@ -40,8 +40,8 @@ class adminblocktemplate extends manage {
 
 	function printList() {
 		global $control;
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 		$tpls = sql::query("SELECT * FROM prname_btemplates ORDER by `name`");
 
 		if ($control->oper == "error") {
@@ -63,8 +63,8 @@ class adminblocktemplate extends manage {
 
 	function printAdd() {
 		global $control;
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 		$page->add = true;
 
 		$dtypes = sql::query("SELECT * FROM prname_datatypes");
@@ -222,8 +222,8 @@ class adminblocktemplate extends manage {
 
 	function printEdit() {
 		global $control;
-		$page->sitename = $config['site_name'];
-		$page->theme = "modern";
+		$page->sitename = $control->settings->sitename;
+		$page->theme = parent::$mainTheme;
 
 		$parent = $page->parent = all::getVar("parent");
 

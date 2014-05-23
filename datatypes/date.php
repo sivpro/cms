@@ -42,7 +42,7 @@ class type_date {
 		$data = substr($data, 8) . "." . substr($data, 5, 2) . "." . substr($data, 0, 4);
 		$s =  "
 
-			<input style=\"width: 100px; padding-left: 5px; float: left;$style\" class=\"text\" maxlength=10 id=\"".htmlspecialchars($name)."\" name=\"".htmlspecialchars($name)."\" type=\"text\"  value=\"".htmlspecialchars($data)."\" readonly=\"readonly\">";
+			<input style=\"width: 100px; padding-left: 5px; float: left;$style\" class=\"text form-control\" maxlength=10 id=\"".htmlspecialchars($name)."\" name=\"".htmlspecialchars($name)."\" type=\"text\"  value=\"".htmlspecialchars($data)."\" readonly=\"readonly\">";
 
 		if (!$ro) {
 			$s .= "

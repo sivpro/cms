@@ -3,16 +3,16 @@
 
 
 				<ul>
-					<li><a href="/manage"><i class="icon-list-alt icon-white"></i>&nbsp;Структура папок</a></li>
+					<li><a href="/manage/"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;Структура сайта</a></li>
 						{set:super}
-							<li><a href="/manage/cattemplate/"><i class="icon-folder-open icon-white"></i>&nbsp;Шаблоны папок</a></li>
-							<li><a href="/manage/blocktemplate/"><i class="icon-file icon-white"></i>&nbsp;Шаблоны блоков</a></li>
-							<li><a href="/manage/admindatatypes/"><i class="icon-briefcase icon-white"></i>&nbsp;Типы данных</a></li>
+							<li><a href="/manage/cattemplate/"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;Шаблоны папок</a></li>
+							<li><a href="/manage/blocktemplate/"><i class="glyphicon glyphicon-file"></i>&nbsp;Шаблоны блоков</a></li>
+							<li><a href="/manage/admindatatypes/"><i class="glyphicon glyphicon-briefcase"></i>&nbsp;Типы данных</a></li>
 						{/set}
 
-						{if:{status} == 5}<li><a href="/manage/moduleorders/"><i class="icon-barcode icon-white"></i>&nbsp;Заказы</a></li>{/if}
-						{if:{status} != 3}<li><a href="/manage/users/"><i class="icon-user icon-white"></i>&nbsp;Пользователи</a></li>{/if}
-					<li><a href="/manage?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
+						{if:{status} == 5}<li><a href="/manage/moduleorders/"><i class="glyphicon glyphicon-barcode"></i>&nbsp;Заказы</a></li>{/if}
+						{if:{status} != 3}<li><a href="/manage/users/"><i class="glyphicon glyphicon-user"></i>&nbsp;Пользователи</a></li>{/if}
+					<li><a href="/manage/?logout=1" onClick="javascript:return confirm('Завершить сеанс администрирования?');">Выход</a></li>
 
 					<!-- Раскомментировать и скорректировать при наличии языковых версий -->
 

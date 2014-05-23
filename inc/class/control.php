@@ -377,10 +377,10 @@ class Controller {
 			else {
 				$a = all::b_data_all($this->bid, $this->module_wrap);
 				if ($this->module_wrap == "lot") {
-					$this->titleSeo = "Заявка № ".$a->id. " - ".$config['site_name'];
+					$this->titleSeo = "Заявка № ".$a->id. " - ".$control->settings->sitename;
 				}
 				else {
-					$this->titleSeo = $a->name." - ".$config['site_name'];
+					$this->titleSeo = $a->name." - ".$control->settings->sitename;
 				}
 			}
 			$this->descriptionSeo = $a->udescription;
@@ -398,7 +398,7 @@ class Controller {
 					if($f !== '1') $this->titleSeo .=  sql::fetch_row(sql::query("select name from prname_categories where id='$f'"),0,1)." - ";
 					$i++;
 				}
-				$this->titleSeo .= ' '.$config['site_name'];
+				$this->titleSeo .= ' '.$control->settings->sitename;
 			}
 			else {
 				$this->titleSeo = $q['utitle'];
