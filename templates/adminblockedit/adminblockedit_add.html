@@ -131,8 +131,8 @@
 							</div>
 							<div class="value"{if:{_first}} id="first-value"{/if}>
 								{value}
-								<input type="hidden" name="dat[]" value="{key}">
-								<input type="hidden" name="dkey[]" value="{datatkey}">
+								<input type="hidden" name="dat[{index}]" value="{key}">
+								<input type="hidden" name="dkey[{index}]" value="{datatkey}">
 							</div>
 						</div>
 					{/mask}

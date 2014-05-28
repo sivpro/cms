@@ -8,10 +8,13 @@ class adminblocktemplate extends manage {
 		$this->menu = parent::getMenu();
 
 
-
 		if (user_is("super") != 1) {
 			header("Location: /manage/");
 			return;
+		}
+
+		elseif (isset($_FILES['import'])) {
+			return $this->import();
 		}
 
 		elseif ($control->oper == 'add') {
@@ -32,6 +35,9 @@ class adminblocktemplate extends manage {
 		}
 		elseif ($control->oper == 'copy') {
 			return $this->copy();
+		}
+		elseif ($control->oper == 'export') {
+			return $this->export();
 		}
 		else {
 			return $this->printList();
@@ -517,6 +523,171 @@ class adminblocktemplate extends manage {
 		}
 
 		header("Location: /manage/blocktemplate/_aedit_parent$templid/");
+	}
+
+	function export() {
+
+		$parent = all::getVar('parent');
+
+
+		//Вся инфа по шаблону
+		$info = sql::fetch_object(sql::query("SELECT * FROM prname_btemplates WHERE id=$parent"));
+
+		$template->name = $info->name;
+		$template->key = $info->key;
+		$template->rights->delete = (boolean)$info->candel;
+		$template->rights->edit = (boolean)$info->canedit;
+		$template->rights->create = (boolean)$info->canadd;
+		$template->rights->move = (boolean)$info->canmove;
+		$template->rights->copy = (boolean)$info->cancopy;
+		$template->rights->hide = (boolean)$info->canhide;
+		$template->seo = (boolean)$info->seo;
+		$template->virtual = (boolean)$info->virtual;
+
+
+		//Поля
+		$datarel = sql::query("SELECT * FROM prname_bdatarel WHERE templid=".$parent);
+
+		$i = 0;
+		while ($data = sql::fetch_object($datarel)) {
+			$fields[$i]->name = $data->name;
+			$fields[$i]->key = $data->key;
+			$fields[$i]->type = $data->datatkey;
+			$fields[$i]->default = $data->default;
+			$fields[$i]->comment = $data->comment;
+			$fields[$i]->sort = $data->sort;
+			$fields[$i]->tab = $data->tab;
+			$fields[$i]->readonly = (boolean)$data->readonly;
+			$fields[$i]->show = (boolean)$data->show;
+
+			$i ++;
+		}
+
+		$template->fields = $fields;
+
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename=' . $template->key.".json");
+		$template = json_encode($template);
+		$template = all::json_format($template);
+		echo $template;
+	}
+
+	function import() {
+		$fileInfo = $_FILES['import'];
+		$realName = $fileInfo['name'];
+		$ext = pathinfo($realName);
+		$ext = $ext['extension'];
+		if ($ext != "json") {
+			header("Location: /manage/blocktemplate/");
+			return;
+		}
+		$file = $fileInfo['tmp_name'];
+		$content = file_get_contents($file);
+		$content = json_decode($content);
+
+		// Проверяем на наличие такого шаблона
+		$isset = sql::one_record("SELECT `key` FROM prname_btemplates WHERE `key`='".$content->key."'");
+		if ($isset) {
+			$content->name .= "_copy";
+			$content->key .= "_copy";
+		}
+
+
+
+		//Добавление в таблицу с шаблонами
+		$sql = "INSERT INTO prname_btemplates
+				(`name`,
+				`key`,
+				`candel`,
+				`canedit`,
+				`canadd`,
+				`canmove`,
+				`cancopy`,
+				`canhide`,
+				`seo`,
+				`virtual`
+				)
+				VALUES(
+					'".$content->name."',
+					'".$content->key."',
+					".(int)$content->rights->delete.",
+					".(int)$content->rights->edit.",
+					".(int)$content->rights->create.",
+					".(int)$content->rights->move.",
+					".(int)$content->rights->copy.",
+					".(int)$content->rights->hide.",
+					".(int)$content->seo.",
+					".(int)$content->virtual."
+				)
+			";
+
+
+		sql::query($sql);
+
+		$templid = sql::one_record("SELECT MAX(id) FROM prname_btemplates");
+
+		$blockkey = $content->key;
+
+		//Создание таблицы для шаблона
+		$sql = "CREATE table IF NOT EXISTS prname_b_$blockkey (`id` int(12) NOT NULL auto_increment, `parent` int(12), `blockparent` int(12), `sort` int(12), `visible` tinyint(1), PRIMARY KEY (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;";
+
+		sql::query($sql);
+
+
+		// Поля шаблона
+		$sqlAdd = "";
+
+		foreach ($content->fields as $key => $val) {
+			if ($val->name == '' || $val->key == '' || $val->type == '') continue;
+
+			switch ($val->type) {
+				case 'html': $type = 'text'; break;
+				case 'checkbox': $type = 'tinyint(1)'; break;
+				case 'date': $type = 'date'; break;
+				case 'file': $type = 'varchar(255)'; break;
+				case 'text': $type = 'varchar(255)'; break;
+				case 'mcheckbox': $type = 'varchar(100)'; break;
+				default: $type = 'text'; break;
+			}
+
+			$sql = "INSERT INTO prname_bdatarel (`name`, `datatkey`, `key`, `comment`, `readonly`, `tab`, `sort`, `templid`, `default`, `show`)
+			VALUES (
+				'".$val->name."',
+				'".$val->type."',
+				'".$val->key."',
+				'".$val->comment."',
+				".(int)$val->readonly.",
+				".$val->tab.",
+				".$val->sort.",
+				".$templid.",
+				'".$val->default."',
+				".(int)$val->show."
+				)";
+
+
+			sql::query($sql);
+
+
+			$sqlAdd .= " ADD `".$val->key."` ".$type;
+			if ($val->default != "") $sqlAdd .= " DEFAULT ".$val->default." NOT NULL, ";
+			else $sqlAdd .= ", ";
+		}
+
+		$sqlAdd = substr($sqlAdd, 0, strlen($sqlAdd)-2);
+		$sql = "ALTER TABLE prname_b_".$blockkey.$sqlAdd;
+
+
+		sql::query($sql);
+
+
+		// СЕО поля
+		if ($content->seo) {
+			$sql = "ALTER TABLE prname_b_$blockkey ADD `utitle` varchar(255), ADD `udescription` text, ADD `ukeywords` text, ADD `uurl` varchar(255)";
+			sql::query($sql);
+		}
+
+		header("Location: /manage/blocktemplate/");
 	}
 
 }

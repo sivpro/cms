@@ -387,6 +387,7 @@ class adminblockedit extends manage {
 				$page->tabs[0]->fields[$i]->value = $genValue2;
 				$page->tabs[0]->fields[$i]->key = $field['key'];
 				$page->tabs[0]->fields[$i]->datatkey = $field['datatkey'];
+				$page->tabs[0]->fields[$i]->index = $i;
 
 			}
 
@@ -397,6 +398,7 @@ class adminblockedit extends manage {
 				$page->tabs[$tab]->fields[$i]->key = $field['key'];
 				$page->tabs[$tab]->fields[$i]->value = $genValue;
 				$page->tabs[$tab]->fields[$i]->datatkey = $field['datatkey'];
+				$page->tabs[$tab]->fields[$i]->index = $i;
 			}
 
 			$i ++;
@@ -609,6 +611,7 @@ class adminblockedit extends manage {
 				$page->tabs[0]->fields[$i]->value = $genValue2;
 				$page->tabs[0]->fields[$i]->key = $field['key'];
 				$page->tabs[0]->fields[$i]->datatkey = $field['datatkey'];
+				$page->tabs[0]->fields[$i]->index = $i;
 
 			}
 
@@ -620,6 +623,7 @@ class adminblockedit extends manage {
 				$page->tabs[$tab]->fields[$i]->key = $field['key'];
 				$page->tabs[$tab]->fields[$i]->value = $genValue;
 				$page->tabs[$tab]->fields[$i]->datatkey = $field['datatkey'];
+				$page->tabs[$tab]->fields[$i]->index = $i;
 			}
 
 			$i ++;

@@ -51,6 +51,13 @@
 			<div class="buttons">
 				<input type="button" class="btn btn-primary" value="Добавить шаблон" onclick="javascript:location.href='/manage/blocktemplate/_aadd/'; return false;">
 			</div>
+			<div class="buttons">
+				<form action="/manage/blocktemplate/" method="post" enctype="multipart/form-data">
+					<input name="import" type="file" required style="margin-bottom: 30px;">
+					<button class="btn btn-danger">Импортировать шаблон</button>
+				</form>
+
+			</div>
 		</div>
 		<!--/CONTENT-->
 
@@ -62,6 +69,8 @@
 					<li><a href="#" class="aEdit" id="aEdit" onclick="editTpl(); return false;"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Редактировать</a></li>
 
 					<li><a href="#" class="aCopy" id="aCopy" onclick="copyTpl(); return false;"><i class="glyphicon glyphicon-edit"></i>&nbsp;Копировать</a></li>
+
+					<li><a href="#" class="aExport" id="aExport" onclick="exportTpl(); return false;"><i class="glyphicon glyphicon-download-alt"></i>&nbsp;Экспорт</a></li>
 
 					<li><a href="#"  class="aDel" id="aDel" onclick="delTpl(); return false;"><i class="glyphicon glyphicon-trash"></i>&nbsp;Удалить</a></li>
 				</ul>
@@ -89,6 +98,12 @@
 				var parent = $("#hide-parent").val();
 				if (!parent) return false;
 				window.location.href = '/manage/blocktemplate/_acopy_parent'+parent+'/';
+			}
+
+			function exportTpl() {
+				var parent = $("#hide-parent").val();
+				if (!parent) return false;
+				window.location.href = '/manage/blocktemplate/_aexport_parent'+parent+'/';
 			}
 
 			function delTpl() {
