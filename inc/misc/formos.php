@@ -3,29 +3,17 @@
 class formos {
 	function Make($wrapper) {
 
-		$formName = "formOs";
+		$formName = "formCall";
 
 		$config = array(
 			$formName => array(
-				'nameOs' => array(
+				'nameCall' => array(
 					'caption' => 'Ваше имя',
 					'noempty' => true
 				),
-				'phoneOs' => array(
-					'caption' => 'Телефон'
-				),
-				'emailOs' => array(
-					'caption' => 'E-mail',
+				'phoneCall' => array(
+					'caption' => 'Телефон',
 					'noempty' => true
-				),
-				'textOs' => array(
-					'caption' => 'Сообщение',
-					'noempty' => true
-				),
-				'capOs' => array(
-					'caption' => 'Введите цифры',
-					'noempty' => true,
-					'captcha' => true
 				)
 			)
 		);
@@ -33,14 +21,14 @@ class formos {
 
 		include_once("libs/formvalidator.php");$_SESSION['langs'] = 'ru';
 		$validator = new formvalidator($config);
-		$validator->showErrorMethod = "#showErrorsOs";  //div для показа ошибок
-		$validator->highlight = 1;  //подсветка полей
-		$validator->lastaction = "callback";  // действие при завершении
-		$validator->sendMethod = "ajax";  //метод отправки
-		$validator->preloaderId = "#preloaderOs"; //id прелоадера
-		$validator->capId = "#captchaOs"; // id каптчи
-		$validator->callback = "someFuntion";
-		$validator->param = '1';
+		$validator->showErrorMethod = "#showErrorsCall";	//div для показа ошибок
+		$validator->highlight = 1;							//подсветка полей
+		$validator->lastaction = "callback";				// действие при завершении
+		$validator->sendMethod = "ajax";					//метод отправки
+		$validator->preloaderId = "#preloaderCall";			//id прелоадера
+		$validator->capId = "#captchaCall";					// id каптчи
+		$validator->callback = "successSend";				// Функция Callback
+		$validator->param = 'Call';							// Параметр в функцию
 
 
 		$page->script = $validator->getJsArray();

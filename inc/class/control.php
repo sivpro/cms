@@ -133,6 +133,8 @@ class Controller {
 		global $config;
 		$this->sql = $sql;
 
+		$this->checkLogin();
+
 
 		// Парсим урл
 		$segments = preg_split("#/#", $rUrl, -1, PREG_SPLIT_NO_EMPTY);
@@ -364,7 +366,7 @@ class Controller {
 	private function getSeoFields() {
 		global $config;
 
-		/*Если блок на выходе, пытаемся извлечь для него данные*/
+		// Если блок на выходе, пытаемся извлечь для него данные
 		if ($this->oper == "view") {
 			$template = $this->module_wrap;
 
@@ -373,21 +375,16 @@ class Controller {
 			if ($a->utitle != '') {
 				$this->titleSeo = $a->utitle;
 			}
-			/*Иначе - сами генерируем*/
+			// Иначе - сами генерируем
 			else {
 				$a = all::b_data_all($this->bid, $this->module_wrap);
-				if ($this->module_wrap == "lot") {
-					$this->titleSeo = "Заявка № ".$a->id. " - ".$control->settings->sitename;
-				}
-				else {
-					$this->titleSeo = $a->name." - ".$control->settings->sitename;
-				}
+				$this->titleSeo = $a->name." - ".$this->settings->sitename;
 			}
 			$this->descriptionSeo = $a->udescription;
 			$this->keywordsSeo = $a->ukeywords;
 		}
 
-		/*Если не блок*/
+		// Если не блок
 		else {
 			$q = sql::fetch_assoc(sql::query("SELECT * FROM prname_c_".$this->template." where `parent`='".$this->cid."'"));
 
@@ -398,16 +395,47 @@ class Controller {
 					if($f !== '1') $this->titleSeo .=  sql::fetch_row(sql::query("select name from prname_categories where id='$f'"),0,1)." - ";
 					$i++;
 				}
-				$this->titleSeo .= ' '.$control->settings->sitename;
+				$this->titleSeo .= ' '.$this->settings->sitename;
 			}
 			else {
 				$this->titleSeo = $q['utitle'];
 			}
 
+
+
 			$this->descriptionSeo = $q['udescription'];
 			$this->keywordsSeo = $q['ukeywords'];
 		}
 
+	}
+
+	/**
+	 * Функция проверяет авторизацию
+	 */
+	private function checkLogin() {
+		global $config, $sql;
+
+
+		if (isset($_SESSION['uid'])) {
+			return;
+		}
+		else {
+			$str = protect::p_encode($_COOKIE['udr_uity']);
+			$salt2 = $config['salt'];
+
+			$r = $sql->query("SELECT * FROM prname_b_agent");
+
+			while ($res = $sql->fetch_assoc($r)) {
+				$md5 = md5($res['login'].$salt2);
+
+				if ($str == $md5) {
+					$_SESSION['uid'] = $res['id'];
+					return;
+				}
+			}
+
+			return;
+		}
 	}
 }
 

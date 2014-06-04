@@ -9,45 +9,31 @@ class os {
 
 
 	private function printList($cid) {
-		$formName = "formOs";
+		$formName = "formCall";
 
 		$config = array(
 			$formName => array(
-				'nameOs' => array(
+				'nameCall' => array(
 					'caption' => 'Ваше имя',
 					'noempty' => true
 				),
-				'phoneOs' => array(
-					'caption' => 'Телефон'
-				),
-				'emailOs' => array(
-					'caption' => 'E-mail',
+				'phoneCall' => array(
+					'caption' => 'Телефон',
 					'noempty' => true
-				),
-				'textOs' => array(
-					'caption' => 'Сообщение',
-					'noempty' => true
-				),
-				'capOs' => array(
-					'caption' => 'Введите цифры',
-					'noempty' => true,
-					'captcha' => true
 				)
 			)
 		);
 
-
-
 		include_once("libs/formvalidator.php");$_SESSION['langs'] = 'ru';
 		$validator = new formvalidator($config);
-		$validator->showErrorMethod = "#showErrorsOs";  //div для показа ошибок
-		$validator->highlight = 1;  //подсветка полей
-		$validator->lastaction = "callback";  // действие при завершении
-		$validator->sendMethod = "ajax";  //метод отправки
-		$validator->preloaderId = "#preloaderOs"; //id прелоадера
-		$validator->capId = "#captchaOs"; // id каптчи
-		$validator->callback = "someFuntion";
-		$validator->param = '1';
+		$validator->showErrorMethod = "#showErrorsCall";	//div для показа ошибок
+		$validator->highlight = 1;							//подсветка полей
+		$validator->lastaction = "callback";				// действие при завершении
+		$validator->sendMethod = "ajax";					//метод отправки
+		$validator->preloaderId = "#preloaderCall";			//id прелоадера
+		$validator->capId = "#captchaCall";					// id каптчи
+		$validator->callback = "successSend";				// Функция Callback
+		$validator->param = 'Call';							// Параметр в функцию
 
 
 		if (isset($_POST) && count($_POST) > 0) {
@@ -61,35 +47,28 @@ class os {
 
 				$fields = array();
 				$fields['name'] = "Контактное лицо";
-				$fields['email'] = "E-mail";
 				$fields['phone'] = "Телефон";
-				$fields['text'] = "Текст сообщения";
 
 				$array = array();
 
 
-				$array['name'] = $validator->post['nameOs'];
-				$array['email'] = $validator->post['emailOs'];
-				$array['phone'] = $validator->post['phoneOs'];
-				$array['text'] = $validator->post['textOs'];
+				$array['name'] = $validator->post['nameCall'];
+				$array['phone'] = $validator->post['phoneCall'];
 				$array['date'] = date("Y-m-d");
 
 				all::insert_block('os', 14, $array, 0);
 
 
-				/*отправка на почту уведомления*/
-				$msg = "";
-
-				foreach ($fields as $key => $value) {
-					$msg .= "".$value." - ";
-					$msg .= $array[$key]."<br/>";
-				}
-
+				// отправка на почту уведомления
+				$mailpage->theme = "Заказ звонка с сайта Olli Tours";
+				$mailpage->name = $array['name'];
+				$mailpage->phone = $array['phone'];
 
 				$email = $control->settings->email;
 				$sitename = $control->settings->sitename;
-				$email_sub = "Поступил вопрос с сайта";
-				all::send_mail($email, $email_sub, $msg, false, false, "$sitename robot");
+				$msg = sprintt($mailpage, "mailtemplates/call.html");
+
+				all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
 
 				die();
 			}

@@ -432,6 +432,18 @@ class All {
 		return $new_json;
 	}
 
+	function getRandom($min=0, $max=100) {
+		$min = (int)$min;
+		$max = (int)$max;
+
+		mt_srand(self::make_seed());
+		return mt_rand($min, $max);
+	}
+
+	function make_seed() {
+		list($usec, $sec) = explode(' ', microtime());
+		return (float) $sec + ((float) $usec * 100000);
+	}
 }
 
 ?>

@@ -166,7 +166,7 @@ body {background: url(/admin/decor/flat/img/background/bg.png) repeat 0 0;}
 	.block .stroke .value {margin-left: 130px; text-align: left;}
 	.block .stroke .value input.text {width: 500px;}
 	.block .stroke .value input.focus {background: white;}
-	.block .stroke .value textarea {width: 500px; height: 100px; min-width: 500px; max-width: 800px; min-height: 100px;}
+	.block .stroke .value textarea {width: 500px; height: 100px; min-width: 500px; max-width: 800px; min-height: 100px; font-family: Calibri;}
 	.block .stroke .value select {width: 500px; height: 21px; padding: 0; padding-left: 5px;}
 	.block .stroke .value .multiple {width: 300px; height: 200px;}
 	.block .stroke .value .reset {width: 24px; height: 24px; background: url("/admin/decor/flat/img/icons/reset.png") no-repeat 0 0; border: 0; cursor: pointer;}

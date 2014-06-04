@@ -24,7 +24,14 @@
  */
 class type_counter {
 	public function input($name, $data, $comment = '', $ro) {
+		$maxlength = "";
+		$style = "";
+		$readonly = "";
+		$return = "";
 
+		// comment attributes
+
+		// hidden
 		if ( strpos($comment, "hidden:") !== false) {
 			$style=" style='display: none;'";
 		}
@@ -32,12 +39,25 @@ class type_counter {
 			$style="";
 		}
 
+		// maxlength
+		if (($n = strpos($comment, 'maxlength:')) !== false) {
+			if (($n2 = strpos($comment, ' ', $n)) == false) {$n2 = strlen($comment);}
+			$n += 10;
+			$maxlengthval = substr($comment, $n, $n2 - $n);
+			$maxlength = "data-maxlength='$maxlengthval'";
+		}
+
+		// read only
 		if ($ro) {
-			$return = "<textarea  class=\"textarea form-control\" name=\"".htmlspecialchars($name)."\" id=\"my$name\" $style readonly>".htmlspecialchars($data)."</textarea>";
+			$readonly = "readonly";
 		}
-		else {
-			$return = "<textarea  class=\"textarea form-control\" name=\"".htmlspecialchars($name)."\" id=\"my$name\" $style>".htmlspecialchars($data)."</textarea>";
+
+		if ($maxlength) {
+			$return = "<p class='maxlength'>Символов осталось: <b>$maxlengthval</b></p>";
 		}
+
+		$return .= "<textarea class='textarea form-control' name='".htmlspecialchars($name)."' id='my$name' $style $readonly $maxlength>".htmlspecialchars($data)."</textarea>";
+
 		return $return;
 	}
 

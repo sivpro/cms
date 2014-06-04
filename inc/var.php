@@ -59,9 +59,6 @@ error_reporting(0);
 
 	$texts['sql_connection_error'] = 'Невозможно подключиться к серверу баз данных.';
 	$texts['sql_db_selection_error'] = 'Невозможно выбрать базу данных.';
-	$texts['search_page_number'] = ', страница ';
-	$texts['close'] = 'закрыть';
-	$config['path_separator'] = ' / ';
 
 
 

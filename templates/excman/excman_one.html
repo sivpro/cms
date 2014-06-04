@@ -1,0 +1,79 @@
+{reduce:space}
+{mask:main}
+
+	<div class="subheader-wrapper">
+		<div class="subheader clearline container">
+			<div class="teamer">
+				<div class="image">
+					<div class="shadow"></div>
+					{mask:image}{if:{_first}}
+					<img src="/files/1/{image}" alt="{php}htmlspecialchars({../name}){/php}">
+					{/if}{/mask}
+				</div>
+				<h1>{name}</h1>
+				<div class="text">
+					{text}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="tours-page container clearline">
+		<p class="name">Проводит экскурсии:</p>
+
+		<div class="list">
+			{mask:exc}
+			{if:!{_first}}-->{/if}<a href="{url}" class="item-wrapper">
+				<div class="item exc">
+					<div class="image">
+						{mask:mainimage}{if:{_first}}
+						<img src="/files/1/{image}" alt="{php}htmlspecialchars({../name}){/php}">
+						{/if}{/mask}
+					</div>
+					<div class="info">
+						<div class="name">
+							<p class="name-s">{name}</p>
+							<div class="values">
+								<p class="valuer"><b>Протяженность, км</b>: {length}</p>
+								<p class="valuer"><b>Длительность, ч</b>: {duration}</p>
+								<p class="valuer"><b>Нагрузка</b>: {charge_sel}</p>
+								<p class="valuer"><b>Калории</b>: {calories}</p>
+							</div>
+							<div class="graphic-path">
+								{mask:activity}
+									{if:{name}=="Велосипедный маршрут"}<i class="icon-e icon-velo tooltip" title="Велосипедный маршрут"></i>{/if}
+									{if:{name}=="Кросс-маршрут"}<i class="icon-e icon-cross tooltip" title="Кросс-маршрут"></i>{/if}
+									{if:{name}=="Скандинавская ходьба"}<i class="icon-e icon-walk tooltip" title="Скандинавская ходьба"></i>{/if}
+									{if:{name}=="Серфинг"}<i class="icon-e icon-serf tooltip" title="Серфинг"></i>{/if}
+									{if:{name}=="Лыжный маршрут"}<i class="icon-e icon-ski tooltip" title="Лыжный маршрут"></i>{/if}
+								{/mask}
+
+							</div>
+						</div>
+						<div class="prices clearline">
+							<div class="column">
+								<p class="price">{fullprice} Р</p>
+								<p class="tip">Общая стоимость</p>
+							</div>
+							<div class="column">
+								<p class="price">{agentprice} Р</p>
+								<p class="tip">К оплате</p>
+							</div>
+						</div>
+						<div class="agent-price">
+							<p class="price">{difference} Р</p>
+							<p class="tip">Комиссия агента</p>
+						</div>
+						<div class="compare">
+							<span href="#">Добавить к сравнению</span>
+						</div>
+					</div>
+				</div>
+			</a>{if:!{_last}}<!--{/if}
+			{/mask}
+
+			<!-- -->
+		</div>
+
+	</div>
+{/mask}

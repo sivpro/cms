@@ -55,12 +55,11 @@ $lang['de']='switch ($errorType) {
 if(isset($_GET['js']) && $_GET['js']=='get')
 {
 ?>
-var config = new Array(),
-	ready = true;
+
 
 
 jQuery(document).ready(function(){
-	jQuery("form").live("submit", function() {
+	jQuery("form").on("submit", function() {
 		fsubmit(jQuery(this).attr('name'));
 		return false;
 	});
@@ -759,7 +758,7 @@ class formvalidator {
 			case "noempty": $string = "Поле `" . $fieldName . "` обязательно для заполнения"; break;
 			case "nonumber": $string = "Поле `" . $fieldName . "` не должно содержать цифры"; break;
 			case "numberonly": $string = "Поле `" . $fieldName . "` должно содержать только цифры"; break;
-			case "login": $string = "- Пользователь с таким адресом E-mail уже имеется в нашей базе. Пожалуйста введите другое значение."; break;
+			case "login": $string = "Пользователь с таким адресом E-mail уже имеется в нашей базе. Пожалуйста введите другое значение."; break;
 			case "captcha": $string = "В поле `" . $fieldName . "` введен неверный код"; break;
 			case "sameas": $string = "Пароли не совпадают"; break;
 			default: $string = "Ошибка";

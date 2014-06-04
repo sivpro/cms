@@ -1,0 +1,146 @@
+{reduce:nothing}
+{mask:main}
+		<div class="reg-block clearline container">
+			<p class="name" id="agent">Форма регистрации</p>
+			<div class="type-chooser">
+				<div class="radio-input clearline">
+					<div class="radio">
+						<input type="radio" name="asjReg" id="asjReg1" class="usertype" value="0" checked>
+						Агент-фрилансер
+					</div>
+					<div class="radio">
+						<input type="radio" name="asjReg" id="asjReg2" class="usertype" value="1">
+						Агентство
+					</div>
+				</div>
+			</div>
+
+			{* Текст для фрилансеров *}
+			<div class="type-text clearline" id="type-text_0">
+				<div class="column">
+					<p class="name">Если Вы являетесь:</p>
+
+					<ul>
+						<li>туристическим агентом, работающим самостоятельно (без агентства)</li>
+						<li>гидом, который проводит экскурсии по Чехии</li>
+						<li>спортивным тренером или преподавателем</li>
+					</ul>
+
+					<p>Или  Вы просто человек с активной жизненной позицией, мы предлагаем Вам  взаимовыгодное сотрудничество. Вы можете работать с нашей компанией как агент-фрилансер,  продавая наши экскурсии и туры.Работая с нами, Вы сможете гарантированно получать агентское вознаграждение!</p>
+				</div>
+
+				<div class="column">
+					<p class="name">Работать с нами просто и удобно:</p>
+
+					<ul>
+						<li>Вы бронируете для ваших туристов экскурсии или туры у нас на сайте</li>
+						<li>получаете оплату от туристов</li>
+						<li>перечисляете нам денежные средства за вычетом Ваших комиссионных.</li>
+					</ul>
+
+					<p>Таким образом,  свое агентское вознаграждение Вы получаете сами  и сразу!</p>
+					<p>Оплата возможна прямо у нас на сайте при бронировании экскурсии или тура,  либо в течении двух дней   у нас в офисе по адресу: г. Санкт-Петербург, ул. Аккуратова д. 13, ТД «Долина Роз».</p>
+				</div>
+			</div>
+
+			{* Текст для агентств *}
+			<div class="type-text clearline hidden-element" id="type-text_1">
+				<div class="column">
+					<p class="name">Уважаемые коллеги!</p>
+
+					<p>Хотите больше зарабатывать и ярко отличаться от конкурентов?</p>
+
+					<p>Компания Olli Tours рада предложить Вам взаимовыгодное сотрудничество. Станьте привлекательнее конкурентов, предложите клиентам новое и необычное. Компания Olli Tours проводит  пешие и велосипедные экскурсии для активных путешественников. Эти экскурсии эксклюзивны их нет у других туроператоров и ваши туристы могут приобрести их у вас прямо при бронировании тура.</p>
+
+					<p>Оплата возможна прямо у нас на сайте при бронировании экскурсии,  либо у нас в офисе по адресу:  г. Санкт-Петербург, ул. Аккуратова д. 13, ТД «Долина Роз».</p>
+				</div>
+
+				<div class="column">
+					<p class="name">Работать с нами очень просто:</p>
+
+					<ul>
+						<li>зарегистрируйтесь у нас на сайте</li>
+						<li>распечатайте и подпишите договор оферты</li>
+						<li>оформленный договор направьте к нам офис по адресу: 197341 г.Санкт-Петербург,  ул.Аккуратова д.13</li>
+						<li>бронируйте экскурсии  у нас на сайте</li>
+						<li>получайте оплату от туристов</li>
+						<li>перечисляйте нам денежные средства за вычетом ваших  комиссионных</li>
+					</ul>
+				</div>
+			</div>
+
+			{script}
+			<div class="form std-form transparent">
+				<form action="/wt/" method="post" name="formReg" id="formReg" rel="formReg">
+				<input type="hidden" value="0" id="typeReg" name="typeReg">
+					<div class="clearline">
+						<div class="form-column">
+							<div class="input">
+								<p class="placeholder">Представьтесь, пожалуйста</p>
+								<input type="text" name="nameReg" id="nameReg" required placeholder="ФИО">
+							</div>
+
+							<div class="input">
+								<p class="placeholder">Ваша страна</p>
+								<input type="text" name="countryReg" id="countryReg" required placeholder="Страна">
+							</div>
+
+							<div class="input">
+								<p class="placeholder">Ваш город</p>
+								<input type="text" name="cityReg" id="cityReg" required placeholder="Город">
+							</div>
+						</div>
+
+						<div class="form-column">
+							<div class="input">
+								<p class="placeholder">Контактный телефон</p>
+								<input type="text" name="phoneReg" id="phoneReg" required placeholder="Контактный телефон">
+							</div>
+
+							<div class="input">
+								<p class="placeholder">E-mail</p>
+								<input type="text" name="emailReg" id="emailReg" required placeholder="E-mail">
+							</div>
+
+							<div class="input">
+								<p class="placeholder">Пароль</p>
+								<input type="password" name="passwordReg" id="passwordReg" required placeholder="Пароль" autocomplete="off">
+							</div>
+						</div>
+
+					</div>
+
+					<div class="input-checkbox">
+						<label><input type="checkbox" class="styled-input" name="agreeReg" id="agreeReg"> Я согласен с условиями договора <a href="#">(Посмотреть договор оферты)</a></label>
+					</div>
+
+
+					<div class="send button-center">
+						<button id="sendReg" class="std-button white-button disabled" disabled>Зарегистрировать меня</button>
+						<div id="preloaderReg" class="preloader block">
+							<div class="circleG circleG_1"></div>
+							<div class="circleG circleG_2"></div>
+							<div class="circleG circleG_3"></div>
+						</div>
+
+					</div>
+
+					<div id="showErrorsReg" class="errors"></div>
+				</form>
+			</div>
+
+		</div>
+
+
+	<div class="popup-block simple-popup-block hidden-element" id="successSendReg">
+		<button class="popup-close popup-close-top"></button>
+
+		<p class="h">Учетная запись зарегистрирована</p>
+		<div class="text">
+			<p class="simple">На указанный Вами e-mail выслана инструкция по активации учетной записи</p>
+		</div>
+		<div class="button-center">
+			<button class="popup-close std-button black-button">Закрыть</button>
+		</div>
+	</div>
+{/mask}

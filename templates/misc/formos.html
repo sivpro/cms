@@ -1,50 +1,45 @@
 {reduce:nothing}
 {mask:main}
 {script}
-	<div class="form-hidden">
-		<div id="form-there">
-		<div class="form" id="form">
-			<a href="#" class="close" >закрыть</a>
-				<h2>Напишите нам</h2>
-				<form name="formOs" id="formOs" rel="formOs" action="/os/" method="post">
+	<div class="popup-block simple-popup-block hidden-element" id="call-form">
+		<button class="popup-close popup-close-top"></button>
 
-					<div class="stroke">
-						<p>ФИО</p>
-						<input class="forminput" type="text" name="nameOs" id="nameOs" value="">
-						<p id="nameOs-error" class="error-desc"></p>
-					</div>
+		<!--FORM-->
+		<form name="formCall" id="formCall" rel="formCall" method="post" action="/os/">
+			<div class="form">
+				<p class="h">Перезвоните мне</p>
 
-					<div class="stroke">
-						<div class="item">
-							<p>Контактный телефон</p>
-							<input class="forminput" type="text" name="phoneOs" id="phoneOs" value="">
-							<p id="phoneOs-error" class="error-desc"></p>
-						</div>
-
-						<div class="item">
-							<p>E-mail</p>
-							<input class="forminput" type="text" name="emailOs" id="emailOs" value="">
-							<p id="emailOs-error" class="error-desc"></p>
-						</div>
-					</div>
-
-					<div class="stroke">
-						<p>Сообщение</p>
-						<textarea class="forminput" cols="" rows="" name="textOs" id="textOs"></textarea>
-						<p id="textOs-error" class="error-desc"></p>
-					</div>
-
-					<button class="os-button">Отправить сообщение</button>
-
-				</form>
+				<div class="input">
+					<p class="placeholder">Представьтесь, пожалуйста</p>
+					<input type="text" name="nameCall" id="nameCall" required placeholder="ФИО">
 				</div>
 
-				<div id="showErrorsOs">
-
+				<div class="input">
+					<p class="placeholder">Ваш номер телефона</p>
+					<input type="text" name="phoneCall" id="phoneCall" required placeholder="Номер телефона">
 				</div>
 
 
+				<div class="send" id="sendCall">
+					<button type="submit" class="std-button black-button">Отправить</button> <img src="/img/ajax-loader-black.gif" alt="..." id="preloaderCall" class="preloader">
+				</div>
+
+				<div class="errors" id="showErrorsCall"></div>
+			</div>
+		</form>
+		<!--/FORM-->
+	</div>
+
+
+	<div class="popup-block simple-popup-block hidden-element" id="successSendCall">
+		<button class="popup-close popup-close-top"></button>
+
+		<p class="h">Сообщение отправлено</p>
+		<div class="text">
+			<p class="simple">В ближайшее время наши менеджеры перезвонят на указанный Вами телефон</p>
 		</div>
+		<div class="button-center">
+			<button class="popup-close std-button black-button">Закрыть</button>
 		</div>
 	</div>
 {/mask}

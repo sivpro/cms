@@ -52,7 +52,9 @@
 				checkboxClass: 'icheckbox_flat-blue',
 				radioClass: 'iradio_flat-blue'
 			});
-			$(".select-styled").chosen();
+			$(".select-styled").chosen({
+				width: "400px"
+			});
 		});
 	</script>
 
@@ -129,7 +131,7 @@
 									<span>{key}</span>
 								{/if}
 							</div>
-							<div class="value"{if:{_first}} id="first-value"{/if}>
+							<div class="value">
 								{value}
 								<input type="hidden" name="dat[{index}]" value="{key}">
 								<input type="hidden" name="dkey[{index}]" value="{datatkey}">

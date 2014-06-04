@@ -1,0 +1,152 @@
+{reduce:space}
+{mask:main}
+	{mask:item}
+	<div class="subheader-wrapper tour">
+		<div class="subheader clearline container">
+			<div class="info">
+				<h1>{name}</h1>
+				<div class="text">
+					{text}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="tour-page container clearline">
+		<div class="tour-info exc-info clearline">
+			<div class="column">
+				<p class="name-p">Характеристики экскурсии:</p>
+
+				<table class="info">
+					<tr>
+						<td>Активность</td>
+						<td>{mask:activity}{name} {/mask}</td>
+					</tr>
+					<tr>
+						<td>Продолжительность</td>
+						<td>{duration} ч</td>
+					</tr>
+					<tr>
+						<td>Протяженность</td>
+						<td>{length} км</td>
+					</tr>
+					<tr>
+						<td>Нагрузка</td>
+						<td>{charge_sel}</td>
+					</tr>
+					<tr>
+						<td>Калории</td>
+						<td>{calories}</td>
+					</tr>
+					<tr>
+						<td>Стоимость</td>
+						<td>{agentprice} Р</td>
+					</tr>
+					<tr>
+						<td>Комиссия для агентов</td>
+						<td>{difference} Р</td>
+					</tr>
+					<tr>
+						<td>Общая стоимость</td>
+						<td>{fullprice} Р</td>
+					</tr>
+
+
+				</table>
+			</div>
+			<div class="column">
+				<p class="name-p">Календарь экскурсий</p>
+
+				<div class="date-picker clearline">
+					<div class="calendar" id="calendar">
+
+					</div>
+					<div class="legend">
+						<div class="item clearline">
+							<div class="color event"></div>
+							<div class="tip">Дни экскурсий</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="column">
+				<p class="name-p">Маршрут</p>
+				<div class="path">
+					<p class="path-desc">
+						{route}
+					</p>
+
+					<div class="map">
+						<a href="{googlemap}" id="map-route">Увеличить</a>
+						<iframe class="mapframe" src="{googlemap}" frameborder="0" style="border:0"></iframe>
+					</div>
+					<div class="graphic-path">
+						{mask:activity}
+							{if:{name}=="Велосипедный маршрут"}<i class="icon-e icon-velo tooltip" title="Велосипедный маршрут"></i>{/if}
+							{if:{name}=="Кросс-маршрут"}<i class="icon-e icon-cross tooltip" title="Кросс-маршрут"></i>{/if}
+							{if:{name}=="Скандинавская ходьба"}<i class="icon-e icon-walk tooltip" title="Скандинавская ходьба"></i>{/if}
+							{if:{name}=="Серфинг"}<i class="icon-e icon-serf tooltip" title="Серфинг"></i>{/if}
+							{if:{name}=="Лыжный маршрут"}<i class="icon-e icon-ski tooltip" title="Лыжный маршрут"></i>{/if}
+						{/mask}
+					</div>
+				</div>
+			</div>
+		</div>
+		{/mask}
+
+		<div class="photo-gallery clearline">
+			<p class="name-p">Фотогалерея</p>
+			<ul id="photos">
+				{mask:image}
+					{mask:image}{if:{_first}}
+						<li data-title="{php}addslashes({../name}){/php}" data-src="/files/0/{image}"><img src="/files/{../size}/{image}" alt=""></li>
+					{/if}{/mask}
+				{/mask}
+			</ul>
+
+		</div>
+	</div>
+
+
+
+	<script type="text/template" id="clndr-template">
+		{#
+		<div class='clndr-controls'>
+			<div class='clndr-previous-button'></div>
+			<div class='clndr-next-button'></div>
+			<div class='month'><%= month +" "+ year %></div>
+		</div>
+
+		<table class='clndr-table' border='0' cellspacing='0' cellpadding='0'>
+			<thead>
+				<tr class='header-days'>
+				<% for(var i = 0; i < daysOfTheWeek.length; i++) { %>
+					<td class='header-day'><%= daysOfTheWeek[i] %></td>
+				<% } %>
+				</tr>
+			</thead>
+			<tbody>
+			<% for(var i = 0; i < numberOfRows; i++){ %>
+				<tr>
+					<% for(var j = 0; j < 7; j++){ %>
+					<% var d = j + i * 7; %>
+					<td class='<%= days[d].classes %>
+						<% _.each(days[d].events, function(event) { %>
+							<%= " " + event.classes %>
+						<% }); %>
+					' title='<% var dd = _.size(days[d].events) - 1 %>
+						<% if(dd > -1) { %>
+							<%= days[d].events[dd].title %>
+						<% } %>'
+					>
+						<div class='day-contents'><%= days[d].day  %>
+						</div>
+					</td>
+					<% } %>
+				</tr>
+			<% } %>
+			</tbody>
+		</table>
+		#}
+	</script>
+{/mask}

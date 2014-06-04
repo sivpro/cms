@@ -170,7 +170,25 @@ $(document).ready(function() {
 
 
 		});
-	})
+	});
+
+	// maxlength
+	$("[data-maxlength]").keyup(function() {
+		var $t = $(this),
+			$p = $t.prev(),
+			$b = $p.find("b"),
+			val = $t.val(),
+			maxlength = $t.attr("data-maxlength"),
+			length = val.length,
+			left = maxlength - length;
+
+		if (left < 0) {
+			left = 0;
+			$t.val($t.val().substr(0, maxlength));
+		}
+
+		$b.text(left);
+	});
 });
 
 function addCat(a) {

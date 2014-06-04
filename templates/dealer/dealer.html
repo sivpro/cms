@@ -1,0 +1,57 @@
+{reduce:nothing}
+{mask:main}
+	<div class="subheader-wrapper tour">
+		<div class="subheader clearline container">
+			<div class="info">
+				<h1>{name}</h1>
+				<div class="text">
+					{text}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="dealers-page container clearline">
+		<div class="chooser">
+			<div class="select-box">
+				<p class="placeholder">Выберите город дилера</p>
+				<select id="city-chooser" class="big-select" data-placeholder="Выберите город">
+					{mask:city}
+					<option value="{_rank}"{if:{_first}} selected{/if}>{city}</option>
+					{/mask}
+				</select>
+			</div>
+
+
+			<p class="city-name" id="city-name">Екатеринбург</p>
+
+			{mask:item}
+			<div class="dealers-box{if:!{_first}} hidden-element{/if}" id="dealers-box_{_rank}">
+				<div class="dealers-list">
+
+					{mask:item}
+					<div class="item">
+						<p class="name pan-map" data-coords="{coords}">{name}</p>
+						<p class="address">{address}</p>
+						{if:{phone} != ""}
+						<p class="valuer"><b>Телефон:</b> {phone}</p>
+						{/if}
+
+						{if:{email} != ""}
+						<p class="valuer"><b>E-mail:</b> {email}</p>
+						{/if}
+					</div>
+					{/mask}
+
+				</div>
+			</div>
+			{/mask}
+
+		</div>
+
+		<div class="map" id="google-map">
+
+		</div>
+	</div>
+	<!--/DEALERS PAGE-->
+{/mask}

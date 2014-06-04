@@ -1,15 +1,31 @@
 {reduce:nothing}
 {mask:main}
-
-		{mask:item}
-			{if:{link} != "link"}
-				{if:!{_first}}-->{/if}<li class="show"><a href="#">{name}</a></li>{if:!{_last}}<!--{/if}
-			{/if}
-
-			{if:{link} == "link"}
-				{if:!{_first}}-->{/if}<li><a href="#">{name}</a></li>{if:!{_last}}<!--{/if}
-			{/if}
-
-		{/mask}
+			<ul>
+				<li><a href="/"{if:{active}==1} class="active"{/if}>Главная</a></li>
+				<li>
+					<a href="#" class="menulink dropping{if:{active}==11 || {active} == 19} active{/if}">О нас</a>
+					<ul class="drop-menu">
+						<li><a href="{aboutUrl}">О компании</a></li>
+						<li><a href="{excmanUrl}">Экскурсоводы</a></li>
+						<li><a href="{equipUrl}">Снаряжение</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="menulink dropping{if:{active}==20 || {active} == 21} active{/if}">Туры и экскурсии</a>
+					<ul class="drop-menu">
+						<li><a href="{toursUrl}">Туры</a></li>
+						<li><a href="{excUrl}">Экскурсии</a></li>
+						<li><a href="{compareUrl}">Сравнение</a></li>
+					</ul>
+				</li>
+				<li><a href="{infoUrl}"{if:{active}==22} class="active"{/if}>Туристу на заметку</a></li>
+				<li>
+					<a href="{contactsUrl}" class="menulink dropping{if:{active}==30 || {active} == 31} active{/if}">Контакты</a>
+					<ul class="drop-menu">
+						<li><a href="{officeUrl}">Офисы</a></li>
+						<li><a href="{dealersUrl}">Дилеры</a></li>
+					</ul>
+				</li>
+			</ul>
 
 {/mask}

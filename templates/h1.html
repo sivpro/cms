@@ -7,25 +7,245 @@
 
 	<!--lessstyles//-->
 
+	<!--basic styles-->
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/animate.css">
 
-	<script src="/scripts/jquery.js"></script>
-	<script src="/scripts/site.js"></script>
-	<script src="/libs/formvalidator.php?js=get"></script>
+	<!--fancybox-->
+	<link rel="stylesheet" href="/scripts/fancybox/source/jquery.fancybox.css">
+
+	<!--slick slider-->
+	<link rel="stylesheet" href="/scripts/slick/slick.css">
+
+	<!--chosen-->
+	<link rel="stylesheet" href="/scripts/chosen/chosen.css">
+
+	<!--icheck-->
+	<link rel="stylesheet" href="/scripts/iCheck/skins/flat/flat.css">
+
+	<!--rangeslider-->
+	<link rel="stylesheet" href="/scripts/ion.rangeSlider/css/ion.rangeSlider.css">
+	<link rel="stylesheet" href="/scripts/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css">
+
+	<!--sauron-->
+	<link rel="stylesheet" href="/scripts/sauron/style.css">
+
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,100,100italic&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-
-	<!--[if lt IE 9]>
 		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 	<![endif]-->
 
+	<script>
+		var config = [],
+			ready = true;
+	</script>
 
 </head>
 
 
 <body>
-	Привет
+
+	<!--HEADER-->
+	<div class="header-wrapper" id="fixed-nav">
+		<header class="header container clearline">
+
+			<div class="menu-button clearline">
+				<div class="menu-touch-button"></div>
+			</div>
+
+			<div class="flexnav">
+
+				<!--PHONE-->
+				<a class="phone-block popup" href="#call-form">
+					<!--phoneblock//-->
+				</a>
+				<!--/PHONE-->
+
+				<!--MAIN NAVIGATION-->
+				<nav class="main-nav">
+					<!--menu//-->
+				</nav>
+				<!--/MAIN NAVIGATION-->
+
+				<!--authblock//-->
+
+			</div>
+
+		</header>
+	</div>
+	<!--/HEADER -->
+
+	<!--FIRST-SCREEN-->
+	<div class="first-screen-wrapper">
+
+		<video autoplay loop class="video" id="video-bg">
+			<source src="/img/gp.webm" type="video/webm">
+			<source src="/img/gp.mp4" type="video/mp4">
+		</video>
+
+
+		<div class="holder">
+			<div class="first-screen clearline container" id="first-block">
+				<div class="logo">
+					<a href="/"><img src="/img/logo.png" alt="Olli Tours"></a>
+				</div>
+				<div class="description">
+					<p>АКТИВНЫЙ ТУРИЗМ В ЕВРОПЕ И МИРЕ</p>
+				</div>
+				<div class="progress-bar">
+					<div class="progress" id="video-progress"></div>
+				</div>
+				<div class="buttons" id="nav-buttons">
+					<div class="button">
+						<a href="#tourist" class="std-button white-button block-button">Я турист</a>
+					</div><!--
+					--><div class="button">
+						<a href="#agent" class="std-button white-button block-button">Я агент</a>
+					</div>
+				</div>
+				<div class="video-controls">
+					<a href="#" id="button-play"><i class="icon-e icon-play"></i></a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!--/FIRST-SCREEN-->
+
+
+
+	<!--TOURS BLOCK-->
+	<div class="tours-block-wrapper">
+		<!--toursblock//-->
+	</div>
+	<!--/TOURS BLOCK-->
+
+	<!--SEO-->
+	<div class="seo-wrapper clearline">
+		<!--seoblock//-->
+	</div>
+	<!--/SEO-->
+
+	<!--TEAM BLOCK-->
+	<div class="team-wrapper clearline">
+		<!--teamerblock//-->
+	</div>
+	<!--/TEAM BLOCK-->
+
+	<!--ADVANTAGES BLOCK-->
+	<div class="adv-wrapper">
+		<div class="adv-block container clearline">
+			<p class="name">Преимущества “OLLI TOURS”</p>
+			<div class="columns clearline">
+				<div class="column">
+					<div class="item clearline">
+						<i class="icon-e icon-info-1"></i>
+						<div class="text">
+							наши <strong>экскурсии уникальны,</strong> их не предлагают другие компании
+						</div>
+					</div>
+
+					<div class="item clearline">
+						<i class="icon-e icon-info-2"></i>
+						<div class="text">
+							наши <strong>гиды профессионалы,</strong> которые живут в тех городах, в которых проводят экскурсии, поэтому они знают все о том, о чем рассказывают туристам и могут ответить на любые вопросы
+						</div>
+					</div>
+
+					<div class="item clearline">
+						<i class="icon-e icon-info-3"></i>
+						<div class="text">
+							наши экскурсии проходят <strong>регулярно</strong>, еженедельно, т.о. все туристы, приезжающие в Чехию могут выбрать <strong>удобный</strong> для себя день и посетить, то, что им интересно
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="item clearline">
+						<i class="icon-e icon-info-4"></i>
+						<div class="text">
+							мы внимательны к каждому туристу и <strong>учитываем все пожелания</strong>
+						</div>
+					</div>
+
+					<div class="item clearline">
+						<i class="icon-e icon-info-5"></i>
+						<div class="text">
+							мы заботимся о безопасности наших туристов и предоставляем все необходимое: <strong>надежный инвентарь,</strong> шлемы , продуманный <strong>безопасный маршрут</strong> экскурсий, квалифицированных гидов
+						</div>
+					</div>
+
+					<div class="item clearline">
+						<i class="icon-e icon-info-6"></i>
+						<div class="text">
+							у нас <strong>новый инвентарь</strong> для экскурсий (новые, современные велосипеды и скандинавские палочки )
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-bottom">С нами очень просто работать, просто <strong>выбираете</strong> интересующую Вас экскурсию и дату у нас на сайте, <strong>бронируете</strong> и <strong>оплачивайте</strong> экскурсию и в назначенное время, в назначенном месте Вас будет ждать наш гид со всем необходимым инвентарем.</div>
+		</div>
+	</div>
+	<!--/ADVANTAGES BLOCK-->
+
+	<!--REG BLOCK-->
+	<div class="reg-wrapper">
+
+		<!--regblock//-->
+
+		<!--FOOTER-->
+		<footer class="footer-bottom clearline">
+			<div class="container">
+				<!--footer//-->
+			</div>
+		</footer>
+		<!--/FOOTER-->
+
+	</div>
+	<!--/REG BLOCK-->
+
+	<!--formos//-->
+
+	<!--jquery and elgrow-->
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="/scripts/site.js"></script>
+	<script src="/libs/formvalidator.php?js=get"></script>
+
+	<!--fancybox-->
+	<script src="/scripts/fancybox/source/jquery.fancybox.pack.js"></script>
+
+	<!--slick-->
+	<script src="/scripts/slick/slick.min.js"></script>
+
+	<!--masked input-->
+	<script src="/scripts/jquery.maskedinput.min.js"></script>
+
+	<!--chosen-->
+	<script src="/scripts/chosen/chosen.jquery.min.js"></script>
+
+	<!--icheck-->
+	<script src="/scripts/iCheck/icheck.min.js"></script>
+
+	<!--rangeslider-->
+	<script src="/scripts/ion.rangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
+
+	<!--clndr-->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+	<script src="/scripts/clndr/moment-with-langs.min.js"></script>
+	<script src="/scripts/clndr/clndr.min.js"></script>
+
+	<!--tooltipster-->
+	<script src="/scripts/tooltipster/jquery.tooltipster.min.js"></script>
+
+	<!--scrolltofixed-->
+	<script src="http://cdn.jsdelivr.net/jquery.scrolltofixed/0.1/jquery-scrolltofixed.js"></script>
+	<script src="/scripts/jquery.scrollTo.min.js"></script>
+	<script src="/scripts/jquery.localScroll.min.js"></script>
+
+	<!--password show-->
+	<script src="/scripts/sauron/jquery.sauron.min.js"></script>
+
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 </body>
 </html>

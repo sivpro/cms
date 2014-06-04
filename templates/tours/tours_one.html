@@ -1,0 +1,290 @@
+{reduce:space}
+{mask:main}
+	{mask:item}
+	<div class="subheader-wrapper tour">
+		<div class="subheader clearline container">
+			<div class="info">
+				<h1>{name}</h1>
+				<div class="text">
+					{text}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="tour-page container clearline">
+		<div class="tour-info clearline">
+			<div class="column">
+				<p class="name-p">Характеристики тура:</p>
+				<table class="info">
+					<tr>
+						<td>Город вылета</td>
+						<td>{cityfrom}</td>
+					</tr>
+					<tr>
+						<td>Город прилета</td>
+						<td>{cityto}</td>
+					</tr>
+					<tr>
+						<td>Ночей</td>
+						<td>{nights}</td>
+					</tr>
+					<tr>
+						<td>Отель</td>
+						<td>{hotel}</td>
+					</tr>
+					<tr>
+						<td>Тип номера</td>
+						<td>{room}</td>
+					</tr>
+					<tr>
+						<td>Питание</td>
+						<td>{food}</td>
+					</tr>
+					<tr>
+						<td>Стоимость</td>
+						<td>{agentprice} Р</td>
+					</tr>
+					<tr>
+						<td>Комиссия для агентов</td>
+						<td>{difference} Р</td>
+					</tr>
+					<tr>
+						<td>Общая стоимость</td>
+						<td>{fullprice} Р</td>
+					</tr>
+				</table>
+
+			</div>
+			<div class="column">
+				<p class="name-p">Календарь экскурсий</p>
+				<div class="date-choose">
+					<p class="placeholder">Дата тура</p>
+
+					<select id="tour-date" name="date" class="big-select" data-placeholder="Выберите дату">
+						{mask:tourdates}
+						<option value="" data-month="{month}" data-year="{year}"{if:{_first}} selected{/if}>{date}</option>
+						{/mask}
+					</select>
+				</div>
+
+				<div class="date-picker clearline">
+					<div class="calendar">
+						<div id="calendar">
+
+						</div>
+
+						<a href="#" class="std-button black-button">Купить тур</a>
+					</div>
+
+					<div class="legend">
+						<div class="item clearline">
+							<div class="color all"></div>
+							<div class="tip">Продолжительность тура</div>
+						</div>
+						<div class="item clearline">
+							<div class="color event"></div>
+							<div class="tip">Дни экскурсий</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{/mask}
+
+		<div class="photo-gallery clearline">
+			<p class="name-p">Фотогалерея</p>
+			<ul id="photos">
+				{mask:image}
+					{mask:image}{if:{_first}}
+						<li data-title="{php}addslashes({../name}){/php}" data-src="/files/0/{image}"><img src="/files/{../size}/{image}" alt=""></li>
+					{/if}{/mask}
+				{/mask}
+			</ul>
+
+		</div>
+
+		<div class="buy-tour">
+			<p class="name-p">Купить тур</p>
+
+			<form action="/" name="formBuy" id="formBuy" rel="formBuy">
+				<div class="form top-fields">
+					<div class="section section-3 clearline">
+						<div class="input">
+							<p class="placeholder">Представьтесь, пожалуйста</p>
+							<input type="text" name="nameBuy" id="nameBuy" required>
+						</div>
+
+						<div class="input">
+							<p class="placeholder">Номер телефона</p>
+							<input type="text" name="phoneBuy" id="phoneBuy" required>
+						</div>
+
+						<div class="input">
+							<p class="placeholder">E-mail</p>
+							<input type="email" name="emailBuy" id="emailBuy" required>
+						</div>
+					</div>
+				</div>
+
+				<div class="tourists clearline form">
+
+					<div class="tourist-adult">
+						<header class="tourist-header clearline">
+							<p class="name">Турист 1</p>
+							<a href="#" class="delete-tourist">Удалить <b></b></a>
+						</header>
+						<div class="fields">
+							<div class="section clearline">
+								<div class="section-part">
+									<div class="radio-input">
+										<p class="placeholder">Пол</p>
+										<div class="radio">
+											<input type="radio" value="m" class="styled-input-dark" name="gender[]" checked>
+											М
+										</div>
+										<div class="radio">
+											<input type="radio" value="f" class="styled-input-dark" name="gender[]">
+											Ж
+										</div>
+									</div>
+								</div>
+								<div class="section-part">
+									<div class="input">
+										<p class="placeholder">Возраст</p>
+										<input type="text" name="ageBuy[]">
+									</div>
+								</div>
+								<div class="section-part">
+									<div class="input">
+										<p class="placeholder">Рост</p>
+										<input type="text" name="heightBuy[]">
+									</div>
+								</div>
+							</div>
+
+							<p class="big">Данные Вашего заграничного паспорта:</p>
+							<div class="section section-3 clearline">
+								<div class="input">
+									<p class="placeholder">И. Ф. (латиницей)</p>
+									<input type="text" name="innameBuy[]">
+								</div>
+
+								<div class="input">
+									<p class="placeholder">Серия и номер</p>
+									<input type="text" name="pasportBuy[]">
+								</div>
+
+								<div class="input">
+									<p class="placeholder">Действителен по</p>
+									<input type="text" name="dateToBuy[]">
+								</div>
+							</div>
+
+							<div class="input-checkbox">
+								<label><input type="checkbox" class="styled-input-dark" name="visaBuy[]"> Есть виза</label>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="tourist-child tourist-adult">
+						<header class="tourist-header clearline">
+							<p class="name">Ребенок 1</p>
+							<a href="#" class="delete-tourist">Удалить <b></b></a>
+						</header>
+						<div class="fields">
+							<div class="section clearline">
+								<div class="section-part">
+									<div class="radio-input border">
+										<p class="placeholder">Пол</p>
+										<div class="radio">
+											<input type="radio" value="m" class="styled-input-dark" name="gender[]" checked>
+											М
+										</div>
+										<div class="radio">
+											<input type="radio" value="f" class="styled-input-dark" name="gender[]">
+											Ж
+										</div>
+									</div>
+								</div>
+								<div class="section-part">
+									<div class="input">
+										<p class="placeholder">Возраст</p>
+										<input type="text" name="ageBuy[]">
+									</div>
+								</div>
+								<div class="section-part">
+									<div class="input">
+										<p class="placeholder">Рост</p>
+										<input type="text" name="heightBuy[]">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="add">
+						<a href="#" class="addAdult"></a>
+						<a href="#" class="addChild"></a>
+					</div>
+				</div>
+
+				<div class="total clearline">
+					<p class="name">Стоимость тура:</p>
+					<p class="price"><span>230 700</span> Р</p>
+				</div>
+
+				<div class="form">
+					<div class="button-content">
+						<button class="std-button white-button">Заказать тур</button> <img src="/img/ajax-loader.gif" alt="..." class="preloader" id="preloaderBuy">
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+
+	<script type="text/template" id="clndr-template">
+		{#
+		<div class='clndr-controls'>
+			<div class='clndr-previous-button'></div>
+			<div class='clndr-next-button'></div>
+			<div class='month'><%= month +" "+ year %></div>
+		</div>
+
+		<table class='clndr-table' border='0' cellspacing='0' cellpadding='0'>
+			<thead>
+				<tr class='header-days'>
+				<% for(var i = 0; i < daysOfTheWeek.length; i++) { %>
+					<td class='header-day'><%= daysOfTheWeek[i] %></td>
+				<% } %>
+				</tr>
+			</thead>
+			<tbody>
+			<% for(var i = 0; i < numberOfRows; i++){ %>
+				<tr>
+					<% for(var j = 0; j < 7; j++){ %>
+					<% var d = j + i * 7; %>
+					<td class='<%= days[d].classes %>
+						<% console.log(days[d]); %>
+						<% _.each(days[d].events, function(event) { %>
+							<%= " " + event.classes %>
+						<% }); %>
+					' title='<% var dd = _.size(days[d].events) - 1 %>
+						<% if(dd > -1) { %>
+							<%= days[d].events[dd].title %>
+						<% } %>'
+					>
+						<div class='day-contents'><%= days[d].day  %>
+						</div>
+					</td>
+					<% } %>
+				</tr>
+			<% } %>
+			</tbody>
+		</table>
+		#}
+	</script>
+{/mask}

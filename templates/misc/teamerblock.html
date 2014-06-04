@@ -1,0 +1,22 @@
+{reduce:nothing}
+{mask:main}
+		<div class="team-block container">
+			<p class="name">Наши экскурсоводы</p>
+			<div class="list clearline" id="team-slider">
+
+				{mask:item}
+				<div class="slide">
+					<a href="{url}" class="item">
+						<div class="image">
+							<div class="shadow"></div>
+							{mask:image}{if:{_first}}
+							<img src="/files/1/{image}" alt="{php}htmlspecialchars({../name}){/php}">
+							{/if}{/mask}
+						</div>
+						<p class="name">{mask:name2}{name}{if:!{_last}}<br>{/if}{/mask}</p>
+					</a>
+				</div>
+				{/mask}
+			</div>
+		</div>
+{/mask}

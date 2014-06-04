@@ -1,0 +1,82 @@
+{reduce:nothing}
+{mask:main}
+	{if:!{auth}}
+
+		<div class="auth-block">
+			<a href="#auth-popup" class="std-button black-button" id="authButton">Вход для агентов</a>
+
+			<div class="auth-popup-block" id="auth-popup">
+				<button class="auth-close popup-close popup-close-top"></button>
+				<div class="form">
+					<p class="h">Вход</p>
+					<form name="authForm" data-validate="false" id="authForm" action="/wt/" method="post">
+						<div class="input">
+							<p class="placeholder">Ваш E-mail</p>
+							<input type="text" name="loginAuth" id="loginAuth" placeholder="Ваш E-mail">
+						</div>
+						<div class="input">
+							<p class="placeholder">Пароль</p>
+							<input type="password" name="passwordAuth" id="passwordAuth" placeholder="Пароль">
+						</div>
+						<div class="errors" id="showErrorsAuth">
+							<p>Неправильный e-mail/пароль</p>
+						</div>
+						<div class="input">
+							<button class="std-button black-button block-button" id="authSubmit">Войти</button>
+						</div>
+						<p class="remember"><a href="#forget-form" class="popup">Забыли свой пароль?</a></p>
+						<div id="scroll">
+							<a class="std-button black-button block-button" href="#agent">Зарегистрироваться</a>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	{/if}
+
+
+
+	{if:{auth}}
+		<div class="auth-block">
+			<a href="{cabinetUrl}" class="std-button black-button" id="caninetButton">Личный кабинет</a>
+			<a href="#" class="std-button black-button logoutButton" id="logoutButton">Выйти</a>
+		</div>
+	{/if}
+
+	{script}
+	<div class="popup-block simple-popup-block hidden-element" id="forget-form">
+		<button class="popup-close popup-close-top"></button>
+
+		<form name="formRem" id="formRem" rel="formRem" method="post" action="/wt/">
+			<div class="form">
+				<p class="h">Восстановление пароля</p>
+
+				<div class="input">
+					<p class="placeholder">Ваш E-mail</p>
+					<input type="text" name="emailRem" id="emailRem" required placeholder="E-mail">
+				</div>
+
+				<div class="send" id="sendRem">
+					<button type="submit" class="std-button black-button">Восстановить пароль</button> <img src="/img/ajax-loader-black.gif" alt="..." id="preloaderRem" class="preloader">
+				</div>
+
+				<div class="errors" id="showErrorsRem"></div>
+			</div>
+		</form>
+	</div>
+
+
+	<div class="popup-block simple-popup-block hidden-element" id="successSendRem">
+		<button class="popup-close popup-close-top"></button>
+
+		<p class="h">Восстановление пароля</p>
+		<div class="text">
+			<div class="simple">Проверьте Вашу почту</div>
+		</div>
+		<div class="button">
+			<button class="std-button black-button popup-close">Закрыть</button>
+		</div>
+	</div>
+{/mask}
+
