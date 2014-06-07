@@ -2,7 +2,7 @@
 {mask:main}
 
 		<script>
-		{set:photo}
+	{set:photo}
 
 		{#
 		$(function() {
@@ -19,9 +19,21 @@
 		});
 
 		#}
-		{/set}
+	{/set}
 
-		{set:tour}
+	{set:info}
+		{#
+		$(function() {
+			var $container = $('#info-list');
+			$container.masonry({
+				columnWidth: 0,
+				itemSelector: '.item'
+			});
+		});
+		#}
+	{/set}
+
+	{set:tour}
 		{#
 		$(function() {
 
@@ -68,10 +80,10 @@
 		});
 
 		#}
-		{/set}
+	{/set}
 
 
-		{set:exc}
+	{set:exc}
 		{#
 		$(function() {
 			$(".tooltip").tooltipster({
@@ -117,9 +129,9 @@
 		});
 
 		#}
-		{/set}
+	{/set}
 
-		{set:office}
+	{set:office}
 		{#
 		$(function() {
 
@@ -153,10 +165,10 @@
 		});
 
 		#}
-		{/set}
+	{/set}
 
 
-		{set:dealer}
+	{set:dealer}
 		{#
 		$(function() {
 
@@ -207,8 +219,7 @@
 		});
 
 		#}
-		{/set}
-
+	{/set}
 
 		</script>
 

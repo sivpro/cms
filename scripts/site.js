@@ -346,6 +346,155 @@ $(document).ready(function() {
 			});
 	});
 
+	// Add to compare
+	$(".compare-add").click(ELGROW.compareAdd);
+
+	// Delere from compare
+	$(".compare-delete").click(ELGROW.compareDelete);
+
+	// Ajax load items
+	$(".page-next").click(ELGROW.loadMore);
+
+	// Byu tour
+	$("#open-buy-tour").click(function() {
+		$("#buy-tour").slideDown();
+		return false;
+	});
+
+	// Add adult
+	$("#add-adult").click(function() {
+		var $adult = $("#tourist-adult_0"),
+			$clone = $adult.clone(),
+			$container = $("#adult-container"),
+			realNumber = touristAdult++ + 1,
+			price = $("#priceoneBuy").val() * touristAdult;
+
+		// Изменяем цену тура
+		$("#priceBuy").val(price);
+		$("#pricevisBuy").text(price);
+
+		// Разблокируем кнопку заказа
+		$("#sendBuy").prop("disabled", false);
+
+		// Изменяем data-id удаления
+		$clone.find(".delete-tourist").attr("data-id", touristAdult);
+
+		//Добавляем, ставим новый ID и показываем
+		$clone.appendTo($container).attr("id", "tourist-adult_"+touristAdult).show();
+
+		// Присваиваем required
+		$clone.find(".required").prop("required", true);
+
+		// Задаем радио новое имя
+		$clone.find(".radio-styled").attr("name", "genderBuy_"+touristAdult)
+
+		// Стайлим чекбоксы
+		$clone.find(".styled-input-dark-after")
+			.iCheck({
+				checkboxClass: 'icheckbox_flat-grey',
+				radioClass: 'iradio_flat-grey'
+			})
+			.on("ifToggled", function(e) {
+				var $t = $(this);
+				if ($t.prop("checked") === true) {
+					$t.parent().parent().next().val("1");
+				}
+				else {
+					$t.parent().parent().next().val("0");
+				}
+			});
+
+		// Стайлим радио
+		$clone.find(".styled-radio-dark-after")
+			.iCheck({
+				checkboxClass: 'icheckbox_flat-grey',
+				radioClass: 'iradio_flat-grey'
+			})
+			.on("ifClicked", function(e) {
+				var $t = $(this),
+					val = $t.val();
+
+				$t.parents(".radio-input").find(".gender").val(val);
+
+			});
+
+		// Изменяем номер туриста
+		$clone.find("p.name").text("Турист "+realNumber);
+
+		return false;
+	});
+
+	// Add child
+	$("#add-child").click(function() {
+		var $adult = $("#tourist-child_0"),
+			$clone = $adult.clone(),
+			$container = $("#child-container"),
+			realNumber = touristChild++ + 1;
+
+		// Изменяем data-id удаления
+		$clone.find(".delete-tourist").attr("data-id", touristChild);
+
+		//Добавляем, ставим новый ID и показываем
+		$clone.appendTo($container).attr("id", "tourist-child_"+touristChild).show();
+
+		// Присваиваем required
+		$clone.find(".required").prop("required", true);
+
+		// Задаем радио новое имя
+		$clone.find(".radio-styled").attr("name", "genderChildBuy_"+touristChild)
+
+		// Стайлим радио
+		$clone.find(".styled-radio-dark-after")
+			.iCheck({
+				checkboxClass: 'icheckbox_flat-grey',
+				radioClass: 'iradio_flat-grey'
+			})
+			.on("ifClicked", function(e) {
+				var $t = $(this),
+					val = $t.val();
+
+				$t.parents(".radio-input").find(".gender").val(val);
+
+			});
+
+		// Изменяем номер туриста
+		$clone.find("p.name").text("Ребенок "+realNumber);
+
+		return false;
+	});
+
+	// Delete adult
+	$("body").on("click", ".delete-adult", function() {
+		var $t = $(this),
+			id = $t.attr("data-id"),
+			price;
+
+		if (!id) return false;
+
+		$("#tourist-adult_" + id).remove();
+		touristAdult --;
+
+		// Изменяем цену тура
+		price = $("#priceoneBuy").val() * touristAdult;
+		$("#priceBuy").val(price);
+		$("#pricevisBuy").text(price);
+
+		return false;
+	});
+
+	// Delete child
+	$("body").on("click", ".delete-child", function() {
+		var $t = $(this),
+			id = $t.attr("data-id");
+
+		if (!id) return false;
+
+		$("#tourist-child_" + id).remove();
+		touristChild --;
+
+		return false;
+	});
+
 	// Equip
 	ELGROW.equip();
 	$(window).resize(ELGROW.equip);
@@ -353,6 +502,88 @@ $(document).ready(function() {
 });
 
 var ELGROW = {
+	loadMore: function() {
+		var $t = $(this),
+			url = $t.attr("href"),
+			itemSelector = $t.attr("data-item"),
+			containerSelector = $t.attr("data-container"),
+			$container = $(containerSelector);
+
+		$.get(
+			url,
+			function(data) {
+				var $items = $(containerSelector + " " + itemSelector, $(data)),
+					$next = $(".page-next", $(data));
+
+				// Ставим новую ссылку на кнопку загрузки элементов
+				if (typeof $next.attr("data-item") !== "undefined") {
+					$t.attr("href", $next.attr("href"));
+				}
+				else {
+					$t.hide();
+				}
+				$container.append($items);
+				if (containerSelector === "#info-list") {
+					$container.masonry( 'appended', $items);
+				}
+			}
+		);
+		return false;
+	},
+
+	compareAdd: function() {
+		var $t = $(this),
+			id = $t.attr("data-id"),
+			type = $t.attr("data-type"),
+			$tourA = "<span onclick='document.location.href=\"/compare/\"; return false;'>Добавлено к сравнению</span>",
+			$excA = "<span onclick='document.location.href=\"/compare/_aexc/\"; return false;'>Добавлено к сравнению</span>"
+
+		if (typeof id === "undefined") return false;
+		if (typeof type === "undefined") return false;
+
+		$.post(
+			"/compare/",
+			{
+				id: id,
+				type: type,
+				mode: "add"
+			},
+			function(data) {
+				if (type == "t") {
+					$t.replaceWith($tourA);
+				}
+				else {
+					$t.replaceWith($excA);
+				}
+			}
+		);
+
+		return false;
+	},
+
+	compareDelete: function() {
+		var $t = $(this),
+			id = $t.attr("data-id"),
+			type = $t.attr("data-type"),
+			selector = $(".compareItem_"+id);
+
+		$.post(
+			'/compare/',
+			{
+				id: id,
+				type: type,
+				mode: "delete"
+			},
+			function(data) {
+				selector.hide(300, function() {
+
+				});
+			}
+		);
+
+		return false;
+	},
+
 	equip: function() {
 		$(".item", $("#equip-page")).each(function() {
 			var $t = $(this),

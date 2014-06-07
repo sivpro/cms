@@ -4,70 +4,13 @@
 		<div class="subheader clearline container">
 			<div class="tour-filters">
 				<h1>{name}</h1>
-				<div class="filters">
-					<div class="stroke clearline">
-						<div class="item">
-							<p class="placeholder">Активность</p>
-							<select class="big-select" data-placeholder="Выберите значение">
-								<option></option>
-								<option value="1">Екатеринбург</option>
-								<option value="2">Москва</option>
-								<option value="3">Санкт Петербург</option>
-								<option value="4">Вологда</option>
-							</select>
-						</div>
-
-						<div class="item">
-							<p class="placeholder">Протяженность, км</p>
-							<input type="text" name="priceTour" value="10000;200000" class="range-slider">
-						</div>
-
-						<div class="item"></div>
-					</div>
-
-					<div class="stroke clearline">
-						<div class="item">
-							<p class="placeholder">Нагрузка</p>
-							<select class="big-select" data-placeholder="Выберите значение">
-								<option value="1">1 *</option>
-								<option value="2">2 *</option>
-								<option value="3">3 *</option>
-								<option value="4">4 *</option>
-								<option value="5" selected>5 *</option>
-							</select>
-						</div>
-
-						<div class="item">
-							<p class="placeholder">Сжигаемые калории</p>
-							<input type="text" id="priceTour" name="priceTour" value="10000;200000" class="range-slider">
-						</div>
-
-						<div class="item"></div>
-
-					</div>
-
-					<div class="stroke clearline">
-						<div class="item">
-							<p class="placeholder">Кол-во дней</p>
-							<select class="big-select"  data-placeholder="Выберите значение">
-								<option value="1">1 *</option>
-								<option value="2">2 *</option>
-								<option value="3">3 *</option>
-								<option value="4">4 *</option>
-								<option value="5" selected>5 *</option>
-							</select>
-						</div>
-						<div class="item">
-							<button class="std-button green-button block-button">Подобрать тур</button>
-						</div>
-					</div>
-				</div>
+				<!--filtersexcblock//-->
 			</div>
 		</div>
 	</div>
 
 	<div class="tours-page container clearline">
-		<div class="list">
+		<div class="list" id="exc-list">
 			{mask:item}
 			{if:!{_first}}-->{/if}<a href="{url}" class="item-wrapper">
 				<div class="item exc">
@@ -96,6 +39,7 @@
 
 							</div>
 						</div>
+						{if:{//auth}}
 						<div class="prices clearline">
 							<div class="column">
 								<p class="price">{fullprice} Р</p>
@@ -110,8 +54,22 @@
 							<p class="price">{difference} Р</p>
 							<p class="tip">Комиссия агента</p>
 						</div>
+						{/if}
+
+						{if:!{//auth}}
+						<div class="agent-price">
+							<p class="price">{fullprice} Р</p>
+							<p class="tip">Стоимость</p>
+						</div>
+						{/if}
+
 						<div class="compare">
-							<span href="#">Добавить к сравнению</span>
+							{set:inCompare}
+							<span onclick="document.location.href='/compare/_aexc/'; return false;">Добавлено к сравнению</span>
+							{/set}
+							{mis:inCompare}
+							<span class="compare-add" data-id="{id}" data-type="e">Добавить к сравнению</span>
+							{/mis}
 						</div>
 					</div>
 				</div>
@@ -124,7 +82,7 @@
 
 		<!--MORE-->
 		<div class="more">
-			<a href="#">Показать еще</a>
+			{pages_down}
 		</div>
 		<!--/MORE-->
 

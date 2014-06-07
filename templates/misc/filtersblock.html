@@ -1,0 +1,82 @@
+{reduce:nothing}
+{mask:main}
+
+	<div class="filters">
+		<form action="{toursUrl}" method="get">
+			<div class="stroke clearline">
+				<div class="item">
+					<p class="placeholder">Город вылета</p>
+					<select class="big-select" name="cityfrom" data-placeholder="Выберите значение">
+						<option value="">Выберите значение</option>
+						{mask:cityfrom}
+						<option value="{id}"{if:{id}=={//cityfrom_sel}} selected{/if}>{valuer}</option>
+						{/mask}
+					</select>
+				</div>
+
+				<div class="item">
+					<p class="placeholder">Пункт назначения</p>
+					<select class="big-select" name="cityto" data-placeholder="Выберите значение">
+						<option value="">Выберите значение</option>
+						{mask:cityto}
+						<option value="{id}"{if:{id}=={//cityto_sel}} selected{/if}>{valuer}</option>
+						{/mask}
+					</select>
+				</div>
+
+				<div class="item clearline">
+					<div class="item">
+						<p class="placeholder">Ночей</p>
+						<input type="text" class="range-slider" name="nights" data-from="{fromnights}" data-to="{tonights}" value="{minnights};{maxnights}">
+					</div>
+				</div>
+			</div>
+
+			<div class="stroke clearline">
+				<div class="item clearline">
+					<div class="item">
+						<p class="placeholder">Звезд не менее</p>
+						<select class="big-select" name="stars" data-placeholder="Выберите значение">
+							{mask:stars}
+							<option value="{val}"{if:{val}=={//stars_sel}} selected{/if}>{text}</option>
+							{/mask}
+						</select>
+					</div>
+					<div class="item">
+						<p class="placeholder">Тип номера</p>
+						<select class="big-select" name="room" data-placeholder="Выберите значение">
+							<option value="">Любой</option>
+							{mask:room}
+							<option value="{id}"{if:{id}=={//room_sel}} selected{/if}>{valuer}</option>
+							{/mask}
+						</select>
+					</div>
+				</div>
+
+				<div class="item">
+					<p class="placeholder">Тип питания</p>
+					<div class="values clearline">
+						{mask:food}
+						<label class="clearline label"><input type="checkbox" class="styled-input" value="{id}" name="food[]"{if:{checked}} checked{/if}> {valuer}</label>
+						{/mask}
+					</div>
+				</div>
+
+				<div class="item">
+
+				</div>
+			</div>
+
+			<div class="stroke clearline">
+				<div class="item">
+					<p class="placeholder">Стоимость</p>
+					<input type="text" id="priceTour" name="price" data-from="{fromprice}" data-to="{toprice}" value="{minprice};{maxprice}">
+				</div>
+				<div class="item">
+					<button class="std-button green-button block-button">Подобрать тур</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+{/mask}

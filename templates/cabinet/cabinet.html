@@ -1,0 +1,235 @@
+{reduce:nothing}
+{mask:main}
+	<div class="subheader-wrapper tour">
+		<div class="subheader clearline container">
+			<div class="info">
+				<h1>{pname}</h1>
+				<div class="text">
+					{text}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="cabinet-page container clearline">
+		<p class="name-p">История заказов</p>
+
+		<table class="history">
+			<colgroup>
+				<col width="12%">
+				<col width="38%">
+				<col width="12%">
+				<col width="26%">
+				<col width="12%">
+			</colgroup>
+			<tr>
+				<th class="center">Номер брони</th>
+				<th>Название тура</th>
+				<th class="center">Цена, руб.</th>
+				<th>● Статус</th>
+				<th class="center">К оплате</th>
+			</tr>
+
+			<tr>
+				<td class="center">000001</td>
+				<td>Сказочная прага</td>
+				<td class="center">45000</td>
+				<td>
+					<div class="status success">● оплачен</div>
+				</td>
+				<td class="center">30000</td>
+			</tr>
+			<tr>
+				<td class="center">000002</td>
+				<td>Сказочная прага</td>
+				<td class="center">45000</td>
+				<td>
+					<div class="status apart">● частично оплачен</div>
+				</td>
+				<td class="center">30000</td>
+			</tr>
+			<tr>
+				<td class="center">000003</td>
+				<td>Сказочная прага</td>
+				<td class="center">45000</td>
+				<td>
+					<div class="status await">● не оплачен</div>
+				</td>
+				<td class="center">30000</td>
+			</tr>
+			<tr>
+				<td class="center">000004</td>
+				<td>Сказочная прага</td>
+				<td class="center">45000</td>
+				<td>
+					<div class="status over">● проведен</div>
+				</td>
+				<td class="center">30000</td>
+			</tr>
+			<tr>
+				<td class="center">000005</td>
+				<td>Сказочная прага</td>
+				<td class="center">45000</td>
+				<td>
+					<div class="status null">● аннулирован</div>
+				</td>
+				<td class="center">30000</td>
+			</tr>
+		</table>
+
+		<div class="more">
+			<a href="#">Показать еще</a>
+		</div>
+
+
+		<div class="forms clearline">
+			<div class="column">
+				<div class="name">Контактные данные</div>
+				{scriptContacts}
+				<form action="/cabinet/" name="formContacts" id="formContacts" rel="formContacts" method="post">
+					<div class="form">
+						<div class="fields">
+							<div class="input">
+								<p class="placeholder">ФИО</p>
+								<input type="text" name="nameContacts" id="nameContacts" required placeholder="ФИО" value="{name}">
+							</div>
+							<div class="input">
+								<p class="placeholder">Страна</p>
+								<input type="text" name="countryContacts" id="countryContacts" required placeholder="Страна" value="{country}">
+							</div>
+							<div class="input">
+								<p class="placeholder">Город</p>
+								<input type="text" name="cityContacts" id="cityContacts" required placeholder="Город" value="{city}">
+							</div>
+							<div class="input">
+								<p class="placeholder">Номер телефона</p>
+								<input type="text" name="phoneContacts" id="phoneContacts" required placeholder="Номер телефона" value="{phone}">
+							</div>
+							<div class="input">
+								<p class="placeholder">E-mail (E-mail для входа останется прежним)</p>
+								<input type="text" name="emailContacts" id="emailContacts" required placeholder="E-mail" value="{email}">
+							</div>
+							<div class="input">
+								<p class="placeholder">Skype</p>
+								<input type="text" name="skypeContacts" id="skypeContacts" placeholder="Skype" value="{skype}">
+							</div>
+						</div>
+						<div class="submit">
+							<div class="send" id="sendContacts">
+								<button class="std-button white-button">Сохранить</button> <img src="/img/ajax-loader.gif" alt="..." class="preloader" id="preloaderContacts">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			{if:{scriptPassport}}
+			<div class="column">
+				<div class="name">Паспортные данные</div>
+				{scriptPassport}
+				<form action="/cabinet/" name="formPassport" id="formPassport" rel="formPassport" method="post">
+					<div class="form">
+						<div class="fields">
+							<div class="input">
+								<p class="placeholder">Серия</p>
+								<input type="text" name="serialPassport" id="serialPassport" required placeholder="Серия" value="{serial}">
+							</div>
+							<div class="input">
+								<p class="placeholder">Номер</p>
+								<input type="text" name="numberPassport" id="numberPassport" required placeholder="Номер" value="{number}">
+							</div>
+							<div class="input">
+								<p class="placeholder">Кем выдан</p>
+								<textarea class="inputx2" name="bywhoPassport" id="bywhoPassport" required placeholder="Кем выдан">{bywho}</textarea>
+							</div>
+							<div class="input">
+								<p class="placeholder">Когда выдан</p>
+								<input type="text" name="whenPassport" id="whenPassport" required placeholder="Когда выдан" value="{when}">
+							</div>
+						</div>
+						<div class="submit">
+							<div class="send" id="sendPassport">
+								<button class="std-button white-button">Сохранить</button> <img src="/img/ajax-loader.gif" alt="..." class="preloader" id="preloaderPassport">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			{/if}
+
+			{if:{scriptReq}}
+			<div class="column">
+				<div class="name">Реквизиты</div>
+				{scriptReq}
+				<form action="/cabinet/" name="formReq" id="formReq" rel="formReq" method="post">
+					<div class="form">
+						<div class="fields">
+							<div class="input">
+								<p class="placeholder">Наименование организации *</p>
+								<input type="text" name="companyReq" id="companyReq" required placeholder="Наименование организации" value="{company}">
+							</div>
+							<div class="input">
+								<p class="placeholder">ИНН *</p>
+								<input type="text" name="innReq" id="innReq" required placeholder="ИНН" value="{inn}">
+							</div>
+							<div class="input">
+								<p class="placeholder">КПП</p>
+								<input type="text" name="kppReq" id="kppReq" placeholder="КПП" value="{kpp}">
+							</div>
+							<div class="input-group clearline">
+								<div class="input">
+									<p class="placeholder">Р/с</p>
+									<input type="text" name="rsReq" id="rsReq" placeholder="Р/с" value="{rs}">
+								</div>
+								<div class="input">
+									<p class="placeholder">К/с</p>
+									<input type="text" name="ksReq" id="ksReq" placeholder="К/с" value="{ks}">
+								</div>
+							</div>
+
+							<div class="input-group clearline">
+								<div class="input">
+									<p class="placeholder">Банк</p>
+									<input type="text" name="bankReq" id="bankReq" placeholder="Банк" value="{bank}">
+								</div>
+								<div class="input">
+									<p class="placeholder">Бик</p>
+									<input type="text" name="bikReq" id="bikReq" placeholder="Бик" value="{bik}">
+								</div>
+							</div>
+
+							<div class="input-group clearline">
+								<div class="input">
+									<p class="placeholder">Должность *</p>
+									<input type="text" name="postReq" id="postReq" required placeholder="Должность" value="{post}">
+								</div>
+								<div class="input">
+									<p class="placeholder">Действует на основании *</p>
+									<input type="text" name="osReq" id="osReq" required placeholder="Действует на основании" value="{os}">
+								</div>
+							</div>
+
+						</div>
+						<div class="submit">
+							<div class="send" id="sendReq">
+								<button class="std-button white-button">Сохранить</button> <img src="/img/ajax-loader.gif" alt="..." class="preloader" id="preloaderReq">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			{/if}
+		</div>
+	</div>
+
+	<div class="popup-block simple-popup-block hidden-element" id="successSendContacts">
+		<button class="popup-close popup-close-top"></button>
+
+		<p class="h">Данные сохранены</p>
+		<div class="text">
+			<p class="simple"></p>
+		</div>
+		<div class="button-center">
+			<button class="popup-close std-button black-button">Закрыть</button>
+		</div>
+	</div>
+{/mask}

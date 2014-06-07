@@ -23,6 +23,9 @@ class info {
 	private function printList($cid) {
 		global $control;
 		$list = new Listing($control->module_wrap, 'blocks', $cid);
+		$list->limit = 8;
+		$list->sortfield = "id";
+		$list->sortby = "DESC";
 		$list->page = $control->page;
 		$list->tmp_url = all::getUrl($control->module_parent);
 		$list->getList();
@@ -31,10 +34,16 @@ class info {
 
 		$page->item = $list->item;
 		$page->page = $list->navigation;
+		$page->itemSelector = ".item";
+		$page->containerSelector = "#info-list";
 		$page->url_last = $list->url_last;
 		$page->url_p = $list->url_p;
 		$page->url_n = $list->url_n;
 		$page->url_next = $list->url_next;
+
+		foreach ($page->item as $key => $val) {
+			$val->size = all::getRandom(1,2);
+		}
 
 
 		$page->name = $control->name;

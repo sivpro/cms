@@ -1,0 +1,301 @@
+{reduce:nothing}
+{mask:main}
+	<div class="subheader-wrapper compare-{table}">
+		<div class="subheader clearline container">
+			<div class="compare">
+				<h1>{name}</h1>
+				<div class="chooser">
+					{if:{type} == "t"}
+					<p>Туры ({toursCount}) / <a href="{excUrl}">Экскурсии ({excCount})</a></p>
+					{/if}
+					{if:{type} == "e"}
+					<p><a href="{toursUrl}">Туры ({toursCount})</a> / Экскурсии ({excCount})</p>
+					{/if}
+				</div>
+			</div>
+			<div class="topdf">
+				<a href="#" class="std-button white-button">Сохранить в PDF</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="compare-page container">
+
+		{if:{type} == "t"}
+		<table class="compare-table">
+
+			<tr class="top">
+				<td class="photo-empty">
+					<p class="name">Туры ({count})</p>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} photo">
+					<div class="image">
+						{mask:mainimage}{if:{_first}}
+						<img alt="" src="/files/1/{image}">
+						{/if}{/mask}
+						<div class="hover">
+							<a href="{url}" target="_blank" class="std-button white-button">Перейти</a>
+							<a data-id="{id}" data-type="t" class="compare-delete" href="#">Убрать из сравнения <b></b></a>
+						</div>
+					</div>
+				</td>
+				{/mask}
+
+			<tr class="features">
+				<td class="name">Название тура</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<a href="{url}" target="_blank">{name}</a>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Город вылета</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{cityfrom}</div>
+				</td>
+				{/mask}
+
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Город прилета</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{cityto}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Ночей</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{nights}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Название отеля</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{hotel}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Тип номера</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{room}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Питание</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{food}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Цена. руб.</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{fullprice}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Цена для агентов</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{agentprice}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Ближайшие даты вылета</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>
+						{mask:tourdates}{if:{_rank} < 4}
+							{date}{if:{_rank} != 3}<br>{/if}
+						{/if}
+						{/mask}
+					</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Экскурсии</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>
+						{mask:exc}
+						<a href="{url}" target="_blank">{name}</a>
+						{/mask}
+					</div>
+				</td>
+				{/mask}
+			</tr>
+
+
+		</table>
+		{/if}
+
+		{if:{type} == "e"}
+		<table class="compare-table">
+
+			<tr class="top">
+				<td class="photo-empty">
+					<p class="name">Экскурсии ({count})</p>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} photo">
+					<div class="image">
+						{mask:mainimage}{if:{_first}}
+						<img alt="" src="/files/1/{image}">
+						{/if}{/mask}
+						<div class="hover">
+							<a href="{url}" target="_blank" class="std-button white-button">Перейти</a>
+							<a data-id="{id}" data-type="e" class="compare-delete" href="#">Убрать из сравнения <b></b></a>
+						</div>
+					</div>
+				</td>
+				{/mask}
+
+			<tr class="features">
+				<td class="name">Название</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<a href="{url}" target="_blank">{name}</a>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Маршрут</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{route}</div>
+				</td>
+				{/mask}
+
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Активность</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>
+					{mask:activity}
+						{name}{if:!{_last}},{/if}
+					{/mask}
+					</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Продолжительность, ч</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{duration}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Протяженность, км</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{length}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Нагрузка</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{charge_sel}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Калории</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{calories}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Цена. руб.</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{fullprice}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Цена для агентов</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>{agentprice}</div>
+				</td>
+				{/mask}
+			</tr>
+			<tr class="features">
+				<td class="name">
+					<div>Ближайшие даты</div>
+				</td>
+				{mask:item}
+				<td class="compareItem_{id} ch">
+					<div>
+						{mask:excdates}{if:{_rank} < 4}
+							{date}{if:{_rank} != 3}<br>{/if}
+						{/if}
+						{/mask}
+					</div>
+				</td>
+				{/mask}
+			</tr>
+		</table>
+		{/if}
+
+	</div>
+{/mask}

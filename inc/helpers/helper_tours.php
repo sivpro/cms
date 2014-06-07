@@ -1,7 +1,7 @@
 <?php
 class helper_tours {
 
-	protected function tours_formatList($item) {
+	public function tours_formatList($item) {
 		foreach ($item as $key => $val) {
 			// price formatting
 			$val->fullprice = (int)$val->fullprice;
@@ -13,12 +13,17 @@ class helper_tours {
 
 			// Declination of nights
 			$val->nights = all::declOfNum($val->nights, array("ночь", "ночи", "ночей"));
+
+			// Compare
+			if (in_array($val->id, $_SESSION['compare']['t'])) {
+				$val->inCompare = true;
+			}
 		}
 
 		return $item;
 	}
 
-	protected function tours_formatOne($item) {
+	public function tours_formatOne($item) {
 		global $control;
 
 		foreach ($item as $key => $val) {
@@ -26,6 +31,7 @@ class helper_tours {
 			$val->fullprice = (int)$val->fullprice;
 			$val->agentprice = (int)$val->agentprice;
 			$difference = $val->fullprice - $val->agentprice;
+			$val->buyprice = isset($_SESSION['uid']) ? $val->agentprice : $val->fullprice;
 			$val->fullprice = number_format($val->fullprice, 0, ".", " ");
 			$val->agentprice = number_format($val->agentprice, 0, ".", " ");
 			$val->difference = number_format($difference, 0, ".", " ");
@@ -84,6 +90,8 @@ class helper_tours {
 			$control->excdates = $excdates;
 
 		}
+
+		return $item;
 	}
 }
 ?>

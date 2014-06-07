@@ -1,7 +1,7 @@
 <?php
 class helper_exc {
 
-	protected function exc_formatList($item) {
+	public function exc_formatList($item) {
 		foreach ($item as $key => $val) {
 			// price formatting
 			$val->fullprice = (int)$val->fullprice;
@@ -10,12 +10,17 @@ class helper_exc {
 			$val->fullprice = number_format($val->fullprice, 0, ".", " ");
 			$val->agentprice = number_format($val->agentprice, 0, ".", " ");
 			$val->difference = number_format($difference, 0, ".", " ");
+
+			// Compare
+			if (in_array($val->id, $_SESSION['compare']['e'])) {
+				$val->inCompare = true;
+			}
 		}
 
 		return $item;
 	}
 
-	protected function exc_formatOne($item) {
+	public function exc_formatOne($item) {
 		global $control;
 		foreach ($item as $key => $val) {
 			// price formatting

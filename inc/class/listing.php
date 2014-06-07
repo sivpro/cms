@@ -463,6 +463,15 @@ class Listing {
 		$co_list = $this->page;
 		$p = floor($co_list / $globalStep) * $globalStep;
 
+		// query string
+		foreach ($_GET as $gkey => $gval) {
+			$get[$gkey] = trim($gval, "/");
+		}
+		$filterQuery = "?".http_build_query($get);
+		if ($filterQuery == "?") {
+			$filterQuery = "";
+		}
+
 
 		$i = 0;
 		foreach ($this->pages as $val) {
@@ -470,11 +479,20 @@ class Listing {
 				$this->navigation[$val['num']]->title = ($val['num'] + 1);
 				$this->navigation[$val['num']]->num = $val['num'];
 				$this->navigation[$val['num']]->page = $val['num']+1;
-
 				$this->navigation[$val['num']]->current = $val['current'];
-				$this->navigation[$val['num']]->url = ($tmpurl ? $tmpurl : $this->tmp_url).($tmpurl ? (str_replace('/', '', all::addUrl($val['num'], $control->oper, $control->bid, $control->sort_f))) : (all::addUrl($val['num'], $control->oper, $control->bid, $control->sort_f)))."/";
 
-				$this->navigation[$val['num']]->url = str_replace("//", "/", $this->navigation[$val['num']]->url);
+				$url = ($tmpurl ? $tmpurl : $this->tmp_url).($tmpurl ? (str_replace('/', '', all::addUrl($val['num'], $control->oper, $control->bid, $control->sort_f))) : (all::addUrl($val['num'], $control->oper, $control->bid, $control->sort_f)));
+
+				if (substr($url, -1, 1) == "/") {
+					$url = substr($url, 0, strlen($url)-1);
+				}
+
+
+				$url .= $filterQuery."/";
+				$url = str_replace("//", "/", $url);
+
+
+				$this->navigation[$val['num']]->url = $url;
 			}
 			$i ++;
 		}
@@ -483,25 +501,71 @@ class Listing {
 
 
 		if ($this->page > $shag - 1) {
-			$this->url_last = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl($p - $shag, $control->oper, $control->bid, $control->sort_f)."/";
-			$this->url_last = str_replace("//", "/", $this->url_last);
+			$url = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl($p - $shag, $control->oper, $control->bid, $control->sort_f);
+			if (substr($url, -1, 1) == "/") {
+				$url = substr($url, 0, strlen($url)-1);
+			}
+			$url .= $filterQuery."/";
+			$url = str_replace("//", "/", $url);
+
+			$this->url_last = $url;
+
 		}
 		if ($this->next < count($this->pages)) {
-			$this->url_next = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl($this->next, $control->oper, $control->bid, $control->sort_f)."/";
-			$this->url_next = str_replace("//", "/", $this->url_next);
+			$url = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl($this->next, $control->oper, $control->bid, $control->sort_f);
+			if (substr($url, -1, 1) == "/") {
+				$url = substr($url, 0, strlen($url)-1);
+			}
+			$url .= $filterQuery."/";
+			$url = str_replace("//", "/", $url);
+
+			$this->url_next = $url;
 		}
 
-		$this->last_page = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl(count($this->pages) - 1, $control->oper, $control->bid, $control->sort_f)."/";
-		$this->first_page = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl("", $control->oper, $control->bid, $control->sort_f)."/";
+		// last page
+		$url = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl(count($this->pages) - 1, $control->oper, $control->bid, $control->sort_f);
+		if (substr($url, -1, 1) == "/") {
+			$url = substr($url, 0, strlen($url)-1);
+		}
+		$url .= $filterQuery."/";
+		$url = str_replace("//", "/", $url);
+
+		$this->last_page = $url;
 
 
+		// first page
+		$url = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl("", $control->oper, $control->bid, $control->sort_f);
+		if (substr($url, -1, 1) == "/") {
+			$url = substr($url, 0, strlen($url)-1);
+		}
+		$url .= $filterQuery."/";
+		$url = str_replace("//", "/", $url);
+
+		$this->first_page = $url;
+
+
+		// previous page
 		if ($this->page > 0) {
-			$this->url_p = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl($this->page - 1, $control->oper, $control->bid, $control->sort_f)."/";
-			$this->url_p = str_replace("//", "/", $this->url_p);
+			$url = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl($this->page - 1, $control->oper, $control->bid, $control->sort_f);
+			if (substr($url, -1, 1) == "/") {
+				$url = substr($url, 0, strlen($url)-1);
+			}
+			$url .= $filterQuery."/";
+			$url = str_replace("//", "/", $url);
+
+			$this->url_p = $url;
 		}
+
+		// next page
 		if ($this->page < count($this->pages) - 1) {
-			$this->url_n = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl($this->page + 1, $control->oper, $control->bid, $control->sort_f)."/";
-			$this->url_n = str_replace("//", "/", $this->url_n);
+			$url = ($tmpurl ? $tmpurl : $this->tmp_url).all::addUrl($this->page + 1, $control->oper, $control->bid, $control->sort_f);
+			if (substr($url, -1, 1) == "/") {
+				$url = substr($url, 0, strlen($url)-1);
+			}
+			$url .= $filterQuery."/";
+			$url = str_replace("//", "/", $url);
+
+			$this->url_n = $url;
 		}
 
 	}

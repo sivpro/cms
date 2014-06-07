@@ -10,6 +10,7 @@ class menu {
 		$page->equipUrl = all::getUrl(32);
 		$page->toursUrl = all::getUrl(20);
 		$page->excUrl = all::getUrl(21);
+		$page->compareUrl = all::getUrl(33);
 		$page->infoUrl = all::getUrl(22);
 		$page->officeUrl = all::getUrl(30);
 		$page->dealersUrl = all::getUrl(31);

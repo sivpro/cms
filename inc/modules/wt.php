@@ -44,11 +44,11 @@ class wt {
 
 		include_once("libs/formvalidator.php");$_SESSION['langs'] = 'ru';
 		$validator = new formvalidator($formconfig);
-		$validator->showErrorMethod = "#showErrorsRem";		//div для показа ошибок
-		$validator->highlight = 1;							//подсветка полей
+		$validator->showErrorMethod = "#showErrorsRem";		// div для показа ошибок
+		$validator->highlight = 1;							// подсветка полей
 		$validator->lastaction = "callback";				// действие при завершении
-		$validator->sendMethod = "ajax";					//метод отправки
-		$validator->preloaderId = "#preloaderRem";			//id прелоадера
+		$validator->sendMethod = "ajax";					// метод отправки
+		$validator->preloaderId = "#preloaderRem";			// id прелоадера
 		$validator->capId = "#captchaRem";					// id каптчи
 		$validator->callback = "successSend";				// Функция Callback
 		$validator->param = 'Rem';							// Параметр в функцию
@@ -91,7 +91,7 @@ class wt {
 					$mailpage->password = $newPassword;
 
 
-					$msg = sprintt($mailpage, 'mailtemplates/password_reset.html');
+					$msg = sprintt($mailpage, 'mailtemplates/user/password_reset.html');
 
 					all::send_mail($email, $theme, $msg, false, false, "$sitename robot");
 				}
@@ -187,7 +187,7 @@ class wt {
 					$mailpage->password = $validator->post['passwordReg'];
 					$mailpage->name = $array['name'];
 
-					$msg = sprintt($mailpage, 'mailtemplates/registration_activation.html');
+					$msg = sprintt($mailpage, 'mailtemplates/user/registration_activation.html');
 
 					all::send_mail($array['login'], $mailpage->theme, $msg, false, false, "$sitename");
 
@@ -230,7 +230,7 @@ class wt {
 				// Реквизиты входа
 				$mailpage->email = $agent>login;
 
-				$msg = sprintt($mailpage, 'mailtemplates/registration.html');
+				$msg = sprintt($mailpage, 'mailtemplates/admin/registration.html');
 
 				$email = $control->settings->email;
 				$sitename = $control->settings->sitename;

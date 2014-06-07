@@ -66,7 +66,7 @@ class os {
 
 				$email = $control->settings->email;
 				$sitename = $control->settings->sitename;
-				$msg = sprintt($mailpage, "mailtemplates/call.html");
+				$msg = sprintt($mailpage, "mailtemplates/admin/call.html");
 
 				all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
 

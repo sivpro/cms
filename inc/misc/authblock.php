@@ -6,7 +6,7 @@ class authblock {
 
 		if (isset($_SESSION['uid'])) {
 			$page->auth = true;
-			$page->cabinetUrl = all::getUrl(21);
+			$page->cabinetUrl = all::getUrl(34);
 		}
 		else {
 			$page->auth = false;

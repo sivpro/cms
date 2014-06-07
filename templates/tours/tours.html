@@ -4,108 +4,18 @@
 	<div class="subheader-wrapper tours">
 		<div class="subheader clearline container">
 			<div class="tour-filters">
-				<h1>Туры</h1>
-				<div class="filters">
-					<div class="stroke clearline">
-						<div class="item">
-							<p class="placeholder">Город вылета</p>
-							<select class="big-select" data-placeholder="Выберите значение">
-								<option></option>
-								<option value="1">Екатеринбург</option>
-								<option value="2">Москва</option>
-								<option value="3">Санкт Петербург</option>
-								<option value="4">Вологда</option>
-							</select>
-						</div>
+				<h1>{name}</h1>
 
-						<div class="item">
-							<p class="placeholder">Пункт назначения</p>
-							<select class="big-select" data-placeholder="Выберите значение">
-								<option></option>
-								<option value="1">Прага</option>
-								<option value="2">Милан</option>
-								<option value="3">Брюссель</option>
-								<option value="4">Париж</option>
-							</select>
-						</div>
+				<!--filtersblock//-->
 
-						<div class="item">
-							<p class="placeholder">Количество ночей</p>
-							<select class="small-select" data-placeholder="Выберите значение">
-								<option>Любое</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="stroke clearline">
-						<div class="item clearline">
-							<div class="item">
-								<p class="placeholder">Звезд не менее</p>
-								<select class="big-select" data-placeholder="Выберите значение">
-									<option value="1">1 *</option>
-									<option value="2">2 *</option>
-									<option value="3">3 *</option>
-									<option value="4">4 *</option>
-									<option value="5" selected>5 *</option>
-								</select>
-							</div>
-							<div class="item">
-								<p class="placeholder">Тип номера</p>
-								<select class="big-select" data-placeholder="Выберите значение">
-									<option value="">Любой</option>
-									<option value="1">1 *</option>
-									<option value="2">2 *</option>
-									<option value="3">3 *</option>
-									<option value="4">4 *</option>
-									<option value="5">5 *</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="item">
-							<p class="placeholder">Отель</p>
-							<select class="big-select" data-placeholder="Выберите значение">
-								<option></option>
-								<option value="1">Прага</option>
-								<option value="2">Милан</option>
-								<option value="3">Брюссель</option>
-								<option value="4">Париж</option>
-							</select>
-						</div>
-
-						<div class="item">
-							<p class="placeholder">Тип питания</p>
-							<div class="values clearline">
-								<label class="clearline label"><input type="checkbox" class="styled-input" name="agreeReg" id="agreeReg"> AO</label>
-								<label class="clearline label"><input type="checkbox" class="styled-input" name="agreeReg" id="agreeReg"> BB</label>
-								<label class="clearline label"><input type="checkbox" class="styled-input" name="agreeReg" id="agreeReg"> HB</label>
-								<label class="clearline label"><input type="checkbox" class="styled-input" name="agreeReg" id="agreeReg"> FB</label>
-							</div>
-						</div>
-					</div>
-
-					<div class="stroke clearline">
-						<div class="item">
-							<p class="placeholder">Стоимость</p>
-							<input type="text" id="priceTour" name="priceTour" value="10000;200000">
-						</div>
-						<div class="item">
-							<button class="std-button green-button block-button">Подобрать тур</button>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="tours-page container clearline">
-		<div class="list">
+		<div class="list" id="tours-list">
 			{mask:item}
-			{if:!{_first}}-->{/if}<div class="item-wrapper">
+			{if:!{_first}}-->{/if}<a href="{url}" class="item-wrapper">
 				<div class="item">
 					<div class="image">
 						{mask:mainimage}{if:{_first}}
@@ -114,9 +24,10 @@
 					</div>
 					<div class="info">
 						<div class="name">
-							<a href="{url}" class="name-s">{name}</a>
+							<p class="name-s">{name}</p>
 							<p class="count">({nights})</p>
 						</div>
+						{if:{//auth}}
 						<div class="prices clearline">
 							<div class="column">
 								<p class="price">{fullprice} Р</p>
@@ -131,18 +42,32 @@
 							<p class="price">{difference} Р</p>
 							<p class="tip">Комиссия агенту</p>
 						</div>
+						{/if}
+
+						{if:!{//auth}}
+						<div class="agent-price">
+							<p class="price">{fullprice} Р</p>
+							<p class="tip">Стоимость</p>
+						</div>
+						{/if}
+
 						<div class="compare">
-							<a href="#">Добавить к сравнению</a>
+							{set:inCompare}
+							<span onclick="document.location.href='/compare/'; return false;">Добавлено к сравнению</span>
+							{/set}
+							{mis:inCompare}
+							<span class="compare-add" data-id="{id}" data-type="t">Добавить к сравнению</span>
+							{/mis}
 						</div>
 					</div>
 				</div>
-			</div>{if:!{_last}}<!--{/if}
+			</a>{if:!{_last}}<!--{/if}
 			{/mask}
 		</div>
 
 		<!-- -->
 		<div class="more">
-			<a href="#">Показать еще</a>
+			{pages_down}
 		</div>
 
 	</div>

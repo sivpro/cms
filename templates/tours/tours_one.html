@@ -41,18 +41,27 @@
 						<td>Питание</td>
 						<td>{food}</td>
 					</tr>
-					<tr>
-						<td>Стоимость</td>
-						<td>{agentprice} Р</td>
-					</tr>
-					<tr>
-						<td>Комиссия для агентов</td>
-						<td>{difference} Р</td>
-					</tr>
-					<tr>
-						<td>Общая стоимость</td>
-						<td>{fullprice} Р</td>
-					</tr>
+					{if:{//auth}}
+						<tr>
+							<td>Стоимость</td>
+							<td>{agentprice} Р</td>
+						</tr>
+						<tr>
+							<td>Комиссия для агентов</td>
+							<td>{difference} Р</td>
+						</tr>
+						<tr>
+							<td>Общая стоимость</td>
+							<td>{fullprice} Р</td>
+						</tr>
+					{/if}
+
+					{if:!{//auth}}
+						<tr>
+							<td>Стоимость</td>
+							<td>{fullprice} Р</td>
+						</tr>
+					{/if}
 				</table>
 
 			</div>
@@ -74,7 +83,7 @@
 
 						</div>
 
-						<a href="#" class="std-button black-button">Купить тур</a>
+						<a href="#" class="std-button black-button" id="open-buy-tour">Купить тур</a>
 					</div>
 
 					<div class="legend">
@@ -92,22 +101,22 @@
 		</div>
 		{/mask}
 
-		<div class="photo-gallery clearline">
-			<p class="name-p">Фотогалерея</p>
-			<ul id="photos">
-				{mask:image}
-					{mask:image}{if:{_first}}
-						<li data-title="{php}addslashes({../name}){/php}" data-src="/files/0/{image}"><img src="/files/{../size}/{image}" alt=""></li>
-					{/if}{/mask}
-				{/mask}
-			</ul>
 
-		</div>
 
-		<div class="buy-tour">
+		{* BUY TOUR *}
+		<div class="buy-tour hidden-element" id="buy-tour">
 			<p class="name-p">Купить тур</p>
+			{scriptBuy}
+			<form action="{toursUrl}" name="formBuy" id="formBuy" rel="formBuy">
+				{mask:item}
+				<input type="hidden" id="priceoneBuy" value="{buyprice}">
+				<input type="hidden" id="priceBuy" name="priceBuy" value="{buyprice}" required>
+				<input type="hidden" id="tourBuy" name="tourBuy" value="{name}" required>
+				<input type="hidden" id="touridBuy" name="touridBuy" value="{id}" required>
+				{/mask}
 
-			<form action="/" name="formBuy" id="formBuy" rel="formBuy">
+				{* INFO FIELDS *}
+				{if:{!auth}}
 				<div class="form top-fields">
 					<div class="section section-3 clearline">
 						<div class="input">
@@ -126,122 +135,162 @@
 						</div>
 					</div>
 				</div>
+				{/if}
+				{* /INFO FIELDS *}
 
+				{* TOURISTS *}
 				<div class="tourists clearline form">
 
-					<div class="tourist-adult">
-						<header class="tourist-header clearline">
-							<p class="name">Турист 1</p>
-							<a href="#" class="delete-tourist">Удалить <b></b></a>
-						</header>
-						<div class="fields">
-							<div class="section clearline">
-								<div class="section-part">
-									<div class="radio-input">
-										<p class="placeholder">Пол</p>
-										<div class="radio">
-											<input type="radio" value="m" class="styled-input-dark" name="gender[]" checked>
-											М
-										</div>
-										<div class="radio">
-											<input type="radio" value="f" class="styled-input-dark" name="gender[]">
-											Ж
-										</div>
-									</div>
-								</div>
-								<div class="section-part">
-									<div class="input">
-										<p class="placeholder">Возраст</p>
-										<input type="text" name="ageBuy[]">
-									</div>
-								</div>
-								<div class="section-part">
-									<div class="input">
-										<p class="placeholder">Рост</p>
-										<input type="text" name="heightBuy[]">
-									</div>
-								</div>
-							</div>
-
-							<p class="big">Данные Вашего заграничного паспорта:</p>
-							<div class="section section-3 clearline">
-								<div class="input">
-									<p class="placeholder">И. Ф. (латиницей)</p>
-									<input type="text" name="innameBuy[]">
-								</div>
-
-								<div class="input">
-									<p class="placeholder">Серия и номер</p>
-									<input type="text" name="pasportBuy[]">
-								</div>
-
-								<div class="input">
-									<p class="placeholder">Действителен по</p>
-									<input type="text" name="dateToBuy[]">
-								</div>
-							</div>
-
-							<div class="input-checkbox">
-								<label><input type="checkbox" class="styled-input-dark" name="visaBuy[]"> Есть виза</label>
-							</div>
-						</div>
-					</div>
-
-
-					<div class="tourist-child tourist-adult">
-						<header class="tourist-header clearline">
-							<p class="name">Ребенок 1</p>
-							<a href="#" class="delete-tourist">Удалить <b></b></a>
-						</header>
-						<div class="fields">
-							<div class="section clearline">
-								<div class="section-part">
-									<div class="radio-input border">
-										<p class="placeholder">Пол</p>
-										<div class="radio">
-											<input type="radio" value="m" class="styled-input-dark" name="gender[]" checked>
-											М
-										</div>
-										<div class="radio">
-											<input type="radio" value="f" class="styled-input-dark" name="gender[]">
-											Ж
-										</div>
-									</div>
-								</div>
-								<div class="section-part">
-									<div class="input">
-										<p class="placeholder">Возраст</p>
-										<input type="text" name="ageBuy[]">
-									</div>
-								</div>
-								<div class="section-part">
-									<div class="input">
-										<p class="placeholder">Рост</p>
-										<input type="text" name="heightBuy[]">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
+					{* ADD *}
 					<div class="add">
-						<a href="#" class="addAdult"></a>
-						<a href="#" class="addChild"></a>
+						<a href="#" class="add-adult" id="add-adult"></a>
+						<a href="#" class="add-child" id="add-child"></a>
 					</div>
-				</div>
+					{* /ADD *}
 
-				<div class="total clearline">
-					<p class="name">Стоимость тура:</p>
-					<p class="price"><span>230 700</span> Р</p>
-				</div>
 
-				<div class="form">
-					<div class="button-content">
-						<button class="std-button white-button">Заказать тур</button> <img src="/img/ajax-loader.gif" alt="..." class="preloader" id="preloaderBuy">
+					<div class="tourist-container">
+						{* ADULTS ADD HERE *}
+						<div id="adult-container">
+							<div class="tourist-adult" id="tourist-adult_0" style="display: none;">
+								<header class="tourist-header clearline">
+									<p class="name">Турист 1</p>
+									<a href="#" data-id="0" class="delete-tourist delete-adult">Удалить <b></b></a>
+								</header>
+								<div class="fields">
+									<div class="section clearline">
+										<div class="section-part">
+											<div class="radio-input">
+												<p class="placeholder">Пол</p>
+												<div class="radio">
+													<input type="radio" value="М" class="radio-styled styled-radio-dark-after" name="genderBuy_0" checked>
+													М
+												</div>
+												<div class="radio">
+													<input type="radio" value="Ж" class="radio-styled styled-radio-dark-after" name="genderBuy_0">
+													Ж
+												</div>
+												<input type="hidden" class="gender" value="М" name="genderBuy[]">
+											</div>
+										</div>
+										<div class="section-part">
+											<div class="input">
+												<p class="placeholder">Возраст</p>
+												<input type="text"class="required" name="ageBuy[]">
+											</div>
+										</div>
+										<div class="section-part">
+											<div class="input">
+												<p class="placeholder">Рост</p>
+												<input type="text" class="required" name="heightBuy[]">
+											</div>
+										</div>
+									</div>
+
+									<p class="big">Данные Вашего заграничного паспорта:</p>
+									<div class="section section-3 clearline">
+										<div class="input">
+											<p class="placeholder">И. Ф. (латиницей)</p>
+											<input type="text" class="required" name="innameBuy[]">
+										</div>
+
+										<div class="input">
+											<p class="placeholder">Серия и номер</p>
+											<input type="text" class="required" name="passportBuy[]">
+										</div>
+
+										<div class="input">
+											<p class="placeholder">Действителен по</p>
+											<input type="text" class="required" name="dateToBuy[]">
+										</div>
+									</div>
+
+									<div class="input-checkbox">
+										<label><input type="checkbox" class="styled-input-dark-after" value="1" name="visaBuy[]"> Есть виза</label>
+										<input type="hidden" value="0" name="visaBuyh[]">
+									</div>
+								</div>
+							</div>
+						</div>
+						{* /ADULTS ADD HERE *}
+
+						{* CHILDS ADD HERE *}
+						<div id="child-container">
+							<div class="tourist-child tourist-adult" id="tourist-child_0" style="display: none;">
+								<header class="tourist-header clearline">
+									<p class="name">Ребенок 1</p>
+									<a href="#" data-id="0" class="delete-tourist delete-child">Удалить <b></b></a>
+								</header>
+								<div class="fields">
+									<div class="section clearline">
+										<div class="section-part">
+											<div class="radio-input border">
+												<p class="placeholder">Пол</p>
+												<div class="radio">
+													<input type="radio" value="М" class="radio-styled styled-radio-dark-after" name="genderChildBuy_0" checked>
+													М
+												</div>
+												<div class="radio">
+													<input type="radio" value="Ж" class="radio-styled styled-radio-dark-after" name="genderChildBuy_0">
+													Ж
+												</div>
+												<input type="hidden" class="gender" value="М" name="genderChildBuy[]">
+											</div>
+										</div>
+										<div class="section-part">
+											<div class="input">
+												<p class="placeholder">Возраст</p>
+												<input type="text" class="required" name="ageChildBuy[]">
+											</div>
+										</div>
+										<div class="section-part">
+											<div class="input">
+												<p class="placeholder">Рост</p>
+												<input type="text" class="required" name="heightChildBuy[]">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{* /CHILDS ADD HERE *}
+
+						<script>
+							var touristAdult = 0,
+								touristChild = 0;
+						</script>
+
+
+
+						<div class="total clearline">
+							<p class="name">Стоимость тура:</p>
+							<p class="price"><span id="pricevisBuy">0</span> Р</p>
+						</div>
+
+						<div class="form">
+							<div class="button-content">
+								<button id="sendBuy" class="std-button white-button" disabled>Заказать тур</button> <img src="/img/ajax-loader.gif" alt="..." class="preloader" id="preloaderBuy">
+							</div>
+						</div>
 					</div>
+
 				</div>
+				{* /TOURISTS *}
 
 			</form>
+		</div>
+		{* /BUY TOUR *}
+
+		<div class="photo-gallery clearline">
+			<p class="name-p">Фотогалерея</p>
+			<ul id="photos">
+				{mask:image}
+					{mask:image}{if:{_first}}
+						<li data-title="{php}addslashes({../name}){/php}" data-src="/files/0/{image}"><img src="/files/{../size}/{image}" alt=""></li>
+					{/if}{/mask}
+				{/mask}
+			</ul>
+
 		</div>
 
 	</div>
@@ -287,4 +336,16 @@
 		</table>
 		#}
 	</script>
+
+	<div class="popup-block simple-popup-block hidden-element" id="successSendBuy">
+		<button class="popup-close popup-close-top"></button>
+
+		<p class="h">Заказ отправлен</p>
+		<div class="text">
+			<p class="simple">На указанный Вами E-mail выслана инструкция по оплате тура</p>
+		</div>
+		<div class="button-center">
+			<button class="popup-close std-button black-button">Закрыть</button>
+		</div>
+	</div>
 {/mask}

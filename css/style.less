@@ -133,7 +133,14 @@ body {
 			}
 		}
 	}
-	.auth-block {float: right; margin: 8px 0 8px 40px; position: relative;}
+	.auth-block {float: right; margin: 8px 0 8px 40px; position: relative;
+		.logout-button {
+			width: 40px;
+			height: 40px;
+			background: url(../img/logout.png) no-repeat 0 0;
+			display: inline-block;
+		}
+	}
 }
 
 .auth-popup-block {
@@ -754,6 +761,9 @@ body {
 				span {.font(0.75em, white); .r-l(); text-decoration: underline;
 					&:hover {text-decoration: none;}
 				}
+				a {.font(0.75em, white); .r-l(); text-decoration: underline;
+					&:hover {text-decoration: none;}
+				}
 			}
 		}
 	}
@@ -994,11 +1004,14 @@ body {
 		li {margin-bottom: 8px; margin-right: 8px; cursor: pointer;}
 	}
 
-	.buy-tour {margin-top: 60px; border-top: 1px dotted #d2c8bb; padding-top: 30px;
+	.buy-tour {margin-top: 60px; border-top: 1px dotted #d2c8bb; padding-top: 30px; margin-bottom: 100px;
 		.top-fields {margin-bottom: 50px;}
 		.tourists {
 			.add {
-				.addAdult {
+				float: left;
+				width: 10%;
+				transition: all .3s ease;
+				.add-adult {
 					display: block;
 					border: 0;
 					padding: 0;
@@ -1009,7 +1022,7 @@ body {
 					&:hover {background-position: -300px -25px;}
 					&:active {background-position: -375px -25px;}
 				}
-				.addChild {
+				.add-child {
 					display: block;
 					border: 0;
 					padding: 0;
@@ -1019,6 +1032,12 @@ body {
 					&:hover {background-position: -525px -25px;}
 					&:active {background-position: -600px -25px;}
 				}
+			}
+
+			.tourist-container {
+				float: right;
+				width: 90%;
+				position: relative;
 			}
 
 			.tourist-adult {
@@ -1306,7 +1325,7 @@ body {
 			opacity: 0;
 			transition: opacity .25s linear;
 		}
-		.item-small {
+		.item-2 {
 			width: 299px;
 			height: 192px;
 			position: relative;
@@ -1318,7 +1337,7 @@ body {
 				.std-button {margin-top: 76px;}
 			}
 		}
-		.item-mid {
+		.item-1 {
 			width: 299px;
 			height: 394px;
 			position: relative;

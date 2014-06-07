@@ -33,6 +33,11 @@ class scriptsblock {
 			$page->coords = $control->coords;
 		}
 
+		// Заметки
+		if ($control->cid == 22 && $control->oper != "view") {
+			$page->info = true;
+		}
+
 		$text = sprintt($page, 'templates/misc/'.$wrapper);
 		return $text;
 	}

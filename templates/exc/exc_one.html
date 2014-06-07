@@ -38,18 +38,27 @@
 						<td>Калории</td>
 						<td>{calories}</td>
 					</tr>
-					<tr>
-						<td>Стоимость</td>
-						<td>{agentprice} Р</td>
-					</tr>
-					<tr>
-						<td>Комиссия для агентов</td>
-						<td>{difference} Р</td>
-					</tr>
-					<tr>
-						<td>Общая стоимость</td>
-						<td>{fullprice} Р</td>
-					</tr>
+					{if:{//auth}}
+						<tr>
+							<td>Стоимость</td>
+							<td>{agentprice} Р</td>
+						</tr>
+						<tr>
+							<td>Комиссия для агентов</td>
+							<td>{difference} Р</td>
+						</tr>
+						<tr>
+							<td>Общая стоимость</td>
+							<td>{fullprice} Р</td>
+						</tr>
+					{/if}
+
+					{if:!{//auth}}
+						<tr>
+							<td>Стоимость</td>
+							<td>{fullprice} Р</td>
+						</tr>
+					{/if}
 
 
 				</table>

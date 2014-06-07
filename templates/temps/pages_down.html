@@ -1,35 +1,8 @@
- {reduce:space}
-	{mask:main}
-		{set:page}
-			<div class="pagination">
-				{mask:page}
-
-
-					{set:current}
-						{choose}
-							{when:{//url_p}}
-								<a class="prev" href="{//url_p}">&larr;</a>
-							{/when}
-						{/choose}
-
-						<span class="current">{title}</span>
-
-						{choose}
-							{when:{//url_n}}
-								 <a class="next" href="{//url_n}">&rarr;</a>
-							{/when}
-						{/choose}
-					{/set}
-					{mis:current}
-						<a href="{url}{if:{//page_now}==1}/{/}">{title}</a>
-						{if:!{_last}}<i> | </i>{/if}
-					{/mis}
-
-
-
-				{/mask}
-
-			</div>
-
-		{/set}
-	{/mask}
+{reduce:space}
+{mask:main}
+	{set:page}
+		{if:{//url_n}}
+			 <a class="page-next" data-item="{itemSelector}" data-container="{containerSelector}" href="{//url_n}">Показать еще</a>
+		{/if}
+	{/set}
+{/mask}
