@@ -14,7 +14,7 @@ class authblock {
 
 		$formName = "formRem";
 
-		$formConfig = array(
+		$formconfig = array(
 			$formName => array(
 				'emailRem' => array(
 					'caption' => 'E-mail',

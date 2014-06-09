@@ -76,6 +76,8 @@
 							<div class="tip">Дни экскурсий</div>
 						</div>
 					</div>
+
+					<a href="#" class="std-button black-button" id="open-buy-tour">Купить тур</a>
 				</div>
 			</div>
 			<div class="column">
@@ -102,6 +104,201 @@
 			</div>
 		</div>
 		{/mask}
+
+
+		{* BUY TOUR *}
+		<div class="buy-tour hidden-element" id="buy-tour">
+			<p class="name-p">Купить тур</p>
+			{scriptBuy}
+			<form action="{toursUrl}" name="formBuy" id="formBuy" rel="formBuy">
+				{mask:item}
+				<input type="hidden" id="priceoneBuy" value="{buyprice}">
+				<input type="hidden" id="priceBuy" name="priceBuy" value="{buyprice}" required>
+				<input type="hidden" id="tourBuy" name="tourBuy" value="{name}" required>
+				<input type="hidden" id="touridBuy" name="touridBuy" value="{id}" required>
+				{/mask}
+
+				{* INFO FIELDS *}
+				<div class="form top-fields">
+					<div class="input">
+						<p class="placeholder">Выберите дату</p>
+						<select id="dateBuy" name="dateBuy" class="hidden-select" data-placeholder="Выберите дату">
+							{mask:item}
+							{mask:excdates}
+							<option value="{date}"{if:{_first}} selected{/if}>{date}</option>
+							{/mask}
+							{/mask}
+						</select>
+					</div>
+
+					{if:!{auth}}
+					<div class="section section-3 clearline">
+						<div class="input">
+							<p class="placeholder">Представьтесь, пожалуйста</p>
+							<input type="text" name="nameBuy" id="nameBuy" required>
+						</div>
+
+						<div class="input">
+							<p class="placeholder">Номер телефона</p>
+							<input type="text" name="phoneBuy" id="phoneBuy" required>
+						</div>
+
+						<div class="input">
+							<p class="placeholder">E-mail</p>
+							<input type="email" name="emailBuy" id="emailBuy" required>
+						</div>
+					</div>
+					{/if}
+				</div>
+				{* /INFO FIELDS *}
+
+				{* TOURISTS *}
+				<div class="tourists clearline form">
+
+					{* ADD *}
+					<div class="add">
+						<a href="#" class="add-adult" id="add-adult"></a>
+						<a href="#" class="add-child" id="add-child"></a>
+					</div>
+					{* /ADD *}
+
+
+					<div class="tourist-container">
+						{* ADULTS ADD HERE *}
+						<div id="adult-container">
+							<div class="tourist-adult" id="tourist-adult_0" style="display: none;">
+								<header class="tourist-header clearline">
+									<p class="name">Турист 1</p>
+									<a href="#" data-id="0" class="delete-tourist delete-adult">Удалить <b></b></a>
+								</header>
+								<div class="fields">
+									<div class="section clearline">
+										<div class="section-part">
+											<div class="radio-input">
+												<p class="placeholder">Пол</p>
+												<div class="radio">
+													<input type="radio" value="М" class="radio-styled styled-radio-dark-after" name="genderBuy_0" checked>
+													М
+												</div>
+												<div class="radio">
+													<input type="radio" value="Ж" class="radio-styled styled-radio-dark-after" name="genderBuy_0">
+													Ж
+												</div>
+												<input type="hidden" class="gender" value="М" name="genderBuy[]">
+											</div>
+										</div>
+										<div class="section-part">
+											<div class="input">
+												<p class="placeholder">Возраст</p>
+												<input type="text"class="required" name="ageBuy[]">
+											</div>
+										</div>
+										<div class="section-part">
+											<div class="input">
+												<p class="placeholder">Рост</p>
+												<input type="text" class="required" name="heightBuy[]">
+											</div>
+										</div>
+									</div>
+
+									<p class="big">Данные Вашего заграничного паспорта:</p>
+									<div class="section section-3 clearline">
+										<div class="input">
+											<p class="placeholder">И. Ф. (латиницей)</p>
+											<input type="text" class="required" name="innameBuy[]">
+										</div>
+
+										<div class="input">
+											<p class="placeholder">Серия и номер</p>
+											<input type="text" class="required" name="passportBuy[]">
+										</div>
+
+										<div class="input">
+											<p class="placeholder">Действителен по</p>
+											<input type="text" class="required" name="dateToBuy[]">
+										</div>
+									</div>
+
+									<div class="input-checkbox">
+										<label><input type="checkbox" class="styled-input-dark-after" value="1" name="visaBuy[]"> Есть виза</label>
+										<input type="hidden" value="0" name="visaBuyh[]">
+									</div>
+								</div>
+							</div>
+						</div>
+						{* /ADULTS ADD HERE *}
+
+						{* CHILDS ADD HERE *}
+						<div id="child-container">
+							<div class="tourist-child tourist-adult" id="tourist-child_0" style="display: none;">
+								<header class="tourist-header clearline">
+									<p class="name">Ребенок 1</p>
+									<a href="#" data-id="0" class="delete-tourist delete-child">Удалить <b></b></a>
+								</header>
+								<div class="fields">
+									<div class="section clearline">
+										<div class="section-part">
+											<div class="radio-input border">
+												<p class="placeholder">Пол</p>
+												<div class="radio">
+													<input type="radio" value="М" class="radio-styled styled-radio-dark-after" name="genderChildBuy_0" checked>
+													М
+												</div>
+												<div class="radio">
+													<input type="radio" value="Ж" class="radio-styled styled-radio-dark-after" name="genderChildBuy_0">
+													Ж
+												</div>
+												<input type="hidden" class="gender" value="М" name="genderChildBuy[]">
+											</div>
+										</div>
+										<div class="section-part">
+											<div class="input">
+												<p class="placeholder">Возраст</p>
+												<input type="text" class="required" name="ageChildBuy[]">
+											</div>
+										</div>
+										<div class="section-part">
+											<div class="input">
+												<p class="placeholder">Рост</p>
+												<input type="text" class="required" name="heightChildBuy[]">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{* /CHILDS ADD HERE *}
+
+						<script>
+							var touristAdult = 0,
+								touristChild = 0;
+						</script>
+
+
+
+						<div class="total clearline">
+							<p class="name">Стоимость экскурсии:</p>
+							<p class="price"><span id="pricevisBuy">0</span> Р</p>
+						</div>
+
+						<div class="form">
+							<div class="button-content">
+								<button id="sendBuy" class="std-button white-button" disabled>Заказать экскурсию</button>
+								<div id="preloaderBuy" class="preloader block">
+									<div class="circleG circleG_1"></div>
+									<div class="circleG circleG_2"></div>
+									<div class="circleG circleG_3"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				{* /TOURISTS *}
+
+			</form>
+		</div>
+		{* /BUY TOUR *}
 
 		<div class="photo-gallery clearline">
 			<p class="name-p">Фотогалерея</p>
@@ -158,4 +355,28 @@
 		</table>
 		#}
 	</script>
+
+	<div class="popup-block simple-popup-block hidden-element" id="successSendBuy">
+		<button class="popup-close popup-close-top"></button>
+
+		<p class="h">Заказ отправлен</p>
+		<div class="text">
+			<p class="simple">На указанный Вами E-mail выслана инструкция по оплате экскурсии</p>
+		</div>
+		<div class="button-center">
+			<button class="popup-close std-button black-button">Закрыть</button>
+		</div>
+	</div>
+
+	<div class="popup-block simple-popup-block hidden-element" id="successSendBuyAuth">
+		<button class="popup-close popup-close-top"></button>
+
+		<p class="h">Заказ отправлен</p>
+		<div class="text">
+			<p class="simple">Вы можете перейти в <a href="/cabinet/">Личный Кабинет</a> для дальнейших действий</p>
+		</div>
+		<div class="button-center">
+			<button class="popup-close std-button black-button">Закрыть</button>
+		</div>
+	</div>
 {/mask}

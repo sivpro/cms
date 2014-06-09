@@ -116,8 +116,19 @@
 				{/mask}
 
 				{* INFO FIELDS *}
-				{if:{!auth}}
 				<div class="form top-fields">
+					<div class="input">
+						<p class="placeholder">Выберите дату</p>
+						<select id="dateBuy" name="dateBuy" class="hidden-select" data-placeholder="Выберите дату">
+							{mask:item}
+							{mask:tourdates}
+							<option value="{date}"{if:{_first}} selected{/if}>{date}</option>
+							{/mask}
+							{/mask}
+						</select>
+					</div>
+
+					{if:!{auth}}
 					<div class="section section-3 clearline">
 						<div class="input">
 							<p class="placeholder">Представьтесь, пожалуйста</p>
@@ -134,8 +145,8 @@
 							<input type="email" name="emailBuy" id="emailBuy" required>
 						</div>
 					</div>
+					{/if}
 				</div>
-				{/if}
 				{* /INFO FIELDS *}
 
 				{* TOURISTS *}
@@ -269,7 +280,12 @@
 
 						<div class="form">
 							<div class="button-content">
-								<button id="sendBuy" class="std-button white-button" disabled>Заказать тур</button> <img src="/img/ajax-loader.gif" alt="..." class="preloader" id="preloaderBuy">
+								<button id="sendBuy" class="std-button white-button" disabled>Заказать тур</button>
+								<div id="preloaderBuy" class="preloader block">
+									<div class="circleG circleG_1"></div>
+									<div class="circleG circleG_2"></div>
+									<div class="circleG circleG_3"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -343,6 +359,18 @@
 		<p class="h">Заказ отправлен</p>
 		<div class="text">
 			<p class="simple">На указанный Вами E-mail выслана инструкция по оплате тура</p>
+		</div>
+		<div class="button-center">
+			<button class="popup-close std-button black-button">Закрыть</button>
+		</div>
+	</div>
+
+	<div class="popup-block simple-popup-block hidden-element" id="successSendBuyAuth">
+		<button class="popup-close popup-close-top"></button>
+
+		<p class="h">Заказ отправлен</p>
+		<div class="text">
+			<p class="simple">Вы можете перейти в <a href="/cabinet/">Личный Кабинет</a> для дальнейших действий</p>
 		</div>
 		<div class="button-center">
 			<button class="popup-close std-button black-button">Закрыть</button>

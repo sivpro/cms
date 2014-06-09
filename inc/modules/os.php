@@ -9,9 +9,10 @@ class os {
 
 
 	private function printList($cid) {
+		global $control;
 		$formName = "formCall";
 
-		$config = array(
+		$formconfig = array(
 			$formName => array(
 				'nameCall' => array(
 					'caption' => 'Ваше имя',
@@ -25,7 +26,7 @@ class os {
 		);
 
 		include_once("libs/formvalidator.php");$_SESSION['langs'] = 'ru';
-		$validator = new formvalidator($config);
+		$validator = new formvalidator($formconfig);
 		$validator->showErrorMethod = "#showErrorsCall";	//div для показа ошибок
 		$validator->highlight = 1;							//подсветка полей
 		$validator->lastaction = "callback";				// действие при завершении
@@ -66,7 +67,7 @@ class os {
 
 				$email = $control->settings->email;
 				$sitename = $control->settings->sitename;
-				$msg = sprintt($mailpage, "mailtemplates/admin/call.html");
+				$msg = sprintt($mailpage, "mailtemplates/toadmin/call.html");
 
 				all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
 

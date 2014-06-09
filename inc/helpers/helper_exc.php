@@ -27,6 +27,7 @@ class helper_exc {
 			$val->fullprice = (int)$val->fullprice;
 			$val->agentprice = (int)$val->agentprice;
 			$difference = $val->fullprice - $val->agentprice;
+			$val->buyprice = isset($_SESSION['uid']) ? $val->agentprice : $val->fullprice;
 			$val->fullprice = number_format($val->fullprice, 0, ".", " ");
 			$val->agentprice = number_format($val->agentprice, 0, ".", " ");
 			$val->difference = number_format($difference, 0, ".", " ");

@@ -358,6 +358,10 @@ $(document).ready(function() {
 	// Byu tour
 	$("#open-buy-tour").click(function() {
 		$("#buy-tour").slideDown();
+		$(".hidden-select").chosen({
+			no_results_text: "Ничего не найдено",
+			width: "200px"
+		});
 		return false;
 	});
 
@@ -494,6 +498,21 @@ $(document).ready(function() {
 
 		return false;
 	});
+
+	// Table highlight
+	var table = $('#compare-table');
+
+	if (table.attr("id") != "undefined") {
+		table.wholly();
+
+		table.on('wholly.mouseenter', 'td, th', function () {
+			$(this).addClass('highlight');
+		});
+
+		table.on('wholly.mouseleave', 'td, th', function () {
+			$(this).removeClass('highlight');
+		});
+	}
 
 	// Equip
 	ELGROW.equip();
@@ -735,7 +754,7 @@ var ELGROW = {
 			},
 			function(data) {
 				if (data == "ok") {
-					document.location.href = document.location.href;
+					window.location.href = window.location.href.split('#')[0];
 				}
 				else {
 					$("#showErrorsAuth").slideDown().html(data);
@@ -743,7 +762,7 @@ var ELGROW = {
 			}
 		);
 		return false;
-	},
+	}
 
 };
 
@@ -753,7 +772,7 @@ var successSend = function(param) {
 		effectIn = "flipInX",
 		effectOut = "flipOutX";
 
-	if (param == "Os" || param == "Reg") {
+	if (param == "Os" || param == "Reg" || param == "Buy") {
 		$("#send"+param).hide();
 	}
 

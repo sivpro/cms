@@ -22,7 +22,7 @@ class temp2 {
 
 	private function printList($cid) {
 		global $control;
-		$list = new Listing($control->module_wrap, 'blocks', $cid);
+		$list = new Listing($control->module_wrap, "blocks", $cid);
 		$list->page = $control->page;
 		$list->tmp_url = all::getUrl($control->module_parent);
 		$list->getList();

@@ -5,12 +5,360 @@ class exc extends helper_exc {
 	public function __construct() {
 		global $control;
 		$this->page = $control->page;
+
+		if (isset($_POST['priceBuy'])) {
+			if (isset($_SESSION['uid'])) {
+				return $this->printBuyAuth();
+			}
+			else {
+				return $this->printBuy();
+			}
+		}
 		if ($control->oper == 'view') {
 			$this->printOne($control->bid);
 		}
 		else {
 			$this->printList($control->module_parent);
 		}
+	}
+
+	private function printBuy() {
+		global $control;
+
+		$formName = "formBuy";
+
+		$formconfig = array(
+			$formName => array(
+				'dateBuy' => array(
+					'caption' => 'Дата тура',
+					'noempty' => true
+				),
+				'nameBuy' => array(
+					'caption' => 'ФИО',
+					'noempty' => true
+				),
+				'phoneBuy' => array(
+					'caption' => 'Телефон',
+					'noempty' => true
+				),
+				'emailBuy' => array(
+					'caption' => 'E-mail',
+					'noempty' => true
+				),
+				'priceBuy' => array(
+					'caption' => 'Цена',
+					'noempty' => true
+				),
+				'tourBuy' => array(
+					'caption' => 'Тур',
+					'noempty' => true
+				),
+				'touridBuy' => array(
+					'caption' => 'Тур',
+					'noempty' => true
+				)
+			)
+		);
+
+
+		include_once("libs/formvalidator.php");$_SESSION['langs'] = 'ru';
+		$validator = new formvalidator($formconfig);
+		$validator->showErrorMethod = "#showErrorsBuy";		// div для показа ошибок
+		$validator->highlight = 1;							// подсветка полей
+		$validator->lastaction = "callback";				// действие при завершении
+		$validator->sendMethod = "ajax";					// метод отправки
+		$validator->preloaderId = "#preloaderBuy";			// id прелоадера
+		$validator->capId = "#captchaBuy";					// id каптчи
+		$validator->callback = "successSend";				// Функция Callback
+		$validator->param = 'Buy';							// Параметр в функцию
+
+		if (isset($_POST) && count($_POST) > 0) {
+			$validator->checkFields($this, $page);
+
+			if ($validator->success) {
+				$array = array();
+				$array['name'] = $validator->post['nameBuy'];
+				$array['date'] = $validator->post['dateBuy'];
+				$array['phone'] = $validator->post['phoneBuy'];
+				$array['email'] = $validator->post['emailBuy'];
+				$array['tour'] = $validator->post['tourBuy'];
+				$array['tourid'] = $validator->post['touridBuy'];
+				$array['price'] = $validator->post['priceBuy'];
+				$array['pay'] = 0;
+				$array['agent'] = 0;
+
+				// Туристы
+				if (isset($_POST['ageBuy'])) {
+					if (count($_POST['ageBuy']) > 1) {
+						$tourist = "<p>Взрослые</p><table border=1 cellpadding=10 cellspacing=1>
+							<tr>
+								<th>Пол</th>
+								<th>Возраст</th>
+								<th>Рост</th>
+								<th>И.Ф.</th>
+								<th>Паспорт</th>
+								<th>Действителен по</th>
+								<th>Виза</th>
+							</tr>";
+
+						foreach ($_POST['ageBuy'] as $key => $val) {
+							if ($key == 0) continue;
+							$tourist .= "<tr>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['genderBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['ageBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['heightBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['innameBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['passportBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['dateToBuy'][$key]))."</td>";
+							if ($_POST['visaBuyh'][$key] == 1) {
+								$tourist .= "<td>Да</td>";
+							}
+							else {
+								$tourist .= "<td>Нет</td>";
+							}
+							$tourist .= "</tr>";
+						}
+
+						$tourist .= "</table>";
+					}
+				}
+
+				// Дети
+				if (isset($_POST['ageChildBuy'])) {
+					if (count($_POST['ageChildBuy']) > 1) {
+						$tourist .= "<p>Дети</p><table border=1 cellpadding=10 cellspacing=1>
+							<tr>
+								<th>Пол</th>
+								<th>Возраст</th>
+								<th>Рост</th>
+							</tr>";
+
+						foreach ($_POST['ageBuy'] as $key => $val) {
+							if ($key == 0) continue;
+							$tourist .= "<tr>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['genderChildBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['ageChildBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['heightChildBuy'][$key]))."</td>";
+							$tourist .= "</tr>";
+						}
+
+						$tourist .= "</table>";
+					}
+				}
+
+				$array['tourist'] = $tourist;
+
+				$orderId = all::insert_block("tourorder", 37, $array, 1);
+
+
+				// отправка уведомления пользователю (с генерацией уникальной ссылки и записью ее в таблицу)
+					$email = $array['email'];
+					$sitename = $control->settings->sitename;
+
+					$mailpage->theme = "Заказ экскурсии";
+
+					// Урл сайта
+					$mailpage->siteUrl = "http://".$_SERVER['HTTP_HOST'];
+
+					// Уникальная ссылка
+					$md5 = md5($array['name'].$array['email']."exc".time());
+					$mailpage->uniqlink = $mailpage->siteUrl."/payment/?order=$md5/";
+
+					// Обращение
+					$mailpage->name = $array['name'];
+					// Номер заказа
+					$mailpage->orderid = $orderId;
+
+					sql::query("INSERT INTO prname_uniqlinks
+						(name, email, phone, link, orderid, type)
+						VALUES(
+							'".$array['name']."',
+							'".$array['email']."',
+							'".$array['phone']."',
+							'".$md5."',
+							'".$orderId."',
+							'exc'
+							)");
+
+
+					$msg = sprintt($mailpage, 'mailtemplates/touser/userexcorder.html');
+
+
+					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
+
+				// отправка уведомления админу
+					$email = $control->settings->email;
+					$mailpage->theme = "Заказ экскурсии на сайте Olli Tours";
+					$mailpage->excname = $array['tour'];
+					$msg = sprintt($mailpage, 'mailtemplates/toadmin/excorder.html');
+
+					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
+
+				die();
+
+			}
+		}
+
+		$scriptByu = $validator->getJsArray();
+		return $scriptByu;
+	}
+
+	private function printBuyAuth() {
+		global $control;
+
+		$uid = $_SESSION['uid'];
+
+		$formName = "formBuy";
+
+		$formconfig = array(
+			$formName => array(
+				'dateBuy' => array(
+					'caption' => 'Дата тура',
+					'noempty' => true
+				),
+				'priceBuy' => array(
+					'caption' => 'Цена',
+					'noempty' => true
+				),
+				'tourBuy' => array(
+					'caption' => 'Тур',
+					'noempty' => true
+				),
+				'touridBuy' => array(
+					'caption' => 'Тур',
+					'noempty' => true
+				)
+			)
+		);
+
+
+		include_once("libs/formvalidator.php");$_SESSION['langs'] = 'ru';
+		$validator = new formvalidator($formconfig);
+		$validator->showErrorMethod = "#showErrorsBuy";		// div для показа ошибок
+		$validator->highlight = 1;							// подсветка полей
+		$validator->lastaction = "callback";				// действие при завершении
+		$validator->sendMethod = "ajax";					// метод отправки
+		$validator->preloaderId = "#preloaderBuy";			// id прелоадера
+		$validator->capId = "#captchaBuy";					// id каптчи
+		$validator->callback = "successSend";				// Функция Callback
+		$validator->param = 'BuyAuth';							// Параметр в функцию
+
+		if (isset($_POST) && count($_POST) > 0) {
+			$validator->checkFields($this, $page);
+
+			if ($validator->success) {
+				$array = array();
+				$agent = all::b_data_all($uid, "agent");
+				$array['name'] = $agent->name;
+				$array['date'] = $validator->post['dateBuy'];
+				$array['phone'] = $agent->phone;
+				$array['email'] = $agent->email;
+				$array['tour'] = $validator->post['tourBuy'];
+				$array['tourid'] = $validator->post['touridBuy'];
+				$array['price'] = $validator->post['priceBuy'];
+				$array['pay'] = 0;
+				$array['agent'] = 1;
+
+				// Туристы
+				if (isset($_POST['ageBuy'])) {
+					if (count($_POST['ageBuy']) > 1) {
+						$tourist = "<p>Взрослые</p><table border=1 cellpadding=10 cellspacing=1>
+							<tr>
+								<th>Пол</th>
+								<th>Возраст</th>
+								<th>Рост</th>
+								<th>И.Ф.</th>
+								<th>Паспорт</th>
+								<th>Действителен по</th>
+								<th>Виза</th>
+							</tr>";
+
+						foreach ($_POST['ageBuy'] as $key => $val) {
+							if ($key == 0) continue;
+							$tourist .= "<tr>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['genderBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['ageBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['heightBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['innameBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['passportBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['dateToBuy'][$key]))."</td>";
+							if ($_POST['visaBuyh'][$key] == 1) {
+								$tourist .= "<td>Да</td>";
+							}
+							else {
+								$tourist .= "<td>Нет</td>";
+							}
+							$tourist .= "</tr>";
+						}
+
+						$tourist .= "</table>";
+					}
+				}
+
+				// Дети
+				if (isset($_POST['ageChildBuy'])) {
+					if (count($_POST['ageChildBuy']) > 1) {
+						$tourist .= "<p>Дети</p><table border=1 cellpadding=10 cellspacing=1>
+							<tr>
+								<th>Пол</th>
+								<th>Возраст</th>
+								<th>Рост</th>
+							</tr>";
+
+						foreach ($_POST['ageBuy'] as $key => $val) {
+							if ($key == 0) continue;
+							$tourist .= "<tr>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['genderChildBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['ageChildBuy'][$key]))."</td>";
+							$tourist .= "<td>".htmlspecialchars(trim($_POST['heightChildBuy'][$key]))."</td>";
+							$tourist .= "</tr>";
+						}
+
+						$tourist .= "</table>";
+					}
+				}
+
+				$array['tourist'] = $tourist;
+
+				$orderId = all::insert_block("tourorder", 37, $array, 1);
+
+
+				// отправка уведомления агенту
+					$email = $array['email'];
+					$sitename = $control->settings->sitename;
+
+					$mailpage->theme = "Заказ экскурсии";
+
+					// Урл сайта
+					$mailpage->siteUrl = "http://".$_SERVER['HTTP_HOST'];
+
+					// Обращение
+					$mailpage->name = $array['name'];
+					// Номер заказа
+					$mailpage->orderid = $orderId;
+
+					$msg = sprintt($mailpage, 'mailtemplates/touser/agentexcorder.html');
+
+
+					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
+
+
+				// отправка уведомления админу
+					$email = $control->settings->email;
+					$mailpage->theme = "Заказ экскурсии на сайте Olli Tours";
+					$mailpage->excname = $array['tour'];
+					$msg = sprintt($mailpage, 'mailtemplates/toadmin/excorder.html');
+
+					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
+
+
+				die();
+
+			}
+		}
+
+		$scriptBuy = $validator->getJsArray();
+		return $scriptBuy;
 	}
 
 	private function printOne($bid) {
@@ -38,7 +386,13 @@ class exc extends helper_exc {
 
 		if (isset($_SESSION['uid'])) {
 			$page->auth = true;
+			$page->scriptBuy = $this->printBuyAuth();
 		}
+		else {
+			$page->scriptBuy = $this->printBuy();
+		}
+
+		$page->excUrl = all::getUrl(21);
 
 		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'_one.html');
 	}

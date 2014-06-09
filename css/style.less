@@ -814,137 +814,6 @@ body {
 					float: left;
 					width: 45%;
 					#calendar {margin-bottom: 60px;}
-					@clndr-border: 1px dotted #dad1c6;
-					.noselect {
-						-webkit-user-select: none;
-						-moz-user-select: none;
-						-ms-user-select: none;
-					}
-					.clearfix:after {
-						content: ".";
-						display: block;
-						clear: both;
-						visibility: hidden;
-						line-height: 0;
-						height: 0;
-					}
-					.clearfix {display: inline-block;}
-					html[xmlns] .clearfix {display: block;}
-					* html .clearfix {height: 1%;}
-					.clndr {max-width: 300px;
-						.clndr-controls {
-							.clearfix;
-							width: 100%;
-							position: relative;
-							margin-bottom: 10px;
-
-							.month {
-								margin-right: 36px;
-								margin-left: 36px;
-								text-align: center;
-								line-height: 1.5;
-								.font(1.3125em, #666666);
-								.r-l();
-								text-transform: uppercase;
-							}
-
-
-							.clndr-next-button {
-								float: right;
-								cursor: pointer;
-								width: 32px;
-								height: 32px;
-								background: url(/img/calendar-next.png) no-repeat 0 0;
-								.noselect;
-								&.inactive {
-									opacity: 0.5;
-									&:hover {
-										cursor: default;
-									}
-								}
-							}
-							.clndr-previous-button {
-								float: left;
-								cursor: pointer;
-								width: 32px;
-								height: 32px;
-								background: url(/img/calendar-prev.png) no-repeat 0 0;
-								.noselect;
-								&.inactive {
-									opacity: 0.5;
-									&:hover {
-										cursor: default;
-									}
-								}
-							}
-						}
-
-						.clndr-table {
-							table-layout: fixed;
-							width: 100%;
-
-
-							.header-days {
-
-								.header-day {
-									vertical-align: middle;
-									text-align: center;
-									.font(0.75em, #666666);
-									.r-b();
-									padding: 8px 0;
-								}
-							}
-
-							tr {
-								td {vertical-align: top; height: auto;}
-
-								.day {
-									border: @clndr-border;
-									width: 100%;
-									background-color: #f9f9f3;
-									.font(1.3125em, #666666);
-									.r-l();
-									text-align: center;
-									padding: 8px;
-
-									&:hover { background: #eee; }
-
-									&.event-range {
-										background: #cabeb2;
-										color: white;
-										.box-shadow(1px 1px 4px rgba(0,0,0,.2));
-										&:hover {background: #cabeb2;}
-									}
-
-									&.event-one {
-										background: #719745;
-										color: white;
-										.box-shadow(0 3px 8px rgba(0,0,0,.4));
-										cursor: pointer;
-										&:hover {background: darken(#719745, 10%);}
-									}
-
-									&.inactive {}
-								}
-
-								.empty, .adjacent-month {
-									border-left: @clndr-border;
-									border-top: @clndr-border;
-									width: 100%;
-									height: inherit;
-									background: #eee;
-
-									&:hover { background: #ddd; }
-									&:last-child {border-right: @clndr-border;}
-								}
-
-								&:last-child {
-									.day {border-bottom: @clndr-border;}
-									.empty {border-bottom: @clndr-border;}
-								}
-							}
-						}
-					}
 				}
 				.legend {
 					float: right;
@@ -1080,12 +949,7 @@ body {
 							margin-right: 20px;
 							max-width: 30%;
 						}
-						.input {margin-bottom: 0;}
-					}
-					.section-3 {
-						.input {float: left; width: 30%; margin-right: 5%;
-							&:last-child {margin-right: 0;}
-						}
+						// .input {margin-bottom: 0;}
 					}
 					.radio-input {
 						.placeholder {.font(0.8125em, #333333, 6px); }
@@ -1500,6 +1364,54 @@ body {
 	}
 }
 
+// PAYMENT
+.payment-page {padding-top: 60px; padding-bottom: 100px;
+	.name-p {.font(1.3125em, black, 35px); .r-l();}
+	.order-info {margin-bottom: 50px;
+		.valuer {
+			.font(0.875em, #333333, 10px); .r-l();
+			b {.r-m();}
+		}
+	}
+	.tourist-info {
+		p {.font(1.125em, black, 10px); .r-l();}
+		table {width: 100%; margin-bottom: 35px;
+			tr {
+				&:nth-child(odd) {
+					td {background: #f7f7ee;}
+				}
+				th {
+					text-align: left;
+					background: #729944 !important;
+					.font(0.875em, white);
+					.r();
+					padding: 20px 16px;
+					text-transform: uppercase;
+					border: 0;
+					&.center {text-align: center;}
+				}
+				td {
+					text-align: left;
+					background: white;
+					padding: 12px;
+					border: 1px dotted #d2c8bb;
+					.font(0.875em, #666666);
+					line-height: 1.3;
+					&.center {text-align: center;}
+					.status {.font(1em, #729944); .r();}
+					.success {color: #729944;}
+					.apart {color: #0099cc;}
+					.await {color: #cc0000;}
+					.over {color: #cbbfb1;}
+					.null {color: #cbbfb1;}
+				}
+
+			}
+		}
+	}
+
+}
+
 // ERROR PAGE
 .error-page {text-align: center;
 	img {width: 100%;}
@@ -1521,6 +1433,139 @@ body {
 
 		&:hover {
 			background: lighten(black, 20%);
+		}
+	}
+}
+
+// Calendar
+@clndr-border: 1px dotted #dad1c6;
+.noselect {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.clearfix {display: inline-block;}
+html[xmlns] .clearfix {display: block;}
+* html .clearfix {height: 1%;}
+.clndr {max-width: 300px;
+	.clndr-controls {
+		.clearfix;
+		width: 100%;
+		position: relative;
+		margin-bottom: 10px;
+
+		.month {
+			margin-right: 36px;
+			margin-left: 36px;
+			text-align: center;
+			line-height: 1.5;
+			.font(1.3125em, #666666);
+			.r-l();
+			text-transform: uppercase;
+		}
+
+
+		.clndr-next-button {
+			float: right;
+			cursor: pointer;
+			width: 32px;
+			height: 32px;
+			background: url(/img/calendar-next.png) no-repeat 0 0;
+			.noselect;
+			&.inactive {
+				opacity: 0.5;
+				&:hover {
+					cursor: default;
+				}
+			}
+		}
+		.clndr-previous-button {
+			float: left;
+			cursor: pointer;
+			width: 32px;
+			height: 32px;
+			background: url(/img/calendar-prev.png) no-repeat 0 0;
+			.noselect;
+			&.inactive {
+				opacity: 0.5;
+				&:hover {
+					cursor: default;
+				}
+			}
+		}
+	}
+
+	.clndr-table {
+		table-layout: fixed;
+		width: 100%;
+
+
+		.header-days {
+
+			.header-day {
+				vertical-align: middle;
+				text-align: center;
+				.font(0.75em, #666666);
+				.r-b();
+				padding: 8px 0;
+			}
+		}
+
+		tr {
+			td {vertical-align: top; height: auto;}
+
+			.day {
+				border: @clndr-border;
+				width: 100%;
+				background-color: #f9f9f3;
+				.font(1.3125em, #666666);
+				.r-l();
+				text-align: center;
+				padding: 8px;
+
+				&:hover { background: #eee; }
+
+				&.event-range {
+					background: #cabeb2;
+					color: white;
+					.box-shadow(1px 1px 4px rgba(0,0,0,.2));
+					&:hover {background: #cabeb2;}
+				}
+
+				&.event-one {
+					background: #719745;
+					color: white;
+					.box-shadow(0 3px 8px rgba(0,0,0,.4));
+					cursor: pointer;
+					&:hover {background: darken(#719745, 10%);}
+				}
+
+				&.inactive {}
+			}
+
+			.empty, .adjacent-month {
+				border-left: @clndr-border;
+				border-top: @clndr-border;
+				width: 100%;
+				height: inherit;
+				background: #eee;
+
+				&:hover { background: #ddd; }
+				&:last-child {border-right: @clndr-border;}
+			}
+
+			&:last-child {
+				.day {border-bottom: @clndr-border;}
+				.empty {border-bottom: @clndr-border;}
+			}
 		}
 	}
 }
@@ -1920,6 +1965,9 @@ body {
 	.text {margin-bottom: 40px;
 		.bold {.font(0.8125em, #333333, 9px); .r-m();}
 		.simple {.font(0.8125em, #333333, 9px); .r-l();}
+		a {color: #729944; text-decoration: underline;
+			&:hover {text-decoration: none;}
+		}
 	}
 	.buttons {
 		.button {float: left;

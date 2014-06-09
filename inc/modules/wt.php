@@ -91,9 +91,9 @@ class wt {
 					$mailpage->password = $newPassword;
 
 
-					$msg = sprintt($mailpage, 'mailtemplates/user/password_reset.html');
+					$msg = sprintt($mailpage, 'mailtemplates/touser/password_reset.html');
 
-					all::send_mail($email, $theme, $msg, false, false, "$sitename robot");
+					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
 				}
 
 				die();
@@ -187,9 +187,9 @@ class wt {
 					$mailpage->password = $validator->post['passwordReg'];
 					$mailpage->name = $array['name'];
 
-					$msg = sprintt($mailpage, 'mailtemplates/user/registration_activation.html');
+					$msg = sprintt($mailpage, 'mailtemplates/touser/registration_activation.html');
 
-					all::send_mail($array['login'], $mailpage->theme, $msg, false, false, "$sitename");
+					debug(all::send_mail($array['login'], $mailpage->theme, $msg, false, false, "$sitename"));
 
 
 				die();
@@ -220,7 +220,7 @@ class wt {
 
 		if ($activecode == $str) {
 			sql::query("UPDATE prname_b_agent SET active=1 WHERE id=$login");
-			$this->goLogin($agent->email, $agent->password, 1, false);
+			$this->goLogin($agent->email, $agent->password, false);
 
 			// отправка уведомления на почту администратора
 				$mailpage->theme = "Регистрация агента на сайте Olli Tours ";
@@ -228,27 +228,29 @@ class wt {
 				// Урл сайта
 				$mailpage->siteUrl = "http://".$_SERVER['HTTP_HOST'];
 				// Реквизиты входа
-				$mailpage->email = $agent>login;
+				$mailpage->email = $agent->login;
 
-				$msg = sprintt($mailpage, 'mailtemplates/admin/registration.html');
+				$msg = sprintt($mailpage, 'mailtemplates/toadmin/registration.html');
 
 				$email = $control->settings->email;
 				$sitename = $control->settings->sitename;
 
 				all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
 
-			header("Location: /?active=1/");
+			header("Location: /cabinet/");
+			return;
 		}
 
 
 		return;
 	}
 
-	private function goLogin($email = null, $password = null) {
+	private function goLogin($email = null, $password = null, $md5 = true) {
 		global $config;
 		$salt = $config['md5'];
 		$salt2 = $config['salt'];
 
+		// Авторизация при активации
 		if ($email != null && $password != null) {
 			if ($md5) {
 				$password = md5($password.$salt);
@@ -271,15 +273,28 @@ class wt {
 				$newEmail = md5($email.$salt2);
 				$str = protect::p_code($newEmail);
 				setcookie('udr_uity', $str , time() + 2592000, "/");
-
-				die("ok");
+				if (!$md5) {
+					return true;
+				}
+				else {
+					die("ok");
+				}
 			}
 			else {
-				die("<p>Неправильные e-mail/пароль</p>");
+				if (!$md5) {
+					return  false;
+				}
+				else {
+					die("<p>Неправильные e-mail/пароль</p>");
+				}
 			}
 		}
-		die("<p>Неправильные e-mail/пароль</p>");
-
+		if (!$md5) {
+			return false;
+		}
+		else {
+			die("<p>Неправильные e-mail/пароль</p>");
+		}
 	}
 
 	function logout() {

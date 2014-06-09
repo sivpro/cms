@@ -321,6 +321,30 @@ class cabinet {
 			$page->scriptPassport = $this->printPassport();
 		}
 
+		// Заказы
+		$list = new Listing("tourorder", "blocks", "all", "agentid='$uid' AND ");
+		$list->sortfield = "id";
+		$list->sortby = "DESC";
+		$list->limit = 10;
+		$list->page = $control->page;
+		$list->tmp_url = all::getUrl($control->module_parent);
+		$list->getList();
+		$list->getItem();
+		$list->getPage();
+		$page->item = $list->item;
+
+		$page->page = $list->navigation;
+		$page->itemSelector = ".item";
+		$page->containerSelector = "#order-list";
+		$page->url_last = $list->url_last;
+		$page->url_p = $list->url_p;
+		$page->url_n = $list->url_n;
+		$page->url_next = $list->url_next;
+
+		foreach ($page->item as $key => $val) {
+			$val->topay = $val->price - $val->pay;
+		}
+
 		$page->pname = $control->name;
 		$page->pages_down = sprintt($page, 'templates/temps/pages_down.html');
 		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'.html');

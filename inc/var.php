@@ -36,9 +36,9 @@ error_reporting(0);
 
 	//hosting settings
 	$config['dbhost'] = 'localhost';
-	$config['dbname'] = 'u24286';
-	$config['dbuser'] = 'root';
-	$config['dbpass'] = 'zenuz8madob';
+	$config['dbname'] = 'dbname';
+	$config['dbuser'] = 'dbuser';
+	$config['dbpass'] = 'dbpass';
 
 	//local settings
 	$config['dbhost'] = 'localhost';

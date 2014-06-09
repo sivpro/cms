@@ -1,0 +1,47 @@
+{reduce:nothing}
+{mask:main}
+	<div class="subheader-wrapper tour">
+		<div class="subheader clearline container">
+			<div class="info">
+				<h1>Оплата</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="payment-page container clearline">
+		<p class="name-p">Данные о покупателе</p>
+
+		<div class="order-info">
+			<p class="valuer"><b>Контактное лицо:</b> {name}</p>
+			<p class="valuer"><b>E-mail:</b> {email}</p>
+			<p class="valuer"><b>Номер телефона:</b> {phone}</p>
+		</div>
+
+
+		<p class="name-p">Данные о заказе</p>
+
+		<div class="order-info">
+			<p class="valuer"><b>№ заказа:</b> {id}</p>
+			{if:{type} == "tour"}
+				<p class="valuer"><b>Название тура:</b> {tour}</p>
+			{/if}
+			{if:{type} == "exc"}
+				<p class="valuer"><b>Название экскурсии:</b> {tour}</p>
+			{/if}
+			<p class="valuer"><b>Дата:</b> {date}</p>
+			<p class="valuer"><b>Полная стоимость:</b> {price} Р</p>
+			<p class="valuer"><b>Оплачено:</b> {pay} Р</p>
+		</div>
+
+		<p class="name-p">Данные о туристах</p>
+
+		<div class="tourist-info">
+			{tourist}
+		</div>
+
+		<div class="robokassa clearline">
+			{paidScript}
+		</div>
+
+	</div>
+{/mask}

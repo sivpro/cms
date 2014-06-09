@@ -14,7 +14,7 @@
 	<div class="cabinet-page container clearline">
 		<p class="name-p">История заказов</p>
 
-		<table class="history">
+		<table class="history" id="order-list">
 			<colgroup>
 				<col width="12%">
 				<col width="38%">
@@ -23,62 +23,28 @@
 				<col width="12%">
 			</colgroup>
 			<tr>
-				<th class="center">Номер брони</th>
+				<th class="center">Номер заказа</th>
 				<th>Название тура</th>
 				<th class="center">Цена, руб.</th>
 				<th>● Статус</th>
 				<th class="center">К оплате</th>
 			</tr>
 
-			<tr>
-				<td class="center">000001</td>
-				<td>Сказочная прага</td>
-				<td class="center">45000</td>
+			{mask:item}
+			<tr class="item">
+				<td class="center">{id}</td>
+				<td>{tour}</td>
+				<td class="center">{price}</td>
 				<td>
 					<div class="status success">● оплачен</div>
 				</td>
-				<td class="center">30000</td>
+				<td class="center">{topay}</td>
 			</tr>
-			<tr>
-				<td class="center">000002</td>
-				<td>Сказочная прага</td>
-				<td class="center">45000</td>
-				<td>
-					<div class="status apart">● частично оплачен</div>
-				</td>
-				<td class="center">30000</td>
-			</tr>
-			<tr>
-				<td class="center">000003</td>
-				<td>Сказочная прага</td>
-				<td class="center">45000</td>
-				<td>
-					<div class="status await">● не оплачен</div>
-				</td>
-				<td class="center">30000</td>
-			</tr>
-			<tr>
-				<td class="center">000004</td>
-				<td>Сказочная прага</td>
-				<td class="center">45000</td>
-				<td>
-					<div class="status over">● проведен</div>
-				</td>
-				<td class="center">30000</td>
-			</tr>
-			<tr>
-				<td class="center">000005</td>
-				<td>Сказочная прага</td>
-				<td class="center">45000</td>
-				<td>
-					<div class="status null">● аннулирован</div>
-				</td>
-				<td class="center">30000</td>
-			</tr>
+			{/mask}
 		</table>
 
 		<div class="more">
-			<a href="#">Показать еще</a>
+			{pages_down}
 		</div>
 
 

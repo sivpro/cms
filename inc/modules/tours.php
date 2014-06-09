@@ -8,7 +8,7 @@ class tours extends helper_tours {
 
 		if (isset($_POST['priceBuy'])) {
 			if (isset($_SESSION['uid'])) {
-				return $this->printByAuth();
+				return $this->printBuyAuth();
 			}
 			else {
 				return $this->printBuy();
@@ -29,6 +29,10 @@ class tours extends helper_tours {
 
 		$formconfig = array(
 			$formName => array(
+				'dateBuy' => array(
+					'caption' => 'Дата тура',
+					'noempty' => true
+				),
 				'nameBuy' => array(
 					'caption' => 'ФИО',
 					'noempty' => true
@@ -74,6 +78,7 @@ class tours extends helper_tours {
 			if ($validator->success) {
 				$array = array();
 				$array['name'] = $validator->post['nameBuy'];
+				$array['date'] = $validator->post['dateBuy'];
 				$array['phone'] = $validator->post['phoneBuy'];
 				$array['email'] = $validator->post['emailBuy'];
 				$array['tour'] = $validator->post['tourBuy'];
@@ -158,25 +163,26 @@ class tours extends helper_tours {
 
 					// Уникальная ссылка
 					$md5 = md5($array['name'].$array['email'].time());
-					$uniqlink = $mailpage->siteUrl."/payment/order=$md5/";
+					$mailpage->uniqlink = $mailpage->siteUrl."/payment/?order=$md5/";
 
 					// Обращение
 					$mailpage->name = $array['name'];
 					// Номер заказа
 					$mailpage->orderid = $orderId;
 
-					sql::query("INSERT INTO prname_iniqlinks
-						(name, email, phone, link, orderid)
+					sql::query("INSERT INTO prname_uniqlinks
+						(name, email, phone, link, orderid, type)
 						VALUES(
 							'".$array['name']."',
 							'".$array['email']."',
 							'".$array['phone']."',
-							'".$uniqlink."',
-							'".$orderId."'
-							)";
+							'".$md5."',
+							'".$orderId."',
+							'tour'
+							)");
 
 
-					$msg = sprintt($mailpage, 'mailtemplates/user/userorder.html');
+					$msg = sprintt($mailpage, 'mailtemplates/touser/userorder.html');
 
 
 					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
@@ -185,7 +191,7 @@ class tours extends helper_tours {
 					$email = $control->settings->email;
 					$mailpage->theme = "Заказ тура на сайте Olli Tours";
 					$mailpage->tourname = $array['tour'];
-					$msg = sprintt($mailpage, 'mailtemplates/admin/order.html');
+					$msg = sprintt($mailpage, 'mailtemplates/toadmin/order.html');
 
 					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
 
@@ -207,6 +213,10 @@ class tours extends helper_tours {
 
 		$formconfig = array(
 			$formName => array(
+				'dateBuy' => array(
+					'caption' => 'Дата тура',
+					'noempty' => true
+				),
 				'priceBuy' => array(
 					'caption' => 'Цена',
 					'noempty' => true
@@ -241,6 +251,7 @@ class tours extends helper_tours {
 				$array = array();
 				$agent = all::b_data_all($uid, "agent");
 				$array['name'] = $agent->name;
+				$array['date'] = $validator->post['dateBuy'];
 				$array['phone'] = $agent->phone;
 				$array['email'] = $agent->email;
 				$array['tour'] = $validator->post['tourBuy'];
@@ -327,7 +338,7 @@ class tours extends helper_tours {
 					// Номер заказа
 					$mailpage->orderid = $orderId;
 
-					$msg = sprintt($mailpage, 'mailtemplates/user/agentorder.html');
+					$msg = sprintt($mailpage, 'mailtemplates/touser/agentorder.html');
 
 
 					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
@@ -337,7 +348,7 @@ class tours extends helper_tours {
 					$email = $control->settings->email;
 					$mailpage->theme = "Заказ тура на сайте Olli Tours";
 					$mailpage->tourname = $array['tour'];
-					$msg = sprintt($mailpage, 'mailtemplates/admin/order.html');
+					$msg = sprintt($mailpage, 'mailtemplates/toadmin/order.html');
 
 					all::send_mail($email, $mailpage->theme, $msg, false, false, "$sitename robot");
 
