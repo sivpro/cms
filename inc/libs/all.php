@@ -252,12 +252,16 @@ class All {
 	 * @param int $blockparent		Блок-родитель
 	 * @return int
 	 */
+
 	function insert_block($template, $parent, $data, $visible = 1, $blockparent = 0) {
 		$q = sql::query("select p2.* from prname_btemplates p1, prname_bdatarel p2 where p1.key = '".$template."' and p2.templid=p1.id");
 		$qs = '';
 		while ($qww = sql::fetch_assoc($q)) {
-			if ($qww['datatkey'] == "date")
-				$data[$qww['key']] = date("Y-m-d");
+			if ($qww['datatkey'] == "date") {
+				if ($data[$qww['key']] == "") {
+					$data[$qww['key']] = date("Y-m-d");
+				}
+			}
 			if (strlen($data[$qww['key']]) == 0)
 				$datar[$qww['key']] = $qww['default'];
 			$qs .= " `$qww[key]` = '".$data[$qww['key']]."', ";
