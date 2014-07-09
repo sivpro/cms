@@ -9,7 +9,9 @@ class formos {
 			$formName => array(
 				'nameCall' => array(
 					'caption' => 'Ваше имя',
-					'noempty' => true
+					'noempty' => true,
+					'minlength' => 10,
+					'maxlength' => 20
 				),
 				'phoneCall' => array(
 					'caption' => 'Телефон',
@@ -22,7 +24,7 @@ class formos {
 		include_once("libs/formvalidator.php");$_SESSION['langs'] = 'ru';
 		$validator = new formvalidator($config);
 		$validator->showErrorMethod = "#showErrorsCall";	//div для показа ошибок
-		$validator->highlight = 1;							//подсветка полей
+		$validator->highlight = true;						//подсветка полей
 		$validator->lastaction = "callback";				// действие при завершении
 		$validator->sendMethod = "ajax";					//метод отправки
 		$validator->preloaderId = "#preloaderCall";			//id прелоадера

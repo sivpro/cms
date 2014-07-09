@@ -1,6 +1,8 @@
 {reduce:nothing}
 {mask:main}
-{script}
+<script>
+validatorConfig['formCall'] = {script};
+</script>
 	<div class="popup-block simple-popup-block hidden-element" id="call-form">
 		<button class="popup-close popup-close-top"></button>
 
@@ -11,12 +13,12 @@
 
 				<div class="input">
 					<p class="placeholder">Представьтесь, пожалуйста</p>
-					<input type="text" name="nameCall" id="nameCall" required placeholder="ФИО">
+					<input type="text" name="nameCall" id="nameCall" placeholder="ФИО">
 				</div>
 
 				<div class="input">
 					<p class="placeholder">Ваш номер телефона</p>
-					<input type="text" name="phoneCall" id="phoneCall" required placeholder="Номер телефона">
+					<input type="text" name="phoneCall" id="phoneCall" placeholder="Номер телефона">
 				</div>
 
 
