@@ -187,7 +187,7 @@ class formvalidator {
 
 				$result->captcha = $captcha;
 				$result->errors = $this->getErrors();
-				die($text);
+				die(json_encode($result));
 			}
 
 			// No Ajax
@@ -345,7 +345,7 @@ class formvalidator {
 	// Only numbers and symbols validation
 	private function check_numberandsimbols($field, $value) {
 		$string = $this->post[$field];
-		if (preg_match("/[^0-9-_+@\s]/", $string)) {
+		if (preg_match("#[^0-9-_+@\s]#", $string)) {
 			if (!is_array($this->error[$field])) {
 				$this->error[$field] = array();
 			}
@@ -356,7 +356,7 @@ class formvalidator {
 	// E-mail validation
 	private function check_email($field, $value) {
 		$string = $this->post[$field];
-		if (!preg_match("/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/i", $string)) {
+		if (!preg_match("#^[0-9a-z_]+@[0-9a-z_^.]+\\.[a-z]{2,3}$#i", $string)) {
 			if (!is_array($this->error[$field])) {
 				$this->error[$field] = array();
 			}

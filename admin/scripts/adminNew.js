@@ -40,7 +40,31 @@ $(document).ready(function() {
 	$(".erase-button").on("click", deleteImage);
 
 	// Перемещение блоков к другому родителю
-	$("#moveToSelect").change(moveTo);
+	$("#moveToSelect").on("change", function() {
+		var str = "",
+			t = $(this),
+			value = t.val(),
+			newParent = t.find("option:selected").attr("data-id");
+			parent = $("#hide-parent").val(),
+			btemplate =  $("#hide-template").val(),
+			attr = "";
+
+		if (value == 0) {
+			return false;
+		}
+
+
+		$(".group-checkbox").each(function() {
+			attr = $(this).prop('checked');
+			if (attr) {
+				str += $(this).attr("data-id")+";";
+			}
+		});
+
+		if (str !== "" && confirm('Вы действительно хотите переместить выбранные блоки?')) {
+			window.location.href = '/manage/blockedit/_amoveto_parent'+parent+'_new'+newParent+'_template'+btemplate+'_ids'+str+'/';
+		}
+	});
 
 
 
@@ -433,32 +457,6 @@ var groupShow = function() {
 
 	if (str !== "" && confirm('Вы действительно хотите показать выбранные блоки?')) {
 		window.location.href = '/manage/blockedit/_agroupshow_parent'+parent+'_template'+btemplate+'_ids'+str+'/';
-	}
-};
-
-var moveTo = function() {
-	var str = "",
-		t = $(this),
-		value = t.val(),
-		newParent = t.find("option:selected").attr("data-id"),
-		parent = $("#hide-parent").val(),
-		btemplate =  $("#hide-template").val(),
-		attr;
-
-	if (value == 0) {
-		return false;
-	}
-
-
-	$(".group-checkbox").each(function() {
-		attr = $(this).attr('checked');
-		if (typeof attr !== 'undefined' && attr !== false) {
-			str += $(this).attr("data-id")+";";
-		}
-	});
-
-	if (str !== "" && confirm('Вы действительно хотите переместить выбранные блоки?')) {
-		window.location.href = '/manage/blockedit/_amoveto_parent'+parent+'_new'+newParent+'_template'+btemplate+'_ids'+str+'/';
 	}
 };
 

@@ -78,7 +78,8 @@ function post(fName) {
 			data: sendString,
 			success: function(msg) {
 				var text = "",
-					capSrc = "";
+					capSrc = "",
+					response;
 
 				// Скрываем прелоадер
 				jQuery(_preloaderId).hide();
@@ -126,17 +127,19 @@ function post(fName) {
 
 				// Ошибки с сервера
 				else {
+					response = jQuery.parseJSON(msg);
 					// Заменяем капчу
-					capSrc = msg.captcha;
+					capSrc = response.captcha;
 					capSrc = "/libs/imgcode/"+capSrc+".jpg";
-					jQuery(_capId).attr("src", src);
+					jQuery(_capId).attr("src", capSrc);
+
 
 					// Принимаем ошибки
-					text = msg.errors;
+					text = response.errors;
 
 					// Показываем в элементе
 					if (_showErrorMethod.indexOf("#") != -1) {
-						text = "<p>"+text1+"</p>";
+						text = "<p>"+text+"</p>";
 						jQuery(text).appendTo(_showErrorMethod);
 					}
 				}
@@ -353,7 +356,7 @@ function check_numberandsimbols(field, value, formName) {
 // E-mail validation
 function check_email(field, value, formName) {
 	var string = jQuery("#"+field+"").val(),
-		reg = /[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}/i,
+		reg = new RegExp("[0-9a-z_]+@[0-9a-z_^.]+\\.[a-z]{2,3}", 'i'),
 		result = reg.test(string);
 
 	return result;
