@@ -420,6 +420,8 @@ class adminblockedit extends manage {
 	//Обработка POST на добавление блока
 	function add($mode='') {
 		global $control;
+		$cache = new phpFastCache();
+		$cache->cleanup();
 		$parent = $_POST['parent'];
 		$template = $_POST['template'];
 		$lpage = $_POST['page'];
@@ -646,6 +648,8 @@ class adminblockedit extends manage {
 	function edit($mode='') {
 
 		global $control;
+		$cache = new phpFastCache();
+		$cache->cleanup();
 		$parent = $_POST['parent'];
 		$template = $_POST['template'];
 		$blockid = $_POST['blockid'];
@@ -732,6 +736,10 @@ class adminblockedit extends manage {
 
 	function delete($mode) {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$blockid = all::getVar("id");
 		$template = all::getVar("template");
 		$parent = all::getVar("parent");
@@ -759,6 +767,10 @@ class adminblockedit extends manage {
 	//Групповое удаление
 	function groupDel() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$ids = all::getVar("ids");
 		$template = all::getVar("template");
 		$parent = all::getVar("parent");
@@ -782,6 +794,10 @@ class adminblockedit extends manage {
 
 	function move() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$blockid = all::getVar("id");
 		$template = all::getVar("template");
 		$parent = all::getVar("parent");
@@ -813,6 +829,10 @@ class adminblockedit extends manage {
 
 	function copy() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$blockid = all::getVar("id");
 		$template = all::getVar("template");
 		$parent = all::getVar("parent");
@@ -855,6 +875,10 @@ class adminblockedit extends manage {
 
 	function showHide() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$parent = all::getVar("parent");
 		$blockid = all::getVar("id");
 		$template = all::getVar("template");
@@ -873,6 +897,10 @@ class adminblockedit extends manage {
 	//Групповое скрытие
 	function groupHide() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$parent = all::getVar("parent");
 		$ids = all::getVar("ids");
 		$template = all::getVar("template");
@@ -897,6 +925,10 @@ class adminblockedit extends manage {
 	//Групповое скрытие
 	function groupShow() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$parent = all::getVar("parent");
 		$ids = all::getVar("ids");
 		$template = all::getVar("template");

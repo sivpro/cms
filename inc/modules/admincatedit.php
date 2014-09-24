@@ -110,6 +110,10 @@ class admincatedit extends manage {
 
 	function add() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$parent = $_POST['parent'];
 		$template = $_POST['template'];
 		$cat_key = $_POST['cat_key'];
@@ -214,6 +218,8 @@ class admincatedit extends manage {
 
 	function edit() {
 		global $control;
+		$cache = new phpFastCache();
+		$cache->cleanup();
 		$parent = $_POST['parent'];
 		$template = $_POST['template'];
 		$oldtemplate = $_POST['oldtemplate'];
@@ -280,6 +286,9 @@ class admincatedit extends manage {
 		global $control;
 		$parent = all::getVar("parent");
 
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		//Определяем разрешение на удаление
 		$template = sql::one_record("SELECT template FROM prname_categories WHERE id=".$parent);
 		if (!parent::getRight("candel", $template)) {
@@ -294,6 +303,10 @@ class admincatedit extends manage {
 
 	function showHide() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$parent = all::getVar("parent");
 
 		//Определяем разрешение на скрытие/показ
@@ -310,6 +323,10 @@ class admincatedit extends manage {
 
 	function move() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 		$parent = all::getVar("parent");
 
 		//Определяем разрешение на перемещение
@@ -399,6 +416,10 @@ class admincatedit extends manage {
 
 	function copy() {
 		global $control;
+
+		$cache = new phpFastCache();
+		$cache->cleanup();
+
 
 		$catId = all::getVar("parent");
 

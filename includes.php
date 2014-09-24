@@ -1,17 +1,18 @@
 <?php
-	include "libs/ets.php";
-	include "inc/class/module.php";
-	include "inc/libs/timer.php";
-	include "inc/libs/sql.php";
-	include "libs/file_oper.php";
-	include "libs/protect.php";
-	include "inc/class/tree.php";
-	include "inc/class/treeworker.php";
-	include "inc/libs/all.php";
-	include "inc/class/listing.php";
+	require_once("libs/cache/php_fast_cache.php");
+	require_once("libs/ets.php");
+	require_once("inc/class/module.php");
+	require_once("inc/libs/timer.php");
+	require_once("inc/libs/sql.php");
+	require_once("libs/file_oper.php");
+	require_once("libs/protect.php");
+	require_once("inc/class/tree.php");
+	require_once("inc/class/treeworker.php");
+	require_once("inc/libs/all.php");
+	require_once("inc/class/listing.php");
 	require_once('libs/PHPMailer/class.phpmailer.php');
-	include "inc/var.php";
-	include "inc/inc.php";
-	include "inc/class/control.php";
-	include "libs/lessphp/lessc.inc.php";
+	require_once("inc/var.php");
+	require_once("inc/inc.php");
+	require_once("inc/class/control.php");
+	require_once("libs/lessphp/lessc.inc.php");
 ?>

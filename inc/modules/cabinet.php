@@ -345,6 +345,8 @@ class cabinet {
 			$val->topay = $val->price - $val->pay;
 		}
 
+		$page->cabinetUrl = all::getUrl(34);
+
 		$page->pname = $control->name;
 		$page->pages_down = sprintt($page, 'templates/temps/pages_down.html');
 		$this->html['text'] = sprintt($page, 'templates/'.$control->template.'/'.$control->template.'.html');
