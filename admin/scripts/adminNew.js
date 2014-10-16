@@ -33,6 +33,21 @@ $(document).ready(function() {
 		return false;
 	});
 
+	// Очистка кэша
+	$("#clean-cache").click(function() {
+		$.post(
+			'/manage/',
+			{
+				mode: "clean"
+			},
+			function() {
+				alert("Кэш очищен");
+			}
+		);
+
+		return false;
+	});
+
 	//Сохранение миниатюры
 	$("#imageSave").on("click", saveMini);
 

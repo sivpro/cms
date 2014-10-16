@@ -423,7 +423,7 @@ class Controller {
 			$str = protect::p_encode($_COOKIE['udr_uity']);
 			$salt2 = $config['salt'];
 
-			$r = $sql->query("SELECT * FROM prname_b_agent");
+			$r = $sql->query("SELECT * FROM prname_b_user");
 
 			while ($res = $sql->fetch_assoc($r)) {
 				$md5 = md5($res['login'].$salt2);

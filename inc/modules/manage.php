@@ -8,6 +8,10 @@ class manage {
 
 		$this->menu = $this->getMenu();
 		$this->page = $control->page;
+
+		if (isset($_POST['mode']) && $_POST['mode'] == "clean") {
+			return $this->cleanCache();
+		}
 		$this->printList($control->module_parent);
 
 	}
@@ -217,6 +221,12 @@ class manage {
 		if (!isset($_SESSION['admin_name'])) {
 			die(sprintt($page, 'templates/manage/login.html'));
 		}
+	}
+
+	private function cleanCache() {
+		$cache = new phpFastCache();
+		$cache->cleanup();
+		die();
 	}
 
 }

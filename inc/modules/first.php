@@ -1,9 +1,8 @@
 <?php
-class first extends module {
+class first {
 
 	public function __construct() {
 		global $control;
-		$this->page = $control->page;
 
 		$this->printList($control->module_parent);
 

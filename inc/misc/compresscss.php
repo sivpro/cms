@@ -4,13 +4,7 @@ class compresscss {
 
 	function Make($wrapper) {
 		$cssFiles = array(
-			'/scripts/fancybox/source/jquery.fancybox.css',
-			'/scripts/slick/slick.css',
-			'/scripts/chosen/chosen.css',
-			'/scripts/iCheck/skins/flat/flat.css',
-			'/scripts/ion.rangeSlider/css/ion.rangeSlider.css',
-			'/scripts/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css',
-			'/scripts/sauron/style.css'
+
 		);
 
 

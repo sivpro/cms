@@ -4,23 +4,7 @@ class compressjs {
 
 	function Make($wrapper) {
 		$jsFiles = array(
-			'/scripts/site.js',
-			'/scripts/fancybox/source/jquery.fancybox.pack.js',
-			'/scripts/slick/slick.min.js',
-			'/scripts/jquery.maskedinput.min.js',
-			'/scripts/chosen/chosen.jquery.min.js',
-			'/scripts/iCheck/icheck.min.js',
-			'/scripts/ion.rangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js',
-			'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js',
-			'/scripts/clndr/moment-with-langs.min.js',
-			'/scripts/clndr/clndr.min.js',
-			'/scripts/tooltipster/jquery.tooltipster.min.j',
-			'http://cdn.jsdelivr.net/jquery.scrolltofixed/0.1/jquery-scrolltofixed.js',
-			'/scripts/jquery.scrollTo.min.js',
-			'/scripts/jquery.localScroll.min.js',
-			'/scripts/sauron/jquery.sauron.min.js',
-			'/scripts/jquery.wholly.min.js',
-			'/scripts/jquery.localScroll.min.js'
+
 		);
 
 		$fileAge = 0;

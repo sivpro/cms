@@ -94,6 +94,9 @@ function post(fName) {
 					// Callback
 					if (_lastaction == 'callback') {
 						if (typeof(window[_callback]) == "function") {
+							if (_param == '$return') {
+								_param = text;
+							}
 							window[_callback](_param);
 						}
 					}

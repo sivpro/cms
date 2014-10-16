@@ -39,12 +39,6 @@ define("CMS_VERSION", 0.9);
 // }
 
 
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
-if (stripos($user_agent, 'MSIE 6.0') !== false || stripos($user_agent, 'MSIE 7.0') !== false) {
-	header ("Location: /ie6/ie6.html");
-}
-
-
 $url = $_SERVER['REQUEST_URI'];
 
 $lastS = substr($url, -1, 1);

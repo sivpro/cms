@@ -5,18 +5,23 @@ class menu {
 	function Make($wrapper) {
 		global $control;
 
-		$page->aboutUrl = all::getUrl(11);
-		$page->excmanUrl = all::getUrl(19);
-		$page->equipUrl = all::getUrl(32);
-		$page->toursUrl = all::getUrl(20);
-		$page->excUrl = all::getUrl(21);
-		$page->compareUrl = all::getUrl(33);
-		$page->infoUrl = all::getUrl(22);
-		$page->officeUrl = all::getUrl(30);
-		$page->dealersUrl = all::getUrl(31);
+		$sign = md5($wrapper.$control->module_url.$control->urlparams);
+		phpFastCache::$storage = "auto";
+		$content = phpFastCache::get($sign);
 
-		$page->active = $control->cid;
-		$text = sprintt($page, 'templates/misc/'.$wrapper);
+		if ($content == null) {
+			$page = tree::tree_all();
+
+			$page->active = $control->cid;
+
+			$text = sprintt($page, 'templates/misc/'.$wrapper);
+
+			// Кешируем на 24 часа
+			phpFastCache::set($sign, $text, 86400);
+		}
+		else {
+			$text = $content;
+		}
 		return $text;
 	}
 }
