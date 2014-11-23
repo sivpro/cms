@@ -356,7 +356,8 @@ class formvalidator {
 	// E-mail validation
 	private function check_email($field, $value) {
 		$string = $this->post[$field];
-		if (!preg_match("#^[0-9a-z_]+@[0-9a-z_^.]+\\.[a-z]{2,3}$#i", $string)) {
+		$result = filter_var($string, FILTER_VALIDATE_EMAIL);
+		if (!$result) {
 			if (!is_array($this->error[$field])) {
 				$this->error[$field] = array();
 			}
