@@ -281,7 +281,7 @@ class Listing {
 				else
 					$addType = $one_arr['id'];
 
-				$this->item[$i]->url .= all::addUrl($addPage, 'view', $addType, '', '');
+				$this->item[$i]->url .= all::addUrl('', 'view', $addType, '', '');
 
 				if (isset($one_arr['uurl']) && $one_arr['uurl'] != '') {
 					$this->item[$i]->url = "/".$one_arr['uurl'];
