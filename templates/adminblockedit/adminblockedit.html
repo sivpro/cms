@@ -33,9 +33,9 @@
 	<link href="/admin/scripts/iCheck/skins/minimal/minimal.css" rel="stylesheet">
 	<script src="/admin/scripts/iCheck/icheck.min.js"></script>
 
-
 	<script>
 		$(document).ready(function() {
+		/*
 			$("#tree").tablesorter({
 				headers: {
 					0: {
@@ -46,7 +46,8 @@
 					}
 				}
 			});
-
+		*/
+		
 			$(".ch").iCheck({
 				checkboxClass: 'icheckbox_flat-blue',
 				radioClass: 'iradio_flat-blue'
@@ -101,6 +102,7 @@
 			<h1>Содержимое страницы "{name}"</h1>
 			<input type="hidden" id="hide-blockid" name="hide-blockid" value="0">
 			<input type="hidden" id="hide-parent" name="hide-parent" value="{parent}">
+			<input type="hidden" id="hide-query-string" name="hide-parent" value="{queryString}">
 			<input type="hidden" id="hide-template" name="hide-template" value="{template}">
 			<input type="hidden" id="hide-page" name="hide-page" value="{lpage}">
 
@@ -144,11 +146,11 @@
 				{set:item}
 
 				<div class="search">
-					<input type="text" class="form-control" id="search-blocks-text" placeholder="Поиск по блокам">
+					<input type="text" class="form-control" id="search-blocks-text" value="{getSearch}" placeholder="Поиск по блокам">
 				</div>
 
 				{set:page}
-				<ul class="pagination pagination-sm">
+				<ul class="pagination pagination-sm" style="{set:hidePagination}display:none;{/set}">
 					{mask:page}
 						{if:!{active}}
 						<li><a href="{url}">{title}</a></li>
@@ -167,9 +169,10 @@
 							<th class="none"></th>
 							<th class="center"><button class="checkAll btn btn-small">☑</button></th>
 							<th>№</th>
-							<th>ID</th>
+							<th data-key="id" class="header {idSort}">ID</th>
+							<th data-key="modified" class="header {modSort}">Изм.</th>
 							{mask:fields}
-								<th>{name}</th>
+								<th data-key="{key}" class="{sorting} header">{name}</th>
 							{/mask}
 						</tr>
 					</thead>
@@ -188,6 +191,7 @@
 							<td class="center"><input type="checkbox" class="group-checkbox" data-id="{id}"></td>
 							<td>{_rank}</td>
 							<td>{id}</td>
+							<td>{modified}</td>
 							{mask:fields}
 								<td{if:{../visible}==0} class="hiddentext"{/if}>{val}</td>
 							{/mask}
@@ -198,7 +202,7 @@
 				{/set}
 
 				{set:page}
-				<ul class="pagination pagination-sm">
+				<ul class="pagination pagination-sm" style="{set:hidePagination}display:none;{/set}">
 					{mask:page}
 						{if:!{active}}
 						<li><a href="{url}">{title}</a></li>
@@ -215,7 +219,7 @@
 			</div>
 
 			<div class="buttons">
-				<input type="button" class="btn btn-primary" value="Создать блок" onclick="javascript:location.href='/manage/blockedit/_aadd_parent{parent}_template{template}_page{lpage}/'; return false;">
+				<input type="button" class="btn btn-primary" value="Создать блок" onclick="javascript:location.href='/manage/blockedit/_aadd_parent{parent}_template{template}_page{lpage}{queryString}/'; return false;">
 				<input type="button" class="btn btn-danger" value="Вернуться" onclick="javascript:location.href='/manage/'; return false;">
 			</div>
 

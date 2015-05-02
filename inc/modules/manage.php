@@ -195,6 +195,7 @@ class manage {
 			}
 			else {
 				$_SESSION['admin_name'] = $authlogin;
+				$_SESSION['admin_timezone'] = $res['timezone'];
 				$_SESSION['admin_password'] = stripslashes($_POST['authpass']);
 				$_SESSION['admin_status'] = $res['status'];
 				$_SESSION['admin_id'] = $res['admin_id'];
@@ -208,6 +209,7 @@ class manage {
 		if (isset($_GET['logout'])) {
 
 			unset($_SESSION['admin_name']);
+			unset($_SESSION['admin_timezone']);
 			unset($_SESSION['admin_password']);
 			unset($_SESSION['admin_status']);
 			unset($_SESSION['admin_id']);
@@ -220,6 +222,9 @@ class manage {
 		//Если не авторизованы - кидаем на форму авторизации
 		if (!isset($_SESSION['admin_name'])) {
 			die(sprintt($page, 'templates/manage/login.html'));
+		}
+		else {
+			date_default_timezone_set($_SESSION['admin_timezone']);
 		}
 	}
 

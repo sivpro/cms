@@ -33,6 +33,19 @@ $(document).ready(function() {
 		return false;
 	});
 
+	// Поиск по каталогу
+/* 	
+	$("#catalog-search__input").autocomplete({
+		serviceUrl: '/manage/',
+		minChars: 3,
+		type: "POST",
+		onSelect: function(s) {
+			window.location = s.data;
+		},
+		deferRequestBy: 300,
+	});
+ */
+
 	// Очистка кэша
 	$("#clean-cache").click(function() {
 		$.post(
@@ -172,44 +185,120 @@ $(document).ready(function() {
 		return false;
 	});
 
-	// search blocks
-	$("#search-blocks-text").keyup(function() {
-		var text = $(this).val(),
-			regExp = new RegExp("[.]*"+text+"[.]*", "i"),
-			table = $("#tree");
-
-		console.log(regExp);
-
-		if (!text) {
-			$("#tree tr").show();
-			return;
+	
+	// new sort
+	$('th[data-key]').click(function() {
+		
+		var key = $(this).attr('data-key');
+		
+		if (!key) return false;
+		
+		// Если вбит поиск то добавляем его в Get
+		var searchVal = $("#search-blocks-text").val(),
+			searchGet = "";
+		if (searchVal.length) {
+			searchGet = '&getsearch=' + searchVal;
 		}
+	
+		// Генерим Get url
+		if (window.location.search.indexOf(key +"=asc") > 0) {
+			getUrl = "?" + key +"=desc" + searchGet + "&sort";
+		} else {
+			getUrl = "?" + key +"=asc" + searchGet + "&sort";
+		}
+		
+		
 
-		$("#tree tr:not(:first)").each(function() {
-			var t = $(this),
-				td = t.find("td"),
-				hide = true;
 
-			t.show();
+		
+		urlPath = window.location.origin + window.location.pathname.replace(/\/$/g, '');
 
-			td.each(function() {
-				var tt = $(this),
-					val = tt.text(),
-					result = regExp.test(val);
+		newUrl = urlPath + getUrl;
+			
+		window.location.href = newUrl;
+		
+	});
+	
+	
+	// search blocks
+	var searchTimeoutId; 
+	$("#search-blocks-text").keyup(function() {
+		
+		clearTimeout(searchTimeoutId);
+		searchTimeoutId = setTimeout(startPostSearch, 350);
 
-				if (result) {
-					hide = false;
-					return false;
+		// if (!text) {
+			// $("#tree tr").show();
+			// return;
+		// }
+
+		// $("#tree tr:not(:first)").each(function() {
+			// var t = $(this),
+				// td = t.find("td"),
+				// hide = true;
+
+			// t.show();
+
+			// td.each(function() {
+				// var tt = $(this),
+					// val = tt.text(),
+					// result = regExp.test(val);
+
+				// if (result) {
+					// hide = false;
+					// return false;
+				// }
+			// });
+
+			// if (hide) {
+				// t.hide();
+			// }
+
+
+		// });
+	});
+	
+	function startPostSearch () {
+		// console.log('start post');
+		var text = $("#search-blocks-text").val(),
+			regExp = new RegExp("[.]*"+text+"[.]*", "i"),
+			table = $("#tree"),
+			tableTbody = $("#tree tbody");
+			
+		$.post(window.location.href, {nolimit: true, search: text}, function(data) {
+			// console.log(data);
+			tableTbody.html('');
+			tableTbody.html($(data).find('#tree tbody').html());
+						
+			if (text.length) {
+				$('.pagination').hide();
+			} else {
+				$('.pagination').show();
+			}
+		
+			
+			$(".ch").iCheck({
+				checkboxClass: 'icheckbox_flat-blue',
+				radioClass: 'iradio_flat-blue'
+			});
+			$(".group-checkbox").iCheck({
+				checkboxClass: 'icheckbox_minimal',
+				radioClass: 'iradio_minimal'
+			});
+			$(".trtree").jscontext({
+				html: $("#popup-index").html(),
+				closeOnMouseLeave : true,
+				bind: "right-click",
+				open : function() {
+					$("#hide-blockid").val(this.substr(6));
 				}
 			});
-
-			if (hide) {
-				t.hide();
-			}
-
-
-		});
-	});
+			
+			
+		})
+		
+	}
+	
 
 	// maxlength
 	$("[data-maxlength]").keyup(function() {
@@ -364,7 +453,6 @@ function beginMove(parent, mode) {
 			}
 		});
 
-
 }
 
 
@@ -372,10 +460,22 @@ function editBlock() {
 	var parent = $("#hide-parent").val(),
 		blockid =  $("#hide-blockid").val(),
 		btemplate =  $("#hide-template").val(),
+		querystring =  $("#hide-query-string").val() ?  $("#hide-query-string").val() : "",
 		page = $("#hide-page").val();
+		
+	// для поиска — заменяем или добавляем getsearch
+	var searchVal = $('#search-blocks-text').val();
+	if (/getsearch=[^\&]*\&/g.test(querystring)) {
+		querystring = querystring.replace(/getsearch=[^\&]*\&/g, searchVal ? 'getsearch=' + searchVal + '&' : '&');
+		
+	} else if (/&sort$/g.test(querystring)) {
+		querystring = querystring.replace(/&sort$/g, searchVal ? '&getsearch=' + searchVal + '&sort' : '&sort');
+	} else {
+		querystring = '?getsearch=' + searchVal + '&sort';
+	}
 
 	if (!parent) return false;
-	window.location.href = '/manage/blockedit/_aedit_id'+blockid+'_template'+btemplate+'_parent'+parent+'_page'+page+'/';
+	window.location.href = '/manage/blockedit/_aedit_id'+blockid+'_template'+btemplate+'_parent'+parent+'_page'+page+querystring+'/';
 }
 
 function editItemBlock() {

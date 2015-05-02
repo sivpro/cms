@@ -10,7 +10,6 @@ class adminblockedit extends manage {
 		parent::checkForUser();
 
 		$this->menu = parent::getMenu();
-
 		$this->page = $control->page;
 		if ($control->oper == 'add') {
 			if (isset($_POST['parent']))
@@ -90,7 +89,22 @@ class adminblockedit extends manage {
 	function printList() {
 		global $control;
 		global $config;
+		
+		// Поиск
+		$_GET['getsearch'] = isset($_POST['search']) ? "" : $_GET['getsearch'];
+		$searchText = $_POST['search'] ? $_POST['search'] : $_GET['getsearch'];
+		if (!empty($searchText)) $isSearch = true;
+
+
+		// для поиска выводим все
+		$limit = isset($_POST['nolimit']) && $isSearch ? 99999 : 40;
 		$limit = 40;
+		
+		$page->getSearch = htmlentities($_GET['getsearch']);
+		if ($_GET['getsearch']) { $page->hidePagination = "hide";}
+		
+		
+		
 
 		$parent = all::getVar("parent");
 
@@ -190,40 +204,124 @@ class adminblockedit extends manage {
 			}
 
 			$start = 0 + $lpage * $limit;
+			
+			if ($isSearch) $start = 0;
+
+			
+			
+			// Узнаем поля
+			$dataRel = sql::query("SELECT p2.* from prname_btemplates p1, prname_bdatarel p2 WHERE p1.key='".$currentTemplate."' AND p2.templid=p1.id AND p2.show=1 ORDER by p2.tab, p2.sort");
+
+			$j = 0;
+			$searchSqlArr = array();
+			while ($dr = sql::fetch_assoc($dataRel)) {
+				$page->fields[$j] = (object)$dr;
+				$j ++;
+				
+				// Генерация sql для поиска по полям
+				// if ($isSearch) {
+					// $searchSqlArr[] = "`{$dr['key']}`";
+				// }
+				
+				
+				// Добавление сорировки в SQL
+				if (isset($_GET[$dr['key']])) {
+					$_GET[$dr['key']] = $_GET[$dr['key']] == "desc" ? "desc" : "asc";
+					
+					if ($dr['key'] == 'price') {
+						$orderSql = "CAST(`{$dr['key']}` AS DECIMAL) {$_GET[$dr['key']]}, ";
+					} else {
+						$orderSql = "`{$dr['key']}` {$_GET[$dr['key']]}, ";
+					}
+				}
+
+			}
+			
+			// Добавление поля id и modified в сорировку SQL
+			if (!empty($_GET['id'])) {
+				$_GET['id'] = $_GET['id'] == "desc" ? "desc" : "asc";
+				$orderSql = "CAST(`id` AS UNSIGNED) {$_GET['id']}, ";
+				$page->idSort = $_GET['id'] == "asc" ? "headerSortDown" : "headerSortUp";
+			}
+			if (!empty($_GET['modified'])) {
+				$_GET['modified'] = $_GET['modified'] == "desc" ? "desc" : "asc";
+				$orderSql = "`modified` {$_GET['modified']}, ";
+				$page->modSort = $_GET['modified'] == "asc" ? "headerSortDown" : "headerSortUp";
+			}
+			
+			
+			
+			
+			
+			
+			
+			if ($isSearch) {
+				$searchSql = $isSearch ? " AND CONCAT(".implode(",", $searchSqlArr).") LIKE '%{$searchText}%' " : "";
+				$searchSql = "";
+				$searchSql = " AND `name` LIKE '%{$searchText}%'";
+				// die();
+			}
+		
+
 
 			// Узнаем кол-во блоков текущего шаблона
 			$totalcount = sql::one_record("SELECT count(id) FROM prname_b_".$currentTemplate." WHERE parent=".$parent);
 
 			$tempUrl = $control->module_url;
 
+			
+			$queryString = $_SERVER['QUERY_STRING'] ? "?".substr($_SERVER['QUERY_STRING'],0 ,strlen($_SERVER['QUERY_STRING']) - 1) : "";
+			
+			$page->queryString = $queryString;
+				
+			// Удаляем getSearch из пагинации
+			$queryString = preg_replace("/getsearch=.*sort$/ui", "sort", $queryString);
+			
 			// Если блоков больше, чем влазит на страницу - делаем постраничку
 			if ($totalcount > $limit) {
 				$pagecount = ceil($totalcount / $limit);
 				for ($i = 0; $i < $pagecount; $i ++) {
 					$page->page[$i]->title = $i+1;
-					$page->page[$i]->url = $tempUrl."_alist_parent".$parent."_page".$i."/";
+					$page->page[$i]->url = $tempUrl."_alist_parent".$parent."_page".$i.$queryString."/";
 
 					$page->page[$i]->active = $i == $lpage ? true : false;
 				}
 			}
 
-
+		
+			
 
 			//Выборка блоков текущего шаблона
-			$result = sql::query("SELECT * FROM prname_b_".$currentTemplate." WHERE parent=".$parent." ORDER by sort ASC LIMIT $start, $limit");
+			$result = sql::query("SELECT *, UNIX_TIMESTAMP(modified) as modified FROM prname_b_".$currentTemplate." WHERE parent=".$parent." {$searchSql} ORDER by {$orderSql} sort ASC LIMIT $start, $limit");
 
-			$dataRel = sql::query("SELECT p2.* from prname_btemplates p1, prname_bdatarel p2 WHERE p1.key='".$currentTemplate."' AND p2.templid=p1.id AND p2.show=1 ORDER by p2.tab, p2.sort");
-
-			$j = 0;
-			while ($dr = sql::fetch_assoc($dataRel)) {
-				$page->fields[$j] = (object)$dr;
-				$j ++;
-			}
-
+			
 
 			$j = 0;
 			while ($r = sql::fetch_assoc($result)) {
 				$page->item[$j]->id = $r['id'];
+				$modified = date("Y-m-d H:i:s", $r['modified']);
+				$page->item[$j]->modified = date("d.m.Y H:i:s", $r['modified']);
+				$now = date("Y-m-d H:i:s");
+
+				if ($r['modified']) {
+					$diff = all::dateDifference($now, $modified);
+					if ($diff->d > 0 && $diff->d < 6) {
+						$page->item[$j]->modified = all::declOfNum($diff->d, array("дня", "дней", "дней"))."  назад";
+					}
+					elseif ($diff->d < 1 && $diff->h > 0) {
+						$page->item[$j]->modified = all::declOfNum($diff->h, array("час", "часа", "часов"))."  назад";
+					}
+					elseif ($diff->h < 1 && $diff->i > 0) {
+						$page->item[$j]->modified = all::declOfNum($diff->i, array("минуту", "минуты", "минут"))." ".all::declOfNum($diff->s, array("секунду", "секунды", "секунд"))." назад";
+					}
+					elseif ($diff->h < 1 && $diff->i < 1 && $diff->s < 30) {
+						$page->item[$j]->modified = "только что";
+					}
+					elseif ($diff->h < 1 && $diff->i < 1 && $diff->s > 30) {
+						$page->item[$j]->modified = all::declOfNum($diff->s, array("секунду", "секунды", "секунд"))." назад";
+					}
+
+				}
 
 				$name = "";
 
@@ -232,6 +330,10 @@ class adminblockedit extends manage {
 					// генерируем вывод информации в таблицу
 					$value = $r[$val1->key];
 					$datatkey = $val1->datatkey;
+					
+					if (!empty($_GET[$val1->key])) {
+						$val1->sorting = $_GET[$val1->key] == "asc" ? "headerSortDown" : "headerSortUp";
+					}
 
 					$class = "type_".$datatkey;
 					$obj = new $class();
@@ -239,6 +341,7 @@ class adminblockedit extends manage {
 
 					$page->item[$j]->fields[$jj]->val = $genValue;
 
+					
 					$jj ++;
 				}
 
@@ -284,8 +387,14 @@ class adminblockedit extends manage {
 			while ($dr = sql::fetch_assoc($dataRel)) {
 				$dataKey[$j] = $dr['key'];
 				$page->fields[$j]->name = $dr['name'];
+				$page->fields[$j]->sorting = "sort-desc";
+				
+				
+				
 				$j ++;
 			}
+			
+			
 			$j = 0;
 			while ($r = sql::fetch_assoc($result)) {
 				$page->item[$j]->id = $r['id'];
@@ -400,10 +509,14 @@ class adminblockedit extends manage {
 				$page->tabs[$tab]->fields[$i]->datatkey = $field['datatkey'];
 				$page->tabs[$tab]->fields[$i]->index = $i;
 			}
+				
 
 			$i ++;
 		}
 
+		$queryString = $_SERVER['QUERY_STRING'] ? "?".substr($_SERVER['QUERY_STRING'],0 ,strlen($_SERVER['QUERY_STRING']) - 1) : "";
+		$page->queryString = $queryString;
+		
 
 		$page->add = true;
 
@@ -631,6 +744,10 @@ class adminblockedit extends manage {
 			$i ++;
 		}
 
+		$queryString = $_SERVER['QUERY_STRING'] ? "?".substr($_SERVER['QUERY_STRING'],0 ,strlen($_SERVER['QUERY_STRING']) - 1) : "";
+		$page->queryString = $queryString;
+		
+
 
 
 		if ($mode == '') {
@@ -723,13 +840,15 @@ class adminblockedit extends manage {
 
 		//$this->updateCache($blockid, $parent, $template);
 
+		$queryString = $_SERVER['QUERY_STRING'] ? "?".substr($_SERVER['QUERY_STRING'],0 ,strlen($_SERVER['QUERY_STRING']) - 1) : "";
+
 		sql::query($query);
 
 		if ($mode == '') {
-			header("Location: /manage/blockedit/_alist_parent".$parent."_template".$template."_page".$lpage."/");
+			header("Location: /manage/blockedit/_alist_parent".$parent."_template".$template."_page".$lpage.$queryString."/");
 		}
 		else {
-			header("Location: /manage/blockedit/_aitemlist_parent".$parent."_id".$blockparent."_template".$template."/");
+			header("Location: /manage/blockedit/_aitemlist_parent".$parent."_id".$blockparent."_template".$template.$queryString."/");
 		}
 
 	}

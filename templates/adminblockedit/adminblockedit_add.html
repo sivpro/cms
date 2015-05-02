@@ -78,10 +78,10 @@
 			<h1>{set:add}Добавление{/set}{mis:add}Редактирование{/mis} блока</h1>
 
 					{set:add}
-					<form action="/manage/blockedit/_aadd/" method="post" enctype="multipart/form-data" name="form1">
+					<form action="/manage/blockedit/_aadd{queryString}/" method="post" enctype="multipart/form-data" name="form1">
 					{/set}
 					{mis:add}
-					<form action="/manage/blockedit/_aedit/" method="post" enctype="multipart/form-data" name="form1">
+					<form action="/manage/blockedit/_aedit{queryString}/" method="post" enctype="multipart/form-data" name="form1">
 					{/mis}
 
 			<input type="hidden" name="template" value="{template}">
@@ -167,7 +167,7 @@
 
 			<div class="buttons">
 				<input type="submit" class="btn btn-success" name="add" value="{set:add}Добавить{/set}{mis:add}Сохранить{/mis}">
-				<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blockedit/_alist_parent{parent}_page{lpage}/'; return false;">
+				<input type="button" class="btn btn-danger" value="Отмена" onclick="javascript:location.href='/manage/blockedit/_alist_parent{parent}_page{lpage}{queryString}/'; return false;">
 			</div>
 
 		</form>

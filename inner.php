@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Yekaterinburg');
 ob_start();
 ini_set("display_errors", "1");
 mb_internal_encoding("UTF-8");

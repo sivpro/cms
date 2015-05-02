@@ -160,7 +160,7 @@ class adminblocktemplate extends manage {
 		$templid = sql::one_record("SELECT MAX(id) FROM prname_btemplates");
 
 		//Создание таблицы для шаблона
-		$sql = "CREATE table IF NOT EXISTS prname_b_$blockkey (`id` int(12) NOT NULL auto_increment, `parent` int(12), `blockparent` int(12), `sort` int(12), `visible` tinyint(1), PRIMARY KEY  (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;";
+		$sql = "CREATE table IF NOT EXISTS prname_b_$blockkey (`id` int(12) NOT NULL auto_increment, `parent` int(12), `blockparent` int(12), `sort` int(12), `visible` tinyint(1), `modified` timestamp, PRIMARY KEY  (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;";
 
 		sql::query($sql);
 

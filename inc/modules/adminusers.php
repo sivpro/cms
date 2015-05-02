@@ -195,6 +195,11 @@ class adminusers extends manage {
 		global $config;
 
 		$parent = $_POST['parent'];
+		$timezone = trim($_POST['timezone']);
+		if ($_SESSION['admin_id'] == $parent) {
+			$_SESSION['admin_timezone'] = $timezone;
+		}
+
 
 
 		// Определяем разрешение на редактирование
@@ -238,12 +243,12 @@ class adminusers extends manage {
 
 		// Если пароль не пришел - значит остается старым
 		if ($password == "") {
-			$sql = "UPDATE prname_sadmin SET `status`=".$status.", `enabled`=1, `canedit`='".$canedit."' WHERE `admin_id`=".$parent;
+			$sql = "UPDATE prname_sadmin SET `status`=$status, `enabled`=1, `canedit`='$canedit', timezone='$timezone' WHERE `admin_id`=$parent";
 		}
 		else {
 			$password = md5(base64_encode($config['md5'].$password));
 
-			$sql = "UPDATE prname_sadmin SET `admin_password`='".$password."', `status`=".$status.", `enabled`=1, `canedit`='".$canedit."' WHERE `admin_id`=".$parent;
+			$sql = "UPDATE prname_sadmin SET `admin_password`='$password', `status`=$status, `enabled`=1, `canedit`='$canedit', timezone='$timezone' WHERE `admin_id`=$parent";
 		}
 
 		sql::query($sql);

@@ -176,7 +176,7 @@ class Controller {
 
 		if ($blockUrl != null) {
 			$this->pathstring = $blockUrl['realurl'];
-			$urlparams = "aview_b".$blockUrl['blockid'];
+			$urlparams = $this->urlparams = "aview_b".$blockUrl['blockid'];
 		}
 
 		// Выбираем из базы строку с таким урлом
